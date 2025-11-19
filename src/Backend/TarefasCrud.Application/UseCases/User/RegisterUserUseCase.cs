@@ -8,7 +8,6 @@ using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.User;
 using TarefasCrud.Domain.Security.Criptography;
 using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
 
 namespace TarefasCrud.Application.UseCases.User;
 public class RegisterUserUseCase : IRegisterUserUseCase
@@ -17,7 +16,6 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IUserReadOnlyRepository _userReadOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPasswordEncripter _passwordEncripter;
-    
     public RegisterUserUseCase(
         IUserWriteOnlyRepository userWriteOnlyRepository, 
         IUserReadOnlyRepository userReadOnlyRepository,
