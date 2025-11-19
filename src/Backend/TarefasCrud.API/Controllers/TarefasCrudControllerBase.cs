@@ -4,7 +4,7 @@ namespace TarefasCrud.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class MyRecipeBookControllerBase : ControllerBase
+    public class TarefasCrudControllerBase : ControllerBase
     {
     }
 }
