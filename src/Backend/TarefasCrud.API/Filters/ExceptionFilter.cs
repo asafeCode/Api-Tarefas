@@ -11,16 +11,16 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is TemplateException templateException)
+        if (context.Exception is TarefasCrudException templateException)
             HandleProjectException(templateException, context);
         else
             ThrowUnknowException(context);  
     }
 
-    private static void HandleProjectException(TemplateException templateException, ExceptionContext context)
+    private static void HandleProjectException(TarefasCrudException tarefasCrudException, ExceptionContext context)
     {
-        context.HttpContext.Response.StatusCode = (int)templateException.GetStatusCode();
-        context.Result = new ObjectResult(new ResponseErrorJson(templateException.GetErrorMessage()));
+        context.HttpContext.Response.StatusCode = (int)tarefasCrudException.GetStatusCode();
+        context.Result = new ObjectResult(new ResponseErrorJson(tarefasCrudException.GetErrorMessage()));
     }
     private static void ThrowUnknowException(ExceptionContext context)
     { 

@@ -3,6 +3,8 @@ using TarefasCrud.API.Filters;
 using TarefasCrud.API.Middleware;
 using TarefasCrud.Application;
 using TarefasCrud.Infrastructure;
+using TarefasCrud.Infrastructure.Extensions;
+using TarefasCrud.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,13 +38,21 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+MigrateDatabase();
+
 await app.RunAsync();
+return;
 
-
-namespace TarefasCrud.API
+void MigrateDatabase()
 {
-    public partial class Program
-    {
-        protected Program(){}
-    }
+    if (builder.Configuration.IsUnitTestEnvironment())
+        return;
+    
+    var connectionString = builder.Configuration.ConnectionString();
+    var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+    DatabaseMigration.Migrate(connectionString!, serviceScope.ServiceProvider);
+}
+public partial class Program
+{
+    protected Program(){}
 }

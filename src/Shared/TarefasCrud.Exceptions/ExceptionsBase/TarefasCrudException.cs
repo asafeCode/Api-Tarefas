@@ -2,9 +2,9 @@
 
 namespace TarefasCrud.Exceptions.ExceptionsBase;
 
-public abstract class TemplateException : SystemException
+public abstract class TarefasCrudException : SystemException
 {
-    protected TemplateException(string messages) : base(messages) {}
+    protected TarefasCrudException(string messages) : base(messages) {}
 
     public abstract HttpStatusCode GetStatusCode();
     public abstract IList<string> GetErrorMessage();

@@ -2,7 +2,7 @@
 
 namespace TarefasCrud.Exceptions.ExceptionsBase;
 
-public class ErrorOnValidationException : TemplateException
+public class ErrorOnValidationException : TarefasCrudException
 {
     private readonly IList<string> _errorMessages;
 

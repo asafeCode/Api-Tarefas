@@ -2,7 +2,7 @@ using System.Net;
 
 namespace TarefasCrud.Exceptions.ExceptionsBase;
 
-public class NotFoundException : TemplateException
+public class NotFoundException : TarefasCrudException
 {
     public NotFoundException(string message) : base(message){}
     

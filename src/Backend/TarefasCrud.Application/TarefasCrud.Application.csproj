@@ -20,4 +20,9 @@
     <ProjectReference Include="..\TarefasCrud.Domain\TarefasCrud.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Login\" />
+    <Folder Include="UseCases\Tasks\" />
+  </ItemGroup>
+
 </Project>
