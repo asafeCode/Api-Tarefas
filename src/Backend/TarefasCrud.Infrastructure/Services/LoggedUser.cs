@@ -22,7 +22,7 @@ public class LoggedUser : ILoggedUser
     {
         var token = _token.Value();
         var userId = _tokenValidator.ValidateAndGetUserId(token);
-        var loggedUser = await _repository.GetUserByIdentifier(userId);
+        var loggedUser = await _repository.GetByUserIdentifier(userId);
         return loggedUser!;
     }
 }

@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="UseCases\Tasks\" />
     <Folder Include="UseCases\User\ChangePassword\" />
-    <Folder Include="UseCases\User\Update\" />
   </ItemGroup>
 
 </Project>

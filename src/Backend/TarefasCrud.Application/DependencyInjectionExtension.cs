@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using TarefasCrud.Application.Services;
 using TarefasCrud.Application.UseCases.Login;
-using TarefasCrud.Application.UseCases.User;
 using TarefasCrud.Application.UseCases.User.Profile;
 using TarefasCrud.Application.UseCases.User.Register;
+using TarefasCrud.Application.UseCases.User.Update;
 
 namespace TarefasCrud.Application;
 
@@ -15,15 +15,13 @@ public static class DependencyInjectionExtension
         AddUseCases(services);
         AddMapper();
     }
-    
     private static void AddUseCases(this IServiceCollection services)
     {
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
+        services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
-        
     }
-
     private static void AddMapper()
     {
         MapConfigurations.Configure();

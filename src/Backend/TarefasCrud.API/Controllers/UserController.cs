@@ -2,6 +2,7 @@
 using TarefasCrud.API.Attributes;
 using TarefasCrud.Application.UseCases.User.Profile;
 using TarefasCrud.Application.UseCases.User.Register;
+using TarefasCrud.Application.UseCases.User.Update;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Communication.Responses;
 
@@ -25,7 +26,17 @@ public class UserController : TarefasCrudControllerBase
     public async Task<IActionResult> GetUserProfile([FromServices] IGetUserProfileUseCase useCase)
     {
         var result = await useCase.Execute();
-
         return Ok(result);
+    }
+
+    [HttpPut]
+    [AuthenticatedUser]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateUser([FromServices] IUpdateUserUseCase useCase,
+        [FromBody] RequestUpdateUserJson request)
+    {
+        await useCase.Execute(request);
+        return NoContent();
     }
 }
