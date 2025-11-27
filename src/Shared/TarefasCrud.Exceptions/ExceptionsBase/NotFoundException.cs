@@ -8,5 +8,5 @@ public class NotFoundException : TarefasCrudException
     
     public override HttpStatusCode GetStatusCode() => HttpStatusCode.NotFound;
 
-    public override IList<string> GetErrorMessage() => [Message];
+    public override IList<string> GetErrorMessages() => [Message];
 }

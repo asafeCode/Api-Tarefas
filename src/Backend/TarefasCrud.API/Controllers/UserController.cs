@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TarefasCrud.Application.UseCases.User;
+using TarefasCrud.API.Attributes;
+using TarefasCrud.Application.UseCases.User.Profile;
+using TarefasCrud.Application.UseCases.User.Register;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Communication.Responses;
 
@@ -16,5 +18,14 @@ public class UserController : TarefasCrudControllerBase
         var result = await useCase.Execute(requestRegister);
 
         return Created(string.Empty, result);
+    }    
+    [HttpGet]
+    [AuthenticatedUser]
+    [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetUserProfile([FromServices] IGetUserProfileUseCase useCase)
+    {
+        var result = await useCase.Execute();
+
+        return Ok(result);
     }
 }

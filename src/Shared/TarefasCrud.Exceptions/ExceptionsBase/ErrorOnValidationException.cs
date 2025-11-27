@@ -14,5 +14,5 @@ public class ErrorOnValidationException : TarefasCrudException
     public override HttpStatusCode GetStatusCode() => HttpStatusCode.BadRequest;
 
 
-    public override IList<string> GetErrorMessage() => _errorMessages;
+    public override IList<string> GetErrorMessages() => _errorMessages;
 }

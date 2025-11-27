@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\Login\" />
     <Folder Include="Repositories\Tasks\" />
   </ItemGroup>
 

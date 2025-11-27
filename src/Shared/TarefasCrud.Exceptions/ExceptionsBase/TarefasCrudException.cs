@@ -7,6 +7,6 @@ public abstract class TarefasCrudException : SystemException
     protected TarefasCrudException(string messages) : base(messages) {}
 
     public abstract HttpStatusCode GetStatusCode();
-    public abstract IList<string> GetErrorMessage();
+    public abstract IList<string> GetErrorMessages();
 
 }

@@ -4,7 +4,7 @@ using TarefasCrud.Communication.Requests;
 using TarefasCrud.Domain.Extensions;
 using TarefasCrud.Exceptions;
 
-namespace TarefasCrud.Application.UseCases.User;
+namespace TarefasCrud.Application.UseCases.User.Register;
 
 public class RegisterUserValidator : AbstractValidator<RequestRegisterUserJson>
 {

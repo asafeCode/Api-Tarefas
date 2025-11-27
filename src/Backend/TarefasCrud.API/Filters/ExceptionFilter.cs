@@ -20,7 +20,7 @@ public class ExceptionFilter : IExceptionFilter
     private static void HandleProjectException(TarefasCrudException tarefasCrudException, ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = (int)tarefasCrudException.GetStatusCode();
-        context.Result = new ObjectResult(new ResponseErrorJson(tarefasCrudException.GetErrorMessage()));
+        context.Result = new ObjectResult(new ResponseErrorJson(tarefasCrudException.GetErrorMessages()));
     }
     private static void ThrowUnknowException(ExceptionContext context)
     { 

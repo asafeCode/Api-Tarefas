@@ -6,10 +6,16 @@ using Microsoft.Extensions.DependencyInjection;
 using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.User;
 using TarefasCrud.Domain.Security.Criptography;
+using TarefasCrud.Domain.Security.Tokens;
+using TarefasCrud.Domain.Services.LoggedUser;
 using TarefasCrud.Infrastructure.DataAccess;
 using TarefasCrud.Infrastructure.DataAccess.Repositories;
 using TarefasCrud.Infrastructure.Extensions;
 using TarefasCrud.Infrastructure.Security.Criptography;
+using TarefasCrud.Infrastructure.Security.Tokens.Access.Generator;
+using TarefasCrud.Infrastructure.Security.Tokens.Access.Validator;
+using TarefasCrud.Infrastructure.Security.Tokens.Refresh;
+using TarefasCrud.Infrastructure.Services;
 
 namespace TarefasCrud.Infrastructure;
 
@@ -48,6 +54,13 @@ public static class DependencyInjectionExtension
 
     private static void AddTokens(IServiceCollection services, IConfiguration configuration)
     {
+        var expirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
+        var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
+
+        services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
+        services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
+
+        services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
     }
     
     private static void AddFluentMigrator_SqlServer(IServiceCollection services, IConfiguration configuration)
@@ -64,12 +77,11 @@ public static class DependencyInjectionExtension
     
     private static void AddLoggedUser(IServiceCollection services)
     { 
-       
+       services.AddScoped<ILoggedUser, LoggedUser>();
     }
     
     private static void AddPasswordEncripter(this IServiceCollection services, IConfiguration configuration)
     {
-        var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
-        services.AddScoped<IPasswordEncripter>(opt => new Sha512Encripter(additionalKey!));
+        services.AddScoped<IPasswordEncripter, BcryptEncripter>();
     }
 }   
