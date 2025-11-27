@@ -36,7 +36,7 @@ public class UpdateUserUseCase : IUpdateUserUseCase
         user.Name = request.Name;
         user.Email = request.Email;
         
-        _repository.Update(loggedUser);
+        _repository.Update(user);
         await _unitOfWork.Commit();
     }
 

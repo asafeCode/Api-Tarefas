@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TarefasCrud.API.Attributes;
+using TarefasCrud.Application.UseCases.User.ChangePassword;
 using TarefasCrud.Application.UseCases.User.Profile;
 using TarefasCrud.Application.UseCases.User.Register;
 using TarefasCrud.Application.UseCases.User.Update;
@@ -38,5 +39,17 @@ public class UserController : TarefasCrudControllerBase
     {
         await useCase.Execute(request);
         return NoContent();
+    }    
+    
+    [HttpPut("change-password")]
+    [AuthenticatedUser]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ChangePassword([FromServices] IChangePasswordUseCase useCase,
+        [FromBody] RequestChangePasswordJson request)
+    {
+        await useCase.Execute(request);
+        return NoContent();
     }
+    
 }
