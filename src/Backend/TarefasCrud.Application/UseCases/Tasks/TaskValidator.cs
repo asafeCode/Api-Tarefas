@@ -11,28 +11,21 @@ public class TaskValidator : AbstractValidator<RequestTaskJson>
             .NotEmpty()
             .WithMessage("Título não pode ser vazio.");
 
+        RuleFor(t => t.Description)
+            .MaximumLength(150)
+            .WithMessage("A descrição deve ter no máximo 150 caracteres.");
+
         RuleFor(t => t.WeeklyGoal)
             .GreaterThan(0)
             .LessThanOrEqualTo(7)
-            .WithMessage("A meta semanal deve ser entre 1 e 7.");
+            .WithMessage("Meta da semana precisa ser entre 1 e 7.");
 
         RuleFor(t => t.StartDate)
-            .NotEmpty().WithMessage("A data de início é obrigatória.")
-            .Must(BeMonday).WithMessage("A rotina semanal deve começar em uma segunda-feira.")
-            .Must(NotBePastDay).WithMessage("A data de início não pode ser no passado.");
+            .GreaterThanOrEqualTo(DateOnly.FromDateTime(DateTime.Now))
+            .WithMessage("A data não pode ser no passado.");
 
-        RuleFor(t => t.Category)
-            .NotEmpty()
-            .WithMessage("A categoria não pode ser vazia.");
-    }
-
-    private bool BeMonday(DateTime date)
-    {
-        return date.DayOfWeek == DayOfWeek.Monday;
-    }
-
-    private bool NotBePastDay(DateTime date)
-    {
-        return date.Date >= DateTime.Now.Date;
+        RuleFor(t => t.StartDate)
+            .Must(date => date.DayOfWeek == DayOfWeek.Monday)
+            .WithMessage("A rotina deve começar em uma segunda-feira.");
     }
 }

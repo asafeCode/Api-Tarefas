@@ -8,6 +8,7 @@ public class TarefasCrudDbContext : DbContext
     public TarefasCrudDbContext(DbContextOptions options) : base(options) {}
     public DbSet<User> Users { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<TaskEntity> Tasks { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -2,6 +2,6 @@
 
 public class ResponseRegisteredTaskJson
 {
-    public string Id { get; set; } = string.Empty;
+    public long Id { get; set; }
     public string Title { get; set; } = string.Empty;
 }

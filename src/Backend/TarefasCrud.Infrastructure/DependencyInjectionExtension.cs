@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TarefasCrud.Domain.Repositories;
+using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Repositories.Token;
 using TarefasCrud.Domain.Repositories.User;
 using TarefasCrud.Domain.Security.Criptography;
@@ -51,7 +52,11 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
         services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
+        
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
+        services.AddScoped<ITaskWriteOnlyRepository, TasksRepository>();
+        
     }
 
     private static void AddTokens(IServiceCollection services, IConfiguration configuration)

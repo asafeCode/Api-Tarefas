@@ -1,6 +1,8 @@
-﻿namespace TarefasCrud.Domain.Repositories.Tasks;
+﻿using TarefasCrud.Domain.Entities;
+
+namespace TarefasCrud.Domain.Repositories.Tasks;
 
 public interface ITaskWriteOnlyRepository
 {
-    public Task Add();
+    public Task Add(TaskEntity task);
 }
