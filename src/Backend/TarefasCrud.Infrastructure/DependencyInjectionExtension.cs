@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TarefasCrud.Domain.Repositories;
+using TarefasCrud.Domain.Repositories.Token;
 using TarefasCrud.Domain.Repositories.User;
 using TarefasCrud.Domain.Security.Criptography;
 using TarefasCrud.Domain.Security.Tokens;
@@ -60,7 +61,7 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
         services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
-
+        services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
     }
     

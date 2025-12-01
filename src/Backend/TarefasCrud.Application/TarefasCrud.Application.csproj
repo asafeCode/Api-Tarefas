@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Tasks\" />
+    <Folder Include="UseCases\User\Delete\" />
   </ItemGroup>
 
 </Project>

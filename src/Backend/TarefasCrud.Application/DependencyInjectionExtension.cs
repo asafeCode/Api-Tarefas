@@ -2,6 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using TarefasCrud.Application.Services;
 using TarefasCrud.Application.UseCases.Login;
+using TarefasCrud.Application.UseCases.Tasks;
+using TarefasCrud.Application.UseCases.Tasks.Register;
+using TarefasCrud.Application.UseCases.Token.RefreshToken;
 using TarefasCrud.Application.UseCases.User.ChangePassword;
 using TarefasCrud.Application.UseCases.User.Profile;
 using TarefasCrud.Application.UseCases.User.Register;
@@ -23,6 +26,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
+        services.AddScoped<IUseRefreshTokenUseCase, UseRefreshTokenUseCase>();
+        services.AddScoped<IRegisterTaskUseCase, RegisterTaskUseCase>();
     }
     private static void AddMapper()
     {
