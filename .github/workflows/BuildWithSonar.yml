@@ -1,10 +1,9 @@
-name: Build With SonarCloud
+name: Build With Sonar
 
 on:
-  push:
+  pull_request:
     branches:
       - develop
-  pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
@@ -53,7 +52,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: .\.sonar\scanner\dotnet-sonarscanner begin `
-          /k:"asafeCode_MeuLivroDeReceitas" `
+          /k:"asafeCode_Api-Tarefas" `
           /o:"matheusasafe" `
           /d:sonar.token="$env:SONAR_TOKEN" `
           /d:sonar.cs.opencover.reportsPaths=tests/**/*.Test/cobertura/coverage.opencover.xml
