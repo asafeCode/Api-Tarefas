@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TarefasCrud.API.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class TarefasCrudControllerBase : ControllerBase
     {
