@@ -11,6 +11,7 @@ public class Version0000003 : VersionBase
             .WithColumn("Title").AsString(150).NotNullable()
             .WithColumn("Description").AsString(150).Nullable()
             .WithColumn("WeeklyGoal").AsInt32().NotNullable()
+            .WithColumn("Progress").AsInt32().NotNullable()
             .WithColumn("Category").AsString().NotNullable()
             .WithColumn("StartDate").AsDate().NotNullable()
             .WithColumn("WeekOfMonth").AsInt32().NotNullable()

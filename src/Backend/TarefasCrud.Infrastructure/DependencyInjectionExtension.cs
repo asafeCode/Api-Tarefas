@@ -57,6 +57,8 @@ public static class DependencyInjectionExtension
         
         services.AddScoped<ITaskWriteOnlyRepository, TasksRepository>();
         services.AddScoped<ITaskReadOnlyRepository, TasksRepository>();
+        services.AddScoped<ITaskUpdateOnlyRepository, TasksRepository>();
+        services.AddScoped<ITaskDeleteOnlyRepository, TasksRepository>();
         
     }
 
@@ -65,8 +67,8 @@ public static class DependencyInjectionExtension
         var expirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
         var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
 
-        services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
-        services.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
+        services.AddScoped<IAccessTokenGenerator>(_ => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
+        services.AddScoped<IAccessTokenValidator>(_ => new JwtTokenValidator(signingKey!));
         services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
     }

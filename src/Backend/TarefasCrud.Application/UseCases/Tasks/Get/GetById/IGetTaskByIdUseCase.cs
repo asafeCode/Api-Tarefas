@@ -1,6 +1,6 @@
 ﻿using TarefasCrud.Communication.Responses;
 
-namespace TarefasCrud.Application.UseCases.Tasks.GetById;
+namespace TarefasCrud.Application.UseCases.Tasks.Get.GetById;
 
 public interface IGetTaskByIdUseCase
 {

@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 using TarefasCrud.Communication.Requests;
+using TarefasCrud.Domain.Entities;
 
 namespace TarefasCrud.Application.UseCases.Tasks;
 
 public class TaskValidator : AbstractValidator<RequestTaskJson>
 {
-    public TaskValidator()
+    public TaskValidator(TaskEntity? task = null)
     {
         RuleFor(t => t.Title)
             .NotEmpty()
@@ -20,6 +21,11 @@ public class TaskValidator : AbstractValidator<RequestTaskJson>
             .LessThanOrEqualTo(7)
             .WithMessage("Meta da semana precisa ser entre 1 e 7.");
 
+        RuleFor(t => t.WeeklyGoal)
+            .GreaterThanOrEqualTo(_ => task!.Progress)
+            .WithMessage("A meta deve ser maior ou igual ao progresso.")
+            .When(_ => task is not null);
+        
         RuleFor(t => t.StartDate)
             .GreaterThanOrEqualTo(DateOnly.FromDateTime(DateTime.Now))
             .WithMessage("A data não pode ser no passado.");

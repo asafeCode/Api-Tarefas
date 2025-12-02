@@ -6,6 +6,7 @@ using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
+using TarefasCrud.Domain.ValueObjects;
 
 namespace TarefasCrud.Application.UseCases.Tasks.Register;
 
@@ -29,6 +30,7 @@ public class RegisterTaskUseCase : IRegisterTaskUseCase
         var task = request.Adapt<TaskEntity>();
         task.UserId = loggedUser.Id;
         task.WeekOfMonth = GetMonthWeek(task.StartDate);
+        task.Progress = TarefasCrudRuleConstants.INITIAL_PROGRESS;
 
         await _repository.Add(task);
         await _unitOfWork.Commit();

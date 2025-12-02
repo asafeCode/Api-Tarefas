@@ -3,8 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using TarefasCrud.Application.Services;
 using TarefasCrud.Application.UseCases.Login;
 using TarefasCrud.Application.UseCases.Tasks;
-using TarefasCrud.Application.UseCases.Tasks.GetById;
+using TarefasCrud.Application.UseCases.Tasks.Get.GetById;
+using TarefasCrud.Application.UseCases.Tasks.Get.GetTasks;
 using TarefasCrud.Application.UseCases.Tasks.Register;
+using TarefasCrud.Application.UseCases.Tasks.Update.Progress;
+using TarefasCrud.Application.UseCases.Tasks.Update.Task;
 using TarefasCrud.Application.UseCases.Token.RefreshToken;
 using TarefasCrud.Application.UseCases.User.ChangePassword;
 using TarefasCrud.Application.UseCases.User.Profile;
@@ -32,6 +35,10 @@ public static class DependencyInjectionExtension
         
         services.AddScoped<IRegisterTaskUseCase, RegisterTaskUseCase>();
         services.AddScoped<IGetTaskByIdUseCase, GetTaskByIdUseCase>();
+        services.AddScoped<IGetTasksUseCase, GetTasksUseCase>();
+        services.AddScoped<IUpdateTaskProgressUseCase, UpdateTaskProgressUseCase>();
+        services.AddScoped<IUpdateTaskUseCase, UpdateTaskUseCase>();
+        
     }
     private static void AddMapper()
     {
