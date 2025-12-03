@@ -39,7 +39,7 @@ dotnet run
 
 
 Abra no navegador: `http://localhost:5000/swagger`
-
+```
 ### Usando Docker
 
 ```bash
