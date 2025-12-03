@@ -1,92 +1,50 @@
-# 🚀 Template para Criação de API's REST em .NET 8
 
-[![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet\&logoColor=white)](https://dotnet.microsoft.com/)
-[![Build](https://github.com/asafeCode/Api-Template/actions/workflows/BuildWithSonarCloud.yml/badge.svg)](https://github.com//asafeCode/Api-Template/actions)
-[![Docker](https://img.shields.io/badge/docker-ready-blue?logo=docker\&logoColor=white)](https://www.docker.com/)
-[![License](https://img.shields.io/badge/license-MIT-green)](#license)
+# 🏗️ Task API
 
----
+[![.NET](https://img.shields.io/badge/.NET-8-blue?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)  
+[![C#](https://img.shields.io/badge/C%23-9.0-blue?style=for-the-badge&logo=c-sharp&logoColor=white)](https://learn.microsoft.com/dotnet/csharp/)  
+[![Entity Framework](https://img.shields.io/badge/Entity_Framework-Core-2C3E50?style=for-the-badge&logo=entity-framework&logoColor=white)](https://learn.microsoft.com/ef/)  
+[![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=white)](https://swagger.io/)  
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)  
+  
 
-## 📂 Estrutura da Solução
+## ✨ Sobre
 
-```
-TemplateSolution
-├── src
-│   ├── Backend
-│   │   ├── Template.API            # Camada de apresentação (Controllers, Middlewares, Swagger)
-│   │   ├── Template.Application    # Casos de uso, validações, DTOs
-│   │   ├── Template.Domain         # Entidades, agregados, regras de negócio
-│   │   └── Template.Infrastructure # Serviços externos e persistência (sem migrations)
-│   │
-│   └── Shared
-│       ├── Template.Communication  # Contratos de entrada/saída (DTOs, Responses, Requests)
-│       └── Template.Exceptions     # Tratamento e padronização de erros
-│
-└── tests
-    ├── CommonTestUtilities         # Utilitários para os testes
-    ├── UseCases.Test               # Testes de Unidade
-    ├── Validators.Test             # Testes de validações
-    └── WebApi.Test                 # Testes de Integração
-             
-```
+**Task API** é sua assistente flexível para gerenciar tarefas de forma rápida e eficiente. Ela entende sua rotina, permitindo criar, atualizar, consultar e remover tarefas sem complicação. Ideal para automatizar fluxos e nunca perder um prazo!  
 
----
+## 🛠️ Funcionalidades
 
-## 🛠️ O que já vem pronto
+- CRUD completo de tarefas  
+- Filtros e busca rápida  
+- Status e prioridades personalizáveis  
+- Estrutura pronta para testes automatizados  
+- Documentação via Swagger/OpenAPI  
+- Fácil de rodar localmente ou em Docker  
 
-* **.NET 8** como framework base.
-* **Arquitetura modular** inspirada em DDD.
-* **Princípios SOLID** aplicados.
-* **FluentValidation** para validação de dados.
-* **Tratamento de erros centralizado** (exceptions + middlewares).
-* **Injeção de dependências (DI)** configurada.
-* **Swagger/OpenAPI** para documentação automática.
-* **Testes automatizados**: unitários e de integração.
-* **Pipeline CI/CD configurado** (build, testes e análise automática).
-* **Dockerfile pronto** para containerização da aplicação.
-* **Integração com SonarCloud** para análise contínua de qualidade do código.
+## 🚀 Endpoints principais
 
----
+- `GET /tasks` – Lista todas as tarefas  
+- `GET /tasks/{id}` – Consulta uma tarefa específica  
+- `POST /tasks` – Cria uma nova tarefa  
+- `PUT /tasks/{id}` – Atualiza uma tarefa existente  
+- `DELETE /tasks/{id}` – Remove uma tarefa  
 
-## ⚡ Como Rodar Localmente
+## ⚡ Como rodar
 
-### Requisitos
-
-* [.NET SDK 8.0+](https://dotnet.microsoft.com/)
-* [Docker](https://www.docker.com/)
-
-### Rodando com .NET CLI
-
+### Usando .NET CLI
 ```bash
-git clone https://github.com/SEU_USUARIO/SEU_REPO.git
+git clone https://github.com/asafeCode/Api-Tarefas.git
 cd src/Backend/Template.API
 dotnet run
-```
 
-👉 Acesse o Swagger: [https://localhost:5000/swagger](https://localhost:5000/swagger)
 
----
+Abra no navegador: `http://localhost:5000/swagger`
 
-## 🐳 Rodando com Docker
+### Usando Docker
 
 ```bash
-docker build -t template-api .
-docker run -d -p 5000:8080 --name template-api template-api
+docker build -t task-api .
+docker run -d -p 5000:8080 --name task-api task-api
 ```
----
-
-## 📖 Como Usar o Template
-
-* Adicione seus **casos de uso em Application**.
-* Defina suas **entidades e regras de negócio em Domain**.
-* Configure integrações externas em **Infrastructure**.
-* Exponha endpoints via **API (Controllers)**.
-
----
-
-## 📜 License
-
-Este template é de uso livre para estudos e projetos.
-Adapte conforme suas necessidades!
-
----
+### 📄 Licença
+- Projeto open source — use, adapte e aproveite à vontade!
