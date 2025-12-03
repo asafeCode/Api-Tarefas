@@ -58,7 +58,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<ITaskWriteOnlyRepository, TasksRepository>();
         services.AddScoped<ITaskReadOnlyRepository, TasksRepository>();
         services.AddScoped<ITaskUpdateOnlyRepository, TasksRepository>();
-        services.AddScoped<ITaskDeleteOnlyRepository, TasksRepository>();
         
     }
 

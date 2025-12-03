@@ -1,11 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TarefasCrud.API.Attributes;
 using TarefasCrud.Application.UseCases.Tasks;
+using TarefasCrud.Application.UseCases.Tasks.Delete;
 using TarefasCrud.Application.UseCases.Tasks.Get.GetById;
+using TarefasCrud.Application.UseCases.Tasks.Get.GetTasks;
 using TarefasCrud.Application.UseCases.Tasks.Register;
+using TarefasCrud.Application.UseCases.Tasks.Update.Progress;
 using TarefasCrud.Application.UseCases.Tasks.Update.Task;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Communication.Responses;
+using TarefasCrud.Domain.Dtos;
+using TarefasCrud.Domain.Enums;
+using TarefasCrud.Domain.ValueObjects;
 
 namespace TarefasCrud.API.Controllers;
 
@@ -23,6 +29,17 @@ public class TaskController :  TarefasCrudControllerBase
     } 
     
     [HttpGet]
+    [Route("/api/tasks")]
+    [ProducesResponseType(typeof(ResponseTaskJson),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetTasks([FromQuery] FilterTasksDto filters,
+        [FromServices] IGetTasksUseCase useCase)
+    {
+        var response = await useCase.Execute(filters);
+        return Ok(response);
+    } 
+    
+    [HttpGet]
     [Route("{id}")]
     [ProducesResponseType(typeof(ResponseTaskJson),StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
@@ -31,7 +48,7 @@ public class TaskController :  TarefasCrudControllerBase
     {
         var response = await useCase.Execute(id);
         return Ok(response);
-    }       
+    }      
     
     [HttpPut]
     [Route("{id}")]
@@ -48,36 +65,38 @@ public class TaskController :  TarefasCrudControllerBase
     
     [HttpPut]
     [Route("{id}/progress")]
-    [ProducesResponseType(typeof(ResponseTaskJson),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateProgressClaim([FromRoute] long id,
-        [FromServices] IGetTaskByIdUseCase useCase)
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> UpdateProgress([FromRoute] long id,
+        [FromServices] IUpdateTaskProgressUseCase useCase)
     {
-        var response = await useCase.Execute(id);
-        return Ok(response);
-    }      
+        await useCase.Execute(id, operation:ProgressOperation.Increment);
+        return NoContent();
+    }     
     
     [HttpPut]
     [Route("{id}/progress/decrement")]
-    [ProducesResponseType(typeof(ResponseTaskJson),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateProgressUnclaim([FromRoute] long id,
-        [FromServices] IGetTaskByIdUseCase useCase)
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> UpdateProgressDecrement([FromRoute] long id,
+        [FromServices] IUpdateTaskProgressUseCase useCase)
     {
-        var response = await useCase.Execute(id);
-        return Ok(response);
+        await useCase.Execute(id, operation:ProgressOperation.Decrement);
+        return NoContent();
     }   
         
     [HttpDelete]
     [Route("{id}")]
-    [ProducesResponseType(typeof(ResponseTaskJson),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete([FromRoute] long id,
-        [FromServices] IGetTaskByIdUseCase useCase)
+        [FromServices] IDeleteTaskUseCase useCase)
     {
-        var response = await useCase.Execute(id);
-        return Ok(response);
-    }   
+        await useCase.Execute(id);
+        return NoContent();
+    } 
     
     
 }
