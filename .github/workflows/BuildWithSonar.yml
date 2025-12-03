@@ -1,10 +1,9 @@
-name: Build With SonarCloud
+name: Build With Sonar
 
 on:
-  push:
+  pull_request:
     branches:
       - develop
-  pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
@@ -53,12 +52,12 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: .\.sonar\scanner\dotnet-sonarscanner begin `
-          /k:"asafeCode_MeuLivroDeReceitas" `
+          /k:"asafeCode_Api-Tarefas" `
           /o:"matheusasafe" `
           /d:sonar.token="$env:SONAR_TOKEN" `
           /d:sonar.cs.opencover.reportsPaths=tests/**/*.Test/cobertura/coverage.opencover.xml
-      
-      
+
+
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
@@ -67,11 +66,8 @@ jobs:
           dotnet test tests/UseCases.Test/UseCases.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
           dotnet test tests/Validators.Test/Validators.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
           dotnet test tests/WebApi.Test/WebApi.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
-              
+
       - name: End SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="$env:SONAR_TOKEN"
-
-
-
