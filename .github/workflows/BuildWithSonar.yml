@@ -57,7 +57,6 @@ jobs:
           /d:sonar.token="$env:SONAR_TOKEN" `
           /d:sonar.cs.opencover.reportsPaths=tests/**/*.Test/cobertura/coverage.opencover.xml
       
-      
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
 

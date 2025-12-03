@@ -15,7 +15,7 @@ public class Version0000003 : VersionBase
             .WithColumn("Category").AsString().NotNullable()
             .WithColumn("StartDate").AsDate().NotNullable()
             .WithColumn("WeekOfMonth").AsInt32().NotNullable()
+            .WithColumn("IsCompleted").AsBoolean().NotNullable()
             .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_Tasks_User_Id", "Users", "Id");
-
     }
 }

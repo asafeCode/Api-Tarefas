@@ -3,6 +3,8 @@ using TarefasCrud.Application.SharedValidators;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Communication.Responses;
 using TarefasCrud.Domain.Entities;
+using TarefasCrud.Domain.Enums;
+using TarefasCrud.Domain.Extensions;
 using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;

@@ -1,8 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using TarefasCrud.Application.Services;
 using TarefasCrud.Application.UseCases.Login;
-using TarefasCrud.Application.UseCases.Tasks;
+using TarefasCrud.Application.UseCases.Tasks.Delete;
 using TarefasCrud.Application.UseCases.Tasks.Get.GetById;
 using TarefasCrud.Application.UseCases.Tasks.Get.GetTasks;
 using TarefasCrud.Application.UseCases.Tasks.Register;
@@ -38,6 +37,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetTasksUseCase, GetTasksUseCase>();
         services.AddScoped<IUpdateTaskProgressUseCase, UpdateTaskProgressUseCase>();
         services.AddScoped<IUpdateTaskUseCase, UpdateTaskUseCase>();
+        services.AddScoped<IDeleteTaskUseCase, DeleteTaskUseCase>();
         
     }
     private static void AddMapper()
