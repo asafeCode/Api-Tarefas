@@ -171,8 +171,8 @@
   <data name="INSTRUCTION_EMPTY" xml:space="preserve">
     <value>A instrução foi deixada em branco; forneça uma instrução válida.</value>
   </data>
-  <data name="INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
-    <value>A instrução excede o limite máximo de 2000 caracteres.</value>
+  <data name="DESCRIPTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
+    <value>A descrição excedeu o limite máximo de 150 caracteres.</value>
   </data>
   <data name="INVALID_NUMBER_INGREDIENTS" xml:space="preserve">
     <value>Número inválido de ingredientes. A lista deve conter entre 1 e 5 ingredientes.</value>
@@ -204,8 +204,8 @@
   <data name="RECIPE_NOT_FOUND" xml:space="preserve">
     <value>Não foi possível encontrar a receita.</value>
   </data>
-  <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
-    <value>O título da receita foi deixado em branco. Forneça um título válido.</value>
+  <data name="TASK_TITLE_EMPTY" xml:space="preserve">
+    <value>O título da tarefa foi deixado em branco. Forneça um título válido.</value>
   </data>
   <data name="TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER" xml:space="preserve">
     <value>Ao adicionar instruções, certifique-se de que cada uma tenha um número de etapa exclusivo. Duas ou mais instruções não podem ter o mesmo pedido.</value>
@@ -215,5 +215,17 @@
   </data>
   <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
     <value>Você não tem permissão para acessar esse recurso.</value>
+  </data>
+  <data name="WEEKLY_GOAL_INVALID" xml:space="preserve">
+    <value>A meta semanal não pode ultrapassar a quantidade de dias restantes até domingo.</value>
+  </data>
+  <data name="WEEKLY_GOAL_LOWER_THAN_PROGRESS" xml:space="preserve">
+    <value>A meta semanal deve ser maior que ou igual ao progresso.</value>
+  </data>
+  <data name="START_DATE_IN_PAST" xml:space="preserve">
+    <value>A data de inicio não pode estar no passado.</value>
+  </data>
+  <data name="START_DATE_INVALID" xml:space="preserve">
+    <value>A data de início deve ser de segunda-feira a quarta-feira.</value>
   </data>
 </root>

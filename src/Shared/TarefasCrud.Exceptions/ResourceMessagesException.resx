@@ -171,8 +171,8 @@
   <data name="INSTRUCTION_EMPTY" xml:space="preserve">
     <value>The instruction is left empty, please provide a valid instruction.</value>
   </data>
-  <data name="INSTRUCTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
-    <value>The instruction exceeds the maximum limit of 2000 characters.</value>
+  <data name="DESCRIPTION_EXCEEDS_LIMIT_CHARACTERS" xml:space="preserve">
+    <value>The description exceeds the maximum limit of 150 characters.</value>
   </data>
   <data name="INVALID_NUMBER_INGREDIENTS" xml:space="preserve">
     <value>Invalid number of ingredients. The list must contain between 1 and 5 ingredients.</value>
@@ -204,8 +204,8 @@
   <data name="RECIPE_NOT_FOUND" xml:space="preserve">
     <value>The recipe could not be found.</value>
   </data>
-  <data name="RECIPE_TITLE_EMPTY" xml:space="preserve">
-    <value>The recipe title has been left blank. Please provide a valid title.</value>
+  <data name="TASK_TITLE_EMPTY" xml:space="preserve">
+    <value>The task title has been left blank. Please provide a valid title.</value>
   </data>
   <data name="TWO_OR_MORE_INSTRUCTIONS_SAME_ORDER" xml:space="preserve">
     <value>When adding instructions, please ensure that each one has a unique step number. Two or more instructions cannot have the same step.</value>
@@ -215,5 +215,17 @@
   </data>
   <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
     <value>You can't access this resource.</value>
+  </data>
+  <data name="WEEKLY_GOAL_INVALID" xml:space="preserve">
+    <value>The weekly goal cannot pass the quantity of remaining days to Sunday.</value>
+  </data>
+  <data name="WEEKLY_GOAL_LOWER_THAN_PROGRESS" xml:space="preserve">
+    <value>The weekly goal must be greater than or equal to progress.</value>
+  </data>
+  <data name="START_DATE_IN_PAST" xml:space="preserve">
+    <value>The start date cannot be in the past.</value>
+  </data>
+  <data name="START_DATE_INVALID" xml:space="preserve">
+    <value>The start date must be from Monday to Wednesday.</value>
   </data>
 </root>

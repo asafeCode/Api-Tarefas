@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Domain.Entities;
+using TarefasCrud.Exceptions;
 
 namespace TarefasCrud.Application.UseCases.Tasks;
 
@@ -10,28 +11,34 @@ public class TaskValidator : AbstractValidator<RequestTaskJson>
     {
         RuleFor(t => t.Title)
             .NotEmpty()
-            .WithMessage("Título não pode ser vazio.");
+            .WithMessage(ResourceMessagesException.TASK_TITLE_EMPTY);
 
         RuleFor(t => t.Description)
             .MaximumLength(150)
-            .WithMessage("A descrição deve ter no máximo 150 caracteres.");
+            .WithMessage(ResourceMessagesException.DESCRIPTION_EXCEEDS_LIMIT_CHARACTERS);
 
         RuleFor(t => t.WeeklyGoal)
             .GreaterThan(0)
-            .LessThanOrEqualTo(7)
-            .WithMessage("Meta da semana precisa ser entre 1 e 7.");
+            .LessThanOrEqualTo(t => DaysToSunday(t.StartDate))
+            .WithMessage(ResourceMessagesException.WEEKLY_GOAL_INVALID);
 
         RuleFor(t => t.WeeklyGoal)
             .GreaterThanOrEqualTo(_ => task!.Progress)
-            .WithMessage("A meta deve ser maior ou igual ao progresso.")
+            .WithMessage(ResourceMessagesException.WEEKLY_GOAL_LOWER_THAN_PROGRESS)
             .When(_ => task is not null);
         
         RuleFor(t => t.StartDate)
             .GreaterThanOrEqualTo(DateOnly.FromDateTime(DateTime.Now))
-            .WithMessage("A data não pode ser no passado.");
+            .WithMessage(ResourceMessagesException.START_DATE_IN_PAST);
 
         RuleFor(t => t.StartDate)
-            .Must(date => date.DayOfWeek == DayOfWeek.Monday)
-            .WithMessage("A rotina deve começar em uma segunda-feira.");
+            .Must(date => date.DayOfWeek is >= DayOfWeek.Monday and <= DayOfWeek.Wednesday)
+            .WithMessage(ResourceMessagesException.START_DATE_INVALID);
+    }
+
+    private static int DaysToSunday(DateOnly startDate)
+    {
+        var dayOfWeek = startDate.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)startDate.DayOfWeek;
+        return 7 - dayOfWeek + 1;
     }
 }

@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY src/ .
 
-WORKDIR /app/Backend/MyRecipeBook.API
+WORKDIR /app/Backend/TarefasCrud.API
 
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/out
@@ -13,4 +13,4 @@ WORKDIR /app
 
 COPY --from=build-env /app/out .
 
-ENTRYPOINT ["dotnet", "MyRecipeBook.API.dll"]
+ENTRYPOINT ["dotnet", "TarefasCrud.API.dll"]
