@@ -12,16 +12,6 @@ using TarefasCrud.Infrastructure.Migrations;
 const string AUTHENTICATION_TYPE = "Bearer";
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin", policy =>
-    {
-        policy.WithOrigins("https://pontuae.netlify.app", "http://localhost:3000")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
-
 builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions
     .Converters.Add(new StringConverter()));
 
@@ -67,7 +57,6 @@ builder.Services.AddApplication();
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 
 var app = builder.Build();
-app.UseCors("AllowSpecificOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
