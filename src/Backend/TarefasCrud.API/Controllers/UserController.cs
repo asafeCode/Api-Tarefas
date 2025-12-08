@@ -11,16 +11,7 @@ namespace TarefasCrud.API.Controllers;
 
 public class UserController : TarefasCrudControllerBase
 {
-    [HttpPost]
-    [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
-    public async Task<IActionResult> Register(
-        [FromServices] IRegisterUserUseCase useCase,
-        [FromBody] RequestRegisterUserJson requestRegister)
-    {
-        var result = await useCase.Execute(requestRegister);
-
-        return Created(string.Empty, result);
-    }    
+   
     [HttpGet]
     [AuthenticatedUser]
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status200OK)]
