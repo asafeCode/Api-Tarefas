@@ -1,7 +1,7 @@
 ﻿using TarefasCrud.Communication.Requests;
 using TarefasCrud.Communication.Responses;
 
-namespace TarefasCrud.Application.UseCases.Tasks.Register;
+namespace TarefasCrud.Application.UseCases.RoutineTask.Register;
 
 public interface IRegisterTaskUseCase
 {

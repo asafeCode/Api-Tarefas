@@ -4,7 +4,7 @@ using TarefasCrud.Domain.Dtos;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
 
-namespace TarefasCrud.Application.UseCases.Tasks.Get.GetTasks;
+namespace TarefasCrud.Application.UseCases.RoutineTask.Get.GetTasks;
 
 public class GetTasksUseCase : IGetTasksUseCase
 {

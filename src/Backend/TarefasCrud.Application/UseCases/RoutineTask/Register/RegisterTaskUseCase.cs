@@ -9,7 +9,7 @@ using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
 using TarefasCrud.Domain.ValueObjects;
 
-namespace TarefasCrud.Application.UseCases.Tasks.Register;
+namespace TarefasCrud.Application.UseCases.RoutineTask.Register;
 
 public class RegisterTaskUseCase : IRegisterTaskUseCase
 {

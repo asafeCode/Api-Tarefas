@@ -1,4 +1,4 @@
-﻿namespace TarefasCrud.Application.UseCases.Tasks.Delete;
+﻿namespace TarefasCrud.Application.UseCases.RoutineTask.Delete;
 
 public interface IDeleteTaskUseCase
 {

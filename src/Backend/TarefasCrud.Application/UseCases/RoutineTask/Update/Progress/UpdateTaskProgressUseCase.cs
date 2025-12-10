@@ -6,7 +6,7 @@ using TarefasCrud.Domain.Services.LoggedUser;
 using TarefasCrud.Domain.ValueObjects;
 using TarefasCrud.Exceptions.ExceptionsBase;
 
-namespace TarefasCrud.Application.UseCases.Tasks.Update.Progress;
+namespace TarefasCrud.Application.UseCases.RoutineTask.Update.Progress;
 
 public class UpdateTaskProgressUseCase : IUpdateTaskProgressUseCase
 {

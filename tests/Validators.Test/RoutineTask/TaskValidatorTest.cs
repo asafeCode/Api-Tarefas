@@ -1,11 +1,10 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.Requests;
 using Shouldly;
-using TarefasCrud.Application.UseCases.Tasks;
-using TarefasCrud.Communication.Requests;
+using TarefasCrud.Application.UseCases.RoutineTask;
 using TarefasCrud.Exceptions;
 
-namespace Validators.Test.Task;
+namespace Validators.Test.RoutineTask;
 
 public class TaskValidatorTest
 {

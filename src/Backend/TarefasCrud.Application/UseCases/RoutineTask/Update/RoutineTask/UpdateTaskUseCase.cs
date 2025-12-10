@@ -1,5 +1,4 @@
-﻿using Mapster;
-using TarefasCrud.Application.SharedValidators;
+﻿using TarefasCrud.Application.SharedValidators;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Extensions;
@@ -8,7 +7,7 @@ using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
 using TarefasCrud.Exceptions.ExceptionsBase;
 
-namespace TarefasCrud.Application.UseCases.Tasks.Update.Task;
+namespace TarefasCrud.Application.UseCases.RoutineTask.Update.RoutineTask;
 
 public class UpdateTaskUseCase :  IUpdateTaskUseCase
 {

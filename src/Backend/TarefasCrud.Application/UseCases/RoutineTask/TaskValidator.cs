@@ -3,7 +3,7 @@ using TarefasCrud.Communication.Requests;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Exceptions;
 
-namespace TarefasCrud.Application.UseCases.Tasks;
+namespace TarefasCrud.Application.UseCases.RoutineTask;
 
 public class TaskValidator : AbstractValidator<RequestTaskJson>
 {

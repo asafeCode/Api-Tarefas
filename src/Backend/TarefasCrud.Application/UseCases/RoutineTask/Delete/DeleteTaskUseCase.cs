@@ -3,7 +3,7 @@ using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
 using TarefasCrud.Exceptions.ExceptionsBase;
 
-namespace TarefasCrud.Application.UseCases.Tasks.Delete;
+namespace TarefasCrud.Application.UseCases.RoutineTask.Delete;
 
 public class DeleteTaskUseCase : IDeleteTaskUseCase
 {
