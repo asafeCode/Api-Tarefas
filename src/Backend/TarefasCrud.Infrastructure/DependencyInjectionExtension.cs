@@ -28,7 +28,7 @@ public static class DependencyInjectionExtension
         AddRepositories(services);
         AddTokens(services, configuration);
         AddLoggedUser(services);
-        AddPasswordEncripter(services, configuration);
+        AddPasswordEncripter(services);
         if (configuration.IsUnitTestEnvironment())
             return;
         
@@ -89,7 +89,7 @@ public static class DependencyInjectionExtension
        services.AddScoped<ILoggedUser, LoggedUser>();
     }
     
-    private static void AddPasswordEncripter(this IServiceCollection services, IConfiguration configuration)
+    private static void AddPasswordEncripter(this IServiceCollection services)
     {
         services.AddScoped<IPasswordEncripter, BcryptEncripter>();
     }

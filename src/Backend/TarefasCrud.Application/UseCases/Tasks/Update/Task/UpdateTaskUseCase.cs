@@ -46,7 +46,7 @@ public class UpdateTaskUseCase :  IUpdateTaskUseCase
         _repository.Update(task);
         await _unitOfWork.Commit();
     }
-    private void Validate(RequestTaskJson request, TaskEntity task)
+    private static void Validate(RequestTaskJson request, TaskEntity task)
     {
         var validator = new TaskValidator(task);
         var result = validator.Validate(request);

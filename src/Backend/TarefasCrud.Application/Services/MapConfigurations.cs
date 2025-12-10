@@ -9,15 +9,10 @@ public static class MapConfigurations
     public static void Configure()
     {
         RequestToDomain();
-        DomainToResponse();
     }
     private static void RequestToDomain()
     {
         TypeAdapterConfig<RequestRegisterUserJson, User>
             .NewConfig().Ignore(user => user.Password);
     }
-    private static void DomainToResponse()
-    {
-       
-    } 
 }
