@@ -1,10 +1,21 @@
 ﻿using Moq;
 using OpenAI.Responses;
+using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Repositories.Token;
 
 namespace CommonTestUtilities.Repositories.Tokens;
 
-public static class TokenRepositoryBuilder
+public class TokenRepositoryBuilder
 {
-    public static ITokenRepository Build() => new Mock<ITokenRepository>().Object;
+    private readonly Mock<ITokenRepository> _repository = new();
+    
+    public TokenRepositoryBuilder Get(RefreshToken? refreshToken)
+    {
+        if(refreshToken is not null)
+            _repository.Setup(repository => repository.Get(refreshToken.Value)).ReturnsAsync(refreshToken);
+
+        return this;
+    }
+
+    public ITokenRepository Build() => _repository.Object;
 }

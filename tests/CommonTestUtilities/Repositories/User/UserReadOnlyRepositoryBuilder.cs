@@ -5,10 +5,7 @@ namespace CommonTestUtilities.Repositories.User;
 
 public class UserReadOnlyRepositoryBuilder
 {
-    private readonly Mock<IUserReadOnlyRepository> _repository;
-    
-    public UserReadOnlyRepositoryBuilder() => _repository = new Mock<IUserReadOnlyRepository>();
-    
+    private readonly Mock<IUserReadOnlyRepository> _repository = new();
     
     public void ExistsActiveUserWithEmail(string email)
     {

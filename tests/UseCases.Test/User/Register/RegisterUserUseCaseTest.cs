@@ -70,7 +70,7 @@ public class RegisterUserUseCaseTest
         var passwordEncripter = PasswordEncripterBuilder.Build();
         var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
         var refreshTokenGenerator = RefreshTokenGeneratorBuilder.Build();
-        var tokenRepository = TokenRepositoryBuilder.Build();
+        var tokenRepository = new TokenRepositoryBuilder().Build();
 
         if (email.NotEmpty())
         {

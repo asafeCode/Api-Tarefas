@@ -30,9 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Login\" />
-      <Folder Include="Task\" />
-      <Folder Include="Token\" />
+      <Folder Include="Task\Delete\" />
     </ItemGroup>
 
 </Project>

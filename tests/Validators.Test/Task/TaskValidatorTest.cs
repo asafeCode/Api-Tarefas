@@ -28,6 +28,21 @@ public class TaskValidatorTest
         var request = RequestTaskJsonBuilder.Build(targetDay: targetDay);
         var result = validator.Validate(request);
         result.IsValid.ShouldBe(true);
+    } 
+    
+    [Theory]
+    [InlineData(DayOfWeek.Thursday)]
+    [InlineData(DayOfWeek.Friday)]
+    [InlineData(DayOfWeek.Saturday)]
+    [InlineData(DayOfWeek.Sunday)]
+    public void Error_StartDate_Day(DayOfWeek targetDay)
+    {
+        var validator = new TaskValidator();
+        var request = RequestTaskJsonBuilder.Build(targetDay: targetDay);
+        var result = validator.Validate(request);
+        result.IsValid.ShouldBe(false);
+        result.Errors.ShouldHaveSingleItem(); 
+        result.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.START_DATE_INVALID));
     }  
     
     [Fact]
@@ -93,19 +108,4 @@ public class TaskValidatorTest
         result.Errors.ShouldHaveSingleItem(); 
         result.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.START_DATE_IN_PAST));
     } 
-    
-    [Theory]
-    [InlineData(DayOfWeek.Thursday)]
-    [InlineData(DayOfWeek.Friday)]
-    [InlineData(DayOfWeek.Saturday)]
-    [InlineData(DayOfWeek.Sunday)]
-    public void Error_StartDate_Day(DayOfWeek targetDay)
-    {
-        var validator = new TaskValidator();
-        var request = RequestTaskJsonBuilder.Build(targetDay: targetDay);
-        var result = validator.Validate(request);
-        result.IsValid.ShouldBe(false);
-        result.Errors.ShouldHaveSingleItem(); 
-        result.Errors.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.START_DATE_INVALID));
-    }  
 }
