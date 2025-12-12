@@ -29,12 +29,8 @@ public static class DependencyInjectionExtension
         AddTokens(services, configuration);
         AddLoggedUser(services);
         AddPasswordEncripter(services);
-        if (configuration.IsUnitTestEnvironment())
-            return;
-        
         AddDbContext_SqlServer(services, configuration);
         AddFluentMigrator_SqlServer(services, configuration);
-        
     }
 
     private static void AddDbContext_SqlServer(IServiceCollection services, IConfiguration configuration)

@@ -1,4 +1,5 @@
 ﻿using CommonTestUtilities.Entities;
+using CommonTestUtilities.Extensions;
 using CommonTestUtilities.Requests;
 using Shouldly;
 using TarefasCrud.Application.UseCases.RoutineTask;
@@ -100,7 +101,7 @@ public class TaskValidatorTest
     {
         var validator = new TaskValidator();
         var request = RequestTaskJsonBuilder.Build();
-        request.StartDate = DateOnly.FromDateTime(DateTime.Today.AddDays(-1));
+        request.StartDate = request.StartDate.PastWeekday(DayOfWeek.Tuesday);
         
         var result = validator.Validate(request);
         result.IsValid.ShouldBe(false);
