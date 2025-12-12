@@ -12,7 +12,6 @@ public static class UserBuilder
         var password = new Faker().Internet.Password();
 
         var user = new Faker<User>()
-            .RuleFor(user => user.Id, () => 1)
             .RuleFor(user => user.Name, (f) => f.Person.FirstName)
             .RuleFor(user => user.Email, (f, user) => f.Internet.Email(user.Name))
             .RuleFor(user => user.UserId, (_) => Guid.NewGuid())

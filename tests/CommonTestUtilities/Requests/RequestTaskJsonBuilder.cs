@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using CommonTestUtilities.Extensions;
 using TarefasCrud.Communication.Requests;
 
 namespace CommonTestUtilities.Requests;
@@ -16,18 +17,4 @@ public static class RequestTaskJsonBuilder
     {
         return currentDate.NextWeekday(targetDay);
     }
-    
-    private static DateOnly NextWeekday(this DateOnly currentDate, DayOfWeek targetDay)
-    {
-        var currentDayOfWeek = (int)currentDate.DayOfWeek;
-        var targetDayOfWeek = (int)targetDay;
-        
-        var diff = targetDayOfWeek - currentDayOfWeek;
-        
-        if (diff <= 0)
-            diff += 7;
-
-        return currentDate.AddDays(diff);
-    }
-    private static DateOnly ToDateOnly(this DateTime date) => DateOnly.FromDateTime(date);    
 }
