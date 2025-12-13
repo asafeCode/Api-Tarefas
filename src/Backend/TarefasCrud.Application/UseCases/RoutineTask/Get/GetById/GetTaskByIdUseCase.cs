@@ -2,6 +2,7 @@
 using TarefasCrud.Communication.Responses;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
+using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
 
 namespace TarefasCrud.Application.UseCases.RoutineTask.Get.GetById;
@@ -19,12 +20,12 @@ public class GetTaskByIdUseCase  : IGetTaskByIdUseCase
     public async Task<ResponseTaskJson> Execute(long taskId)
     {
         var loggedUser = await _loggedUser.User();
-        var recipe = await _repository.GetById(loggedUser, taskId);
+        var task = await _repository.GetById(loggedUser, taskId);
         
-        if (recipe is null)
-            throw new NotFoundException("Tarefa não encontrada");
+        if (task is null)
+            throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
         
-        var response = recipe.Adapt<ResponseTaskJson>();
+        var response = task.Adapt<ResponseTaskJson>();
         return response;
     }
 }

@@ -5,6 +5,7 @@ using TarefasCrud.Domain.Extensions;
 using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
+using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
 
 namespace TarefasCrud.Application.UseCases.RoutineTask.Update.RoutineTask;
@@ -29,7 +30,7 @@ public class UpdateTaskUseCase :  IUpdateTaskUseCase
         
         var task = await _repository.GetById(loggedUser, taskId);
         if (task is null)
-            throw new NotFoundException("Tarefa não encontrada");
+            throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
         
         Validate(request, task);
 

@@ -1,6 +1,7 @@
 ﻿using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
+using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
 
 namespace TarefasCrud.Application.UseCases.RoutineTask.Delete;
@@ -29,7 +30,7 @@ public class DeleteTaskUseCase : IDeleteTaskUseCase
         var task = await _readRepository.GetById(loggedUser, taskId);
 
         if (task is null)
-            throw new NotFoundException("Tarefa não encontrada!");
+            throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
         
         await _writeRepository.Delete(taskId);
         await _unitOfWork.Commit();
