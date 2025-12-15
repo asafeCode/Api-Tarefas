@@ -9,34 +9,34 @@ public static class FilterTasksDtoBuilder
         var query = new List<string>();
 
         if (!string.IsNullOrWhiteSpace(filter.Title))
-            query.Add($"title={Uri.EscapeDataString(filter.Title)}");
+            query.Add($"Title={Uri.EscapeDataString(filter.Title)}");
 
         if (!string.IsNullOrWhiteSpace(filter.Category))
-            query.Add($"category={Uri.EscapeDataString(filter.Category)}");
+            query.Add($"Category={Uri.EscapeDataString(filter.Category)}");
 
         if (filter.IsCompleted.HasValue)
-            query.Add($"isCompleted={filter.IsCompleted.Value.ToString().ToLower()}");
+            query.Add($"IsCompleted={filter.IsCompleted.Value.ToString().ToLower()}");
 
         if (filter.WeeklyGoalMin.HasValue)
-            query.Add($"weeklyGoalMin={filter.WeeklyGoalMin}");
+            query.Add($"WeeklyGoalMin={filter.WeeklyGoalMin}");
 
         if (filter.WeeklyGoalMax.HasValue)
-            query.Add($"weeklyGoalMax={filter.WeeklyGoalMax}");
+            query.Add($"WeeklyGoalMax={filter.WeeklyGoalMax}");
 
         if (filter.ProgressMin.HasValue)
-            query.Add($"progressMin={filter.ProgressMin}");
+            query.Add($"ProgressMin={filter.ProgressMin}");
 
         if (filter.ProgressMax.HasValue)
-            query.Add($"progressMax={filter.ProgressMax}");
+            query.Add($"ProgressMax={filter.ProgressMax}");
 
         if (filter.WeekOfMonth.HasValue)
-            query.Add($"weekOfMonth={filter.WeekOfMonth}");
+            query.Add($"WeekOfMonth={filter.WeekOfMonth}");
 
         if (filter.Month.HasValue)
-            query.Add($"month={filter.Month}");
+            query.Add($"Month={filter.Month}");
 
         if (filter.Year.HasValue)
-            query.Add($"year={filter.Year}");
+            query.Add($"Year={filter.Year}");
 
         return query.Count == 0
             ? string.Empty

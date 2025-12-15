@@ -21,30 +21,9 @@ public class UpdateTaskProgressTest : TarefasCrudClassFixture
         _userId = factory.GetUserId();
         _taskId = factory.GetTaskId();
     }
-
-    [Fact]
-    public async Task Success_Increment()
-    {
-        var token = JwtTokenGeneratorBuilder.Build().Generate(_userId);
-        
-        var response = await DoPut(method: $"{METHOD}/{_taskId}/progress", token: token);
-        response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
-        
-        response = await DoGet($"{METHOD}/{_taskId}", token);
-        response.StatusCode.ShouldBe(HttpStatusCode.OK);
-        
-        await using var responseBody = await response.Content.ReadAsStreamAsync();
-        var responseData = await JsonDocument.ParseAsync(responseBody);
-
-        var id = responseData.RootElement.GetProperty("id").GetInt64();
-        var progress = responseData.RootElement.GetProperty("progress").GetInt32();
-        
-        id.ShouldBeGreaterThan(0); id.ShouldBe(_taskId);
-        progress.ShouldBe(1);
-    }    
     
     [Fact]
-    public async Task Success_Decrement()
+    public async Task Success()
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userId);
         

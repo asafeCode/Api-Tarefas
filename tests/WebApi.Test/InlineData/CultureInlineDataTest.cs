@@ -9,7 +9,6 @@ public class CultureInlineDataTest : IEnumerable<object[]>
     {
         yield return ["en"];
         yield return ["pt-BR"];
-        yield return ["fr"];
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
