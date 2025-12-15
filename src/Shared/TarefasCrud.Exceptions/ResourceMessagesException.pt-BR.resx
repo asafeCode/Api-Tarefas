@@ -228,4 +228,13 @@
   <data name="START_DATE_INVALID" xml:space="preserve">
     <value>A data de início deve ser de segunda-feira a quarta-feira.</value>
   </data>
+  <data name="TASK_NOT_FOUND" xml:space="preserve">
+    <value>Tarefa não encontrada.</value>
+  </data>
+  <data name="NOT_INCREMENT_COMPLETED_TASK" xml:space="preserve">
+    <value>A tarefa já está concluída e não pode ser incrementada.</value>
+  </data>
+  <data name="NOT_DECREMENT_INITIAL_PROGRESS_TASK" xml:space="preserve">
+    <value>A tarefa está com progresso Iinicial e não pode ser decrementada.</value>
+  </data>
 </root>

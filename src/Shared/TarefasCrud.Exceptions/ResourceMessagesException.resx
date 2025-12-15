@@ -228,4 +228,13 @@
   <data name="START_DATE_INVALID" xml:space="preserve">
     <value>The start date must be from Monday to Wednesday.</value>
   </data>
+  <data name="TASK_NOT_FOUND" xml:space="preserve">
+    <value>Task not found.</value>
+  </data>
+  <data name="NOT_INCREMENT_COMPLETED_TASK" xml:space="preserve">
+    <value>The task is completed and cannot be incremented.</value>
+  </data>
+  <data name="NOT_DECREMENT_INITIAL_PROGRESS_TASK" xml:space="preserve">
+    <value>The task is with initial progress and cannot be decremented.</value>
+  </data>
 </root>

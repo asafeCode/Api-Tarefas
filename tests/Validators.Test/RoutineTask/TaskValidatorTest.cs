@@ -4,11 +4,19 @@ using CommonTestUtilities.Requests;
 using Shouldly;
 using TarefasCrud.Application.UseCases.RoutineTask;
 using TarefasCrud.Exceptions;
+using Xunit.Abstractions;
 
 namespace Validators.Test.RoutineTask;
 
 public class TaskValidatorTest
 {
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public TaskValidatorTest(ITestOutputHelper testOutputHelper)
+    {
+        _testOutputHelper = testOutputHelper;
+    }
+
     [Fact]
     public void Success()
     {
@@ -101,7 +109,7 @@ public class TaskValidatorTest
     {
         var validator = new TaskValidator();
         var request = RequestTaskJsonBuilder.Build();
-        request.StartDate = request.StartDate.PastWeekday(DayOfWeek.Tuesday);
+        request.StartDate = DateTime.Now.ToDateOnly().PastWeekday(DayOfWeek.Monday);
         
         var result = validator.Validate(request);
         result.IsValid.ShouldBe(false);

@@ -4,9 +4,10 @@ using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
 using TarefasCrud.Domain.ValueObjects;
+using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
 
-namespace TarefasCrud.Application.UseCases.RoutineTask.Update.Progress;
+namespace TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
 
 public class UpdateTaskProgressUseCase : IUpdateTaskProgressUseCase
 {
@@ -21,19 +22,19 @@ public class UpdateTaskProgressUseCase : IUpdateTaskProgressUseCase
         _updateRepository = updateRepository;
         _unitOfWork = unitOfWork;
     }
-    public async System.Threading.Tasks.Task Execute(long taskId, ProgressOperation operation)
+    public async Task Execute(long taskId, ProgressOperation operation)
     {
         var loggedUser = await _loggedUser.User();
         var task = await _updateRepository.GetById(loggedUser, taskId);
         
         if (task is null)
-            throw new NotFoundException("Tarefa não encontrada!");
+            throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
 
         if (operation == ProgressOperation.Increment && task.IsCompleted)
-            throw new ConflictException("A tarefa já está concluída e não pode ser incrementada.");
+            throw new ConflictException(ResourceMessagesException.NOT_INCREMENT_COMPLETED_TASK);
         
         if (operation == ProgressOperation.Decrement && task.Progress == TarefasCrudRuleConstants.INITIAL_PROGRESS)
-            throw new ConflictException("A tarefa já está com nenhum progresso e não pode ser decrementada.");
+            throw new ConflictException(ResourceMessagesException.NOT_DECREMENT_INITIAL_PROGRESS_TASK);
         
         if (operation == ProgressOperation.Decrement && task.IsCompleted)
             task.IsCompleted = false;

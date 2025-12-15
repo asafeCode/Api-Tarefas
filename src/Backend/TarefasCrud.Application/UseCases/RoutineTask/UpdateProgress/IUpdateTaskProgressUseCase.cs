@@ -1,6 +1,6 @@
 ﻿using TarefasCrud.Domain.Enums;
 
-namespace TarefasCrud.Application.UseCases.RoutineTask.Update.Progress;
+namespace TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
 
 public interface IUpdateTaskProgressUseCase
 {

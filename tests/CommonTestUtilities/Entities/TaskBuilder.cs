@@ -13,12 +13,12 @@ public static class TaskBuilder
         if (count == 0)
             count = 1;
 
-        var recipeId = 1;
+        var taskId = 1;
 
         for (var i = 0; i < count; i++)
         {
             var fakeTask = Build(user);
-            fakeTask.Id = recipeId++;
+            fakeTask.Id = taskId++;
 
             list.Add(fakeTask);
         }
@@ -27,11 +27,10 @@ public static class TaskBuilder
     public static TaskEntity Build(User user)
     {
         return new Faker<TaskEntity>()
-            .RuleFor(task => task.Id, () => 1)
             .RuleFor(task => task.Title, (f) => f.Lorem.Word())
             .RuleFor(task => task.Description, (f) => f.Lorem.Sentence())
             .RuleFor(task => task.WeeklyGoal, () => 1)
-            .RuleFor(task => task.Progress, () => 1)
+            .RuleFor(task => task.Progress, () => 0)
             .RuleFor(task => task.Category, (f) => f.Lorem.Word())
             .RuleFor(task => task.StartDate, GetFutureDate)
             .RuleFor(task => task.WeekOfMonth, (f) => GetFutureDate(f).GetMonthWeek())

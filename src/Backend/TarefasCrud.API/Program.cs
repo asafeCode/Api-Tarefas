@@ -85,5 +85,11 @@ void MigrateDatabase()
     DatabaseMigration.Migrate(connectionString!, serviceScope.ServiceProvider);
 }
 
-public partial class Program {}
+namespace TarefasCrud.API
+{
+    public partial class Program 
+    {
+        protected Program(){}
+    }
+}
 
