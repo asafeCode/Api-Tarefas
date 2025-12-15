@@ -1,6 +1,6 @@
 ﻿using TarefasCrud.Communication.Requests;
 
-namespace TarefasCrud.Application.UseCases.RoutineTask.Update.RoutineTask;
+namespace TarefasCrud.Application.UseCases.RoutineTask.UpdateTask;
 
 public interface IUpdateTaskUseCase
 {

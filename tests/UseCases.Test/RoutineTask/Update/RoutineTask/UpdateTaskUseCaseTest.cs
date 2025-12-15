@@ -4,7 +4,7 @@ using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.RoutineTask;
 using CommonTestUtilities.Requests;
 using Shouldly;
-using TarefasCrud.Application.UseCases.RoutineTask.Update.RoutineTask;
+using TarefasCrud.Application.UseCases.RoutineTask.UpdateTask;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;

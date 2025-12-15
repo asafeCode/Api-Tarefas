@@ -2,7 +2,7 @@
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories.RoutineTask;
 using Shouldly;
-using TarefasCrud.Application.UseCases.RoutineTask.Get.GetTasks;
+using TarefasCrud.Application.UseCases.RoutineTask.GetTasks;
 using TarefasCrud.Domain.Dtos;
 using TarefasCrud.Domain.Entities;
 

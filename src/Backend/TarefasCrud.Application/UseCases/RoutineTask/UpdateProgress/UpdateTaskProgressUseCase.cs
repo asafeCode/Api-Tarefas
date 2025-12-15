@@ -7,7 +7,7 @@ using TarefasCrud.Domain.ValueObjects;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
 
-namespace TarefasCrud.Application.UseCases.RoutineTask.Update.Progress;
+namespace TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
 
 public class UpdateTaskProgressUseCase : IUpdateTaskProgressUseCase
 {

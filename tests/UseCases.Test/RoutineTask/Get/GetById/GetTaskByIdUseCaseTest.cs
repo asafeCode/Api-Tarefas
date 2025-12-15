@@ -2,7 +2,7 @@
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories.RoutineTask;
 using Shouldly;
-using TarefasCrud.Application.UseCases.RoutineTask.Get.GetById;
+using TarefasCrud.Application.UseCases.RoutineTask.GetById;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
@@ -16,7 +16,7 @@ public class GetTaskByIdUseCaseTest
     {
         var(user, _) = UserBuilder.Build();
         var task = TaskBuilder.Build(user);
-
+        task.Id = 1;
         var useCase = CreateUseCase(user, task);
 
         var result = await useCase.Execute(task.Id);

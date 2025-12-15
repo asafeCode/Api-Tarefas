@@ -3,7 +3,7 @@ using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.RoutineTask;
 using Shouldly;
-using TarefasCrud.Application.UseCases.RoutineTask.Update.Progress;
+using TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Enums;
 using TarefasCrud.Exceptions;

@@ -8,7 +8,7 @@ using TarefasCrud.Domain.Services.LoggedUser;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
 
-namespace TarefasCrud.Application.UseCases.RoutineTask.Update.RoutineTask;
+namespace TarefasCrud.Application.UseCases.RoutineTask.UpdateTask;
 
 public class UpdateTaskUseCase :  IUpdateTaskUseCase
 {

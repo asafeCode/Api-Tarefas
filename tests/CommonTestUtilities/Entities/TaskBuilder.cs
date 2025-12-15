@@ -27,7 +27,6 @@ public static class TaskBuilder
     public static TaskEntity Build(User user)
     {
         return new Faker<TaskEntity>()
-            .RuleFor(task => task.Id, () => 1)
             .RuleFor(task => task.Title, (f) => f.Lorem.Word())
             .RuleFor(task => task.Description, (f) => f.Lorem.Sentence())
             .RuleFor(task => task.WeeklyGoal, () => 1)

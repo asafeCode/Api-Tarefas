@@ -2,11 +2,11 @@
 using TarefasCrud.Application.Services;
 using TarefasCrud.Application.UseCases.Login;
 using TarefasCrud.Application.UseCases.RoutineTask.Delete;
-using TarefasCrud.Application.UseCases.RoutineTask.Get.GetById;
-using TarefasCrud.Application.UseCases.RoutineTask.Get.GetTasks;
+using TarefasCrud.Application.UseCases.RoutineTask.GetById;
+using TarefasCrud.Application.UseCases.RoutineTask.GetTasks;
 using TarefasCrud.Application.UseCases.RoutineTask.Register;
-using TarefasCrud.Application.UseCases.RoutineTask.Update.Progress;
-using TarefasCrud.Application.UseCases.RoutineTask.Update.RoutineTask;
+using TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
+using TarefasCrud.Application.UseCases.RoutineTask.UpdateTask;
 using TarefasCrud.Application.UseCases.Token.RefreshToken;
 using TarefasCrud.Application.UseCases.User.ChangePassword;
 using TarefasCrud.Application.UseCases.User.Profile;

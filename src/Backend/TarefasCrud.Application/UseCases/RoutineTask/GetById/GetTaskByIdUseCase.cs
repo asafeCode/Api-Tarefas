@@ -5,7 +5,7 @@ using TarefasCrud.Domain.Services.LoggedUser;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
 
-namespace TarefasCrud.Application.UseCases.RoutineTask.Get.GetById;
+namespace TarefasCrud.Application.UseCases.RoutineTask.GetById;
 
 public class GetTaskByIdUseCase  : IGetTaskByIdUseCase
 {

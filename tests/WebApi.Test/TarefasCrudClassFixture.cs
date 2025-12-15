@@ -25,11 +25,17 @@ public class TarefasCrudClassFixture : IClassFixture<CustomWebApplicationFactory
         AuthorizeRequest(token);
         return await _httpClient.GetAsync(method);
     }    
-    protected async Task<HttpResponseMessage> DoPut(string method, object request, string token = "", string culture = "en")
+    protected async Task<HttpResponseMessage> DoPut(string method, object request = null!, string token = "", string culture = "en")
     {
         ChangeRequestCulture(culture);
         AuthorizeRequest(token);
         return await _httpClient.PutAsJsonAsync(method, request);
+    }    
+    protected async Task<HttpResponseMessage> DoDelete(string method, string token = "", string culture = "en")
+    {
+        ChangeRequestCulture(culture);
+        AuthorizeRequest(token);
+        return await _httpClient.DeleteAsync(method);
     }
 
     private void ChangeRequestCulture(string culture)
