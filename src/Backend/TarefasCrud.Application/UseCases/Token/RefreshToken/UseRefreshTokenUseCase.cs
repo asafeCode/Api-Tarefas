@@ -1,5 +1,6 @@
 ﻿using TarefasCrud.Communication.Requests;
 using TarefasCrud.Communication.Responses;
+using TarefasCrud.Domain.Providers;
 using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.Token;
 using TarefasCrud.Domain.Security.Tokens;
@@ -33,7 +34,7 @@ public class UseRefreshTokenUseCase : IUseRefreshTokenUseCase
             throw new RefreshTokenNotFoundException();
 
         var refreshTokenValidUntil = refreshToken.CreatedOn.AddDays(TarefasCrudRuleConstants.REFRESH_TOKEN_EXPIRATION_DAYS);
-        if (DateTime.Compare(refreshTokenValidUntil, DateTime.Now) < 0)
+        if (DateTime.Compare(refreshTokenValidUntil, DateTime.UtcNow) < 0)
             throw new RefreshTokenExpiredException();
 
         var newRefreshToken = new Domain.Entities.RefreshToken

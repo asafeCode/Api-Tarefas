@@ -1,7 +1,9 @@
 ﻿using CommonTestUtilities.Entities;
+using CommonTestUtilities.Providers;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.Tokens;
 using CommonTestUtilities.Tokens;
+using CommonTestUtilities.ValueObjects;
 using Shouldly;
 using TarefasCrud.Application.UseCases.Token.RefreshToken;
 using TarefasCrud.Communication.Requests;
@@ -46,7 +48,7 @@ public class UseRefreshTokenUseCaseTest
     {
         var (user, _) = UserBuilder.Build();
         var refreshToken = RefreshTokenBuilder.Build(user);
-        refreshToken.CreatedOn = DateTime.UtcNow.AddDays(-TarefasCrudRuleConstants.REFRESH_TOKEN_EXPIRATION_DAYS - 1);
+        refreshToken.CreatedOn = TarefasCrudTestsConstants.DateForTests.AddDays(-TarefasCrudRuleConstants.REFRESH_TOKEN_EXPIRATION_DAYS - 1);
         
         var useCase = CreateUseCase(refreshToken);
         var request = new RequestNewTokenJson { RefreshToken = refreshToken.Value };
@@ -63,7 +65,7 @@ public class UseRefreshTokenUseCaseTest
         var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
         var refreshTokenGenerator = RefreshTokenGeneratorBuilder.Build();
         var tokenRepository = new TokenRepositoryBuilder().Get(refreshToken).Build();
-
+        
         return new UseRefreshTokenUseCase(tokenRepository, unitOfWork, accessTokenGenerator, refreshTokenGenerator);
     }
 }

@@ -1,4 +1,6 @@
 ﻿using CommonTestUtilities.Entities;
+using CommonTestUtilities.Providers;
+using CommonTestUtilities.ValueObjects;
 using DotNet.Testcontainers.Containers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -6,9 +8,12 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using TarefasCrud.API;
 using TarefasCrud.Domain.Entities;
+using TarefasCrud.Domain.Providers;
 using TarefasCrud.Infrastructure.DataAccess;
+using TarefasCrud.Infrastructure.Providers;
 using Testcontainers.MsSql;
 
 namespace WebApi.Test;
@@ -47,6 +52,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
             
             .ConfigureServices(services =>
             {
+                services.RemoveAll<IDateProvider>();
+                services.AddScoped<IDateProvider, FixedDate>();
                 var descriptor = services.SingleOrDefault(desc =>
                     desc.ServiceType == typeof(DbContextOptions<TarefasCrudDbContext>));
                 

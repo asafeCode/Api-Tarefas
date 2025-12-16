@@ -1,7 +1,9 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
+using CommonTestUtilities.Providers;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.RoutineTask;
+using CommonTestUtilities.ValueObjects;
 using Shouldly;
 using TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
 using TarefasCrud.Domain.Entities;
@@ -65,6 +67,20 @@ public class UpdateTaskProgressUseCaseTest
         var exception = await act.ShouldThrowAsync<ConflictException>();
         exception.GetErrorMessages().Count.ShouldBe(1);
         exception.GetErrorMessages().ShouldContain(ResourceMessagesException.NOT_INCREMENT_COMPLETED_TASK);
+    }       
+    [Fact]
+    public async Task Error_Handle_Invalid_Week_Task()
+    {
+        var (user, _) = UserBuilder.Build();
+        var task = TaskBuilder.Build(user);
+        task.WeekOfMonth = 1;  
+        var useCase = CreateUseCase(user, task);
+        
+        var act = async () => await useCase.Execute(task.Id, ProgressOperation.Increment);
+        
+        var exception = await act.ShouldThrowAsync<ConflictException>();
+        exception.GetErrorMessages().Count.ShouldBe(1);
+        exception.GetErrorMessages().ShouldContain(ResourceMessagesException.ONLY_MODIFY_PROGRESS_CURRENT_WEEK);
     }    
     
     [Fact]
@@ -88,7 +104,9 @@ public class UpdateTaskProgressUseCaseTest
         var loggedUser = LoggedUserBuilder.Build(user);
         var unitOfWork = UnitOfWorkBuilder.Build();
         var repository = new TaskUpdateOnlyRepositoryBuilder().GetById(user, task).Build();
+        var dateProvider = new DateProviderBuilder().UseCaseToday(TarefasCrudTestsConstants.DateForTests).Build();
 
-        return new UpdateTaskProgressUseCase(loggedUser, repository, unitOfWork);
+
+        return new UpdateTaskProgressUseCase(loggedUser, repository, unitOfWork, dateProvider);
     }
 }

@@ -1,8 +1,10 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
+using CommonTestUtilities.Providers;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.RoutineTask;
 using CommonTestUtilities.Requests;
+using CommonTestUtilities.ValueObjects;
 using Shouldly;
 using TarefasCrud.Application.UseCases.RoutineTask.Register;
 using TarefasCrud.Exceptions;
@@ -61,7 +63,8 @@ public class RegisterTaskUseCaseTest
         var loggerUser = LoggedUserBuilder.Build(user!);
         var writeRepository = TaskWriteOnlyRepositoryBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
+        var dateProvider = new DateProviderBuilder().UseCaseToday(TarefasCrudTestsConstants.DateForTests).Build();
         
-        return new RegisterTaskUseCase(loggerUser, writeRepository, unitOfWork);
+        return new RegisterTaskUseCase(loggerUser, writeRepository, unitOfWork, dateProvider);
     }
 }

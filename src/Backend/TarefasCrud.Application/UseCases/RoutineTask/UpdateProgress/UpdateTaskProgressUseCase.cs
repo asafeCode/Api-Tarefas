@@ -1,5 +1,8 @@
-﻿using TarefasCrud.Domain.Enums;
+﻿using TarefasCrud.Application.SharedValidators;
+using TarefasCrud.Domain.Entities;
+using TarefasCrud.Domain.Enums;
 using TarefasCrud.Domain.Extensions;
+using TarefasCrud.Domain.Providers;
 using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
@@ -14,13 +17,16 @@ public class UpdateTaskProgressUseCase : IUpdateTaskProgressUseCase
     private readonly ILoggedUser _loggedUser;
     private readonly ITaskUpdateOnlyRepository _updateRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IDateProvider _dateProvider;
     public UpdateTaskProgressUseCase(ILoggedUser loggedUser, 
         ITaskUpdateOnlyRepository updateRepository, 
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork, 
+        IDateProvider dateProvider)
     {
         _loggedUser = loggedUser;
         _updateRepository = updateRepository;
         _unitOfWork = unitOfWork;
+        _dateProvider = dateProvider;
     }
     public async Task Execute(long taskId, ProgressOperation operation)
     {
@@ -30,11 +36,7 @@ public class UpdateTaskProgressUseCase : IUpdateTaskProgressUseCase
         if (task is null)
             throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
 
-        if (operation == ProgressOperation.Increment && task.IsCompleted)
-            throw new ConflictException(ResourceMessagesException.NOT_INCREMENT_COMPLETED_TASK);
-        
-        if (operation == ProgressOperation.Decrement && task.Progress == TarefasCrudRuleConstants.INITIAL_PROGRESS)
-            throw new ConflictException(ResourceMessagesException.NOT_DECREMENT_INITIAL_PROGRESS_TASK);
+        Validate(operation, task);
         
         if (operation == ProgressOperation.Decrement && task.IsCompleted)
             task.IsCompleted = false;
@@ -46,5 +48,17 @@ public class UpdateTaskProgressUseCase : IUpdateTaskProgressUseCase
         
         _updateRepository.Update(task);
         await _unitOfWork.Commit();
+    }
+
+    private void Validate(ProgressOperation operation, TaskEntity task)
+    {
+        if (task.WeekOfMonth.Equals(_dateProvider.UseCaseToday.GetMonthWeek()).IsFalse())
+            throw new ConflictException(ResourceMessagesException.ONLY_MODIFY_PROGRESS_CURRENT_WEEK);
+
+        if (operation == ProgressOperation.Increment && task.IsCompleted)
+            throw new ConflictException(ResourceMessagesException.NOT_INCREMENT_COMPLETED_TASK);
+        
+        if (operation == ProgressOperation.Decrement && task.Progress == TarefasCrudRuleConstants.INITIAL_PROGRESS)
+            throw new ConflictException(ResourceMessagesException.NOT_DECREMENT_INITIAL_PROGRESS_TASK);
     }
 }

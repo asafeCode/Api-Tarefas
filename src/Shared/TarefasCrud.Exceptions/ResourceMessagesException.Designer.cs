@@ -312,6 +312,15 @@ namespace TarefasCrud.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The progress can only be modified on the week which the task was be created..
+        /// </summary>
+        public static string ONLY_MODIFY_PROGRESS_CURRENT_WEEK {
+            get {
+                return ResourceManager.GetString("ONLY_MODIFY_PROGRESS_CURRENT_WEEK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password entered is different from the current password..
         /// </summary>
         public static string PASSWORD_DIFFERENT_CURRENT_PASSWORD {

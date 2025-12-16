@@ -1,14 +1,16 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using TarefasCrud.Domain.Security.Tokens;
+using TarefasCrud.Infrastructure.Settings;
 
 namespace TarefasCrud.Infrastructure.Security.Tokens.Access.Validator;
 
 public class JwtTokenValidator : JwtTokenHandler, IAccessTokenValidator
 {
-    private readonly string _signingKey;
-    public JwtTokenValidator(string signingKey) => _signingKey = signingKey;
+    private readonly JwtSettings _settings;
+    public JwtTokenValidator(IOptions<JwtSettings> options) => _settings = options.Value;
 
     public Guid ValidateAndGetUserId(string token)
     {
@@ -16,7 +18,7 @@ public class JwtTokenValidator : JwtTokenHandler, IAccessTokenValidator
         {
             ValidateAudience = false,
             ValidateIssuer = false,
-            IssuerSigningKey = SecurityKey(_signingKey),
+            IssuerSigningKey = SecurityKey(_settings.SigningKey),
             ClockSkew = new TimeSpan(0)
         };
 

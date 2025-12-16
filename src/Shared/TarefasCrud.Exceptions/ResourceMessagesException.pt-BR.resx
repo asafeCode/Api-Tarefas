@@ -237,4 +237,7 @@
   <data name="NOT_DECREMENT_INITIAL_PROGRESS_TASK" xml:space="preserve">
     <value>A tarefa está com progresso Iinicial e não pode ser decrementada.</value>
   </data>
+  <data name="ONLY_MODIFY_PROGRESS_CURRENT_WEEK" xml:space="preserve">
+    <value>O progresso só pode ser modificado na semana em que a tarefa foi criada.</value>
+  </data>
 </root>

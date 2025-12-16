@@ -1,6 +1,8 @@
 ﻿using Bogus;
 using CommonTestUtilities.Extensions;
+using CommonTestUtilities.ValueObjects;
 using TarefasCrud.Communication.Requests;
+using TarefasCrud.Domain.Extensions;
 
 namespace CommonTestUtilities.Requests;
 
@@ -11,10 +13,5 @@ public static class RequestTaskJsonBuilder
         .RuleFor(t => t.Description, f => f.Random.String(descriptionChar))
         .RuleFor(t => t.Category, f => f.Random.Word())
         .RuleFor(t => t.WeeklyGoal, f => weeklyGoal)
-        .RuleFor(t => t.StartDate, f => GetFutureStartDate(f.Date.Future(0).ToDateOnly(), targetDay));
-    
-    private static DateOnly GetFutureStartDate(DateOnly currentDate, DayOfWeek targetDay)
-    {
-        return currentDate.NextWeekday(targetDay);
-    }
+        .RuleFor(t => t.StartDate, f => TarefasCrudTestsConstants.DateForTests.ToDateOnly().NextWeekday(targetDay));
 }

@@ -2,6 +2,7 @@
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Extensions;
+using TarefasCrud.Domain.Providers;
 using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
@@ -15,16 +16,19 @@ public class UpdateTaskUseCase :  IUpdateTaskUseCase
     private readonly ITaskUpdateOnlyRepository _repository;
     private readonly ILoggedUser _loggedUser;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IDateProvider _dateProvider;
     
     public UpdateTaskUseCase(ITaskUpdateOnlyRepository repository, 
         ILoggedUser loggedUser, 
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork, 
+        IDateProvider dateProvider)
     {
         _repository = repository;
         _loggedUser = loggedUser;
         _unitOfWork = unitOfWork;
+        _dateProvider = dateProvider;
     }
-    public async System.Threading.Tasks.Task Execute(long taskId, RequestTaskJson request)
+    public async Task Execute(long taskId, RequestTaskJson request)
     {
         var loggedUser = await _loggedUser.User();
         
@@ -46,9 +50,10 @@ public class UpdateTaskUseCase :  IUpdateTaskUseCase
         _repository.Update(task);
         await _unitOfWork.Commit();
     }
-    private static void Validate(RequestTaskJson request, TaskEntity task)
+    private void Validate(RequestTaskJson request, TaskEntity task)
     {
-        var validator = new TaskValidator(task);
+        var date = _dateProvider.UseCaseToday;
+        var validator = new TaskValidator(date, task);
         var result = validator.Validate(request);
         
         if (result.IsValid)

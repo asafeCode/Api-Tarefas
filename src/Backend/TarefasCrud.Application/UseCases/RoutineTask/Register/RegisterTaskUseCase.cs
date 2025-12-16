@@ -4,6 +4,7 @@ using TarefasCrud.Communication.Requests;
 using TarefasCrud.Communication.Responses;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Extensions;
+using TarefasCrud.Domain.Providers;
 using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Services.LoggedUser;
@@ -16,13 +17,17 @@ public class RegisterTaskUseCase : IRegisterTaskUseCase
     private readonly ILoggedUser _loggedUser;
     private readonly ITaskWriteOnlyRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IDateProvider _dateProvider;
+    
     public RegisterTaskUseCase(ILoggedUser loggedUser, 
         ITaskWriteOnlyRepository repository, 
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork, 
+        IDateProvider dateProvider)
     {
         _loggedUser = loggedUser;
         _repository = repository;
         _unitOfWork = unitOfWork;
+        _dateProvider = dateProvider;
     }
     public async Task<ResponseRegisteredTaskJson> Execute(RequestTaskJson request)
     {
@@ -43,9 +48,10 @@ public class RegisterTaskUseCase : IRegisterTaskUseCase
         };
     }
 
-    private static void Validate(RequestTaskJson request)
+    private void Validate(RequestTaskJson request)
     {
-        var validator = new TaskValidator();
+        var date = _dateProvider.UseCaseToday;
+        var validator = new TaskValidator(date);
         var result = validator.Validate(request);
         
         if (result.IsValid)
