@@ -1,26 +1,22 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.Extensions;
 using CommonTestUtilities.Requests;
+using CommonTestUtilities.ValueObjects;
 using Shouldly;
 using TarefasCrud.Application.UseCases.RoutineTask;
+using TarefasCrud.Domain.Extensions;
 using TarefasCrud.Exceptions;
-using Xunit.Abstractions;
 
 namespace Validators.Test.RoutineTask;
 
 public class TaskValidatorTest
 {
-    private readonly ITestOutputHelper _testOutputHelper;
-
-    public TaskValidatorTest(ITestOutputHelper testOutputHelper)
-    {
-        _testOutputHelper = testOutputHelper;
-    }
+    private readonly DateOnly _date = TarefasCrudTestsConstants.DateForTests.ToDateOnly();
 
     [Fact]
     public void Success()
     {
-        var validator = new TaskValidator();
+        var validator = new TaskValidator(_date);
         var request = RequestTaskJsonBuilder.Build();
         var result = validator.Validate(request);
         result.IsValid.ShouldBe(true);
@@ -32,7 +28,7 @@ public class TaskValidatorTest
     [InlineData(DayOfWeek.Wednesday)]
     public void Success_StartDate_Day(DayOfWeek targetDay)
     {
-        var validator = new TaskValidator();
+        var validator = new TaskValidator(_date);
         var request = RequestTaskJsonBuilder.Build(targetDay: targetDay);
         var result = validator.Validate(request);
         result.IsValid.ShouldBe(true);
@@ -45,7 +41,7 @@ public class TaskValidatorTest
     [InlineData(DayOfWeek.Sunday)]
     public void Error_StartDate_Day(DayOfWeek targetDay)
     {
-        var validator = new TaskValidator();
+        var validator = new TaskValidator(_date);
         var request = RequestTaskJsonBuilder.Build(targetDay: targetDay);
         var result = validator.Validate(request);
         result.IsValid.ShouldBe(false);
@@ -56,7 +52,7 @@ public class TaskValidatorTest
     [Fact]
     public void Error_Title_Empty()
     {
-        var validator = new TaskValidator();
+        var validator = new TaskValidator(_date);
         var request = RequestTaskJsonBuilder.Build();
         request.Title = string.Empty;
         
@@ -69,7 +65,7 @@ public class TaskValidatorTest
     [Fact]
     public void Error_Description_Exceeds_Character_Limit()
     {
-        var validator = new TaskValidator();
+        var validator = new TaskValidator(_date);
         var request = RequestTaskJsonBuilder.Build(descriptionChar: 200);
         
         var result = validator.Validate(request);
@@ -81,7 +77,7 @@ public class TaskValidatorTest
     [Fact]
     public void Error_WeeklyGoal_Invalid()
     {
-        var validator = new TaskValidator();
+        var validator = new TaskValidator(_date);
         var request = RequestTaskJsonBuilder.Build(weeklyGoal: 10);
         
         var result = validator.Validate(request);
@@ -95,7 +91,7 @@ public class TaskValidatorTest
         var (user, _) = UserBuilder.Build();
         var task = TaskBuilder.Build(user);
         task.Progress = 2;
-        var validator = new TaskValidator(task);
+        var validator = new TaskValidator(_date, task);
         var request = RequestTaskJsonBuilder.Build(weeklyGoal: 1);
         
         var result = validator.Validate(request);
@@ -107,9 +103,9 @@ public class TaskValidatorTest
     [Fact]
     public void Error_StartDate_Past()
     {
-        var validator = new TaskValidator();
+        var validator = new TaskValidator(_date);
         var request = RequestTaskJsonBuilder.Build();
-        request.StartDate = DateTime.Now.ToDateOnly().PastWeekday(DayOfWeek.Monday);
+        request.StartDate = _date.PastWeekday(DayOfWeek.Monday);
         
         var result = validator.Validate(request);
         result.IsValid.ShouldBe(false);

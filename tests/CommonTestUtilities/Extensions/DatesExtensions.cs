@@ -4,15 +4,15 @@ public static class DatesExtensions
 {
     public static DateOnly NextWeekday(this DateOnly currentDate, DayOfWeek targetDay)
     {
-        var currentDayOfWeek = (int)currentDate.DayOfWeek;
-        var targetDayOfWeek = (int)targetDay;
-        
-        var diff = targetDayOfWeek - currentDayOfWeek;
-        
-        if (diff <= 0)
-            diff += 7;
+        if (currentDate.DayOfWeek == targetDay)
+            return currentDate;
 
-        return currentDate.AddDays(diff);
+        while (currentDate.DayOfWeek != targetDay)
+        {
+            currentDate = currentDate.AddDays(1);
+        }
+    
+        return currentDate;
     }    
     public static DateOnly PastWeekday(this DateOnly currentDate, DayOfWeek targetDay)
     {    
@@ -28,5 +28,5 @@ public static class DatesExtensions
         return result;
     }
     
-    public static DateOnly ToDateOnly(this DateTime date) => DateOnly.FromDateTime(date);  
+    
 }

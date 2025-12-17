@@ -1,13 +1,14 @@
 ﻿using FluentValidation;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Domain.Entities;
+using TarefasCrud.Domain.Providers;
 using TarefasCrud.Exceptions;
 
 namespace TarefasCrud.Application.UseCases.RoutineTask;
 
 public class TaskValidator : AbstractValidator<RequestTaskJson>
 {
-    public TaskValidator(TaskEntity? task = null)
+    public TaskValidator(DateOnly dateNow, TaskEntity? task = null)
     {
         RuleFor(t => t.Title)
             .NotEmpty()
@@ -28,7 +29,7 @@ public class TaskValidator : AbstractValidator<RequestTaskJson>
             .When(_ => task is not null);
         
         RuleFor(t => t.StartDate)
-            .GreaterThanOrEqualTo(DateOnly.FromDateTime(DateTime.Now))
+            .GreaterThanOrEqualTo(dateNow)
             .WithMessage(ResourceMessagesException.START_DATE_IN_PAST);
 
         RuleFor(t => t.StartDate)

@@ -1,8 +1,10 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
+using CommonTestUtilities.Providers;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.RoutineTask;
 using CommonTestUtilities.Requests;
+using CommonTestUtilities.ValueObjects;
 using Shouldly;
 using TarefasCrud.Application.UseCases.RoutineTask.UpdateTask;
 using TarefasCrud.Domain.Entities;
@@ -69,7 +71,8 @@ public class UpdateTaskUseCaseTest
         var loggedUser = LoggedUserBuilder.Build(user);
         var unitOfWork = UnitOfWorkBuilder.Build();
         var repository = new TaskUpdateOnlyRepositoryBuilder().GetById(user, task).Build();
+        var dateProvider = new DateProviderBuilder().UseCaseToday(TarefasCrudTestsConstants.DateForTests).Build();
 
-        return new UpdateTaskUseCase(repository, loggedUser, unitOfWork);
+        return new UpdateTaskUseCase(repository, loggedUser, unitOfWork, dateProvider);
     }
 }

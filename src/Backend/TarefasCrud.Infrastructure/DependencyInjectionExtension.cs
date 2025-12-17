@@ -3,6 +3,7 @@ using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TarefasCrud.Domain.Providers;
 using TarefasCrud.Domain.Repositories;
 using TarefasCrud.Domain.Repositories.Tasks;
 using TarefasCrud.Domain.Repositories.Token;
@@ -13,11 +14,13 @@ using TarefasCrud.Domain.Services.LoggedUser;
 using TarefasCrud.Infrastructure.DataAccess;
 using TarefasCrud.Infrastructure.DataAccess.Repositories;
 using TarefasCrud.Infrastructure.Extensions;
+using TarefasCrud.Infrastructure.Providers;
 using TarefasCrud.Infrastructure.Security.Criptography;
 using TarefasCrud.Infrastructure.Security.Tokens.Access.Generator;
 using TarefasCrud.Infrastructure.Security.Tokens.Access.Validator;
 using TarefasCrud.Infrastructure.Security.Tokens.Refresh;
 using TarefasCrud.Infrastructure.Services;
+using TarefasCrud.Infrastructure.Settings;
 
 namespace TarefasCrud.Infrastructure;
 
@@ -31,6 +34,7 @@ public static class DependencyInjectionExtension
         AddPasswordEncripter(services);
         AddDbContext_SqlServer(services, configuration);
         AddFluentMigrator_SqlServer(services, configuration);
+        AddProviders(services);
     }
 
     private static void AddDbContext_SqlServer(IServiceCollection services, IConfiguration configuration)
@@ -54,16 +58,23 @@ public static class DependencyInjectionExtension
         services.AddScoped<ITaskWriteOnlyRepository, TasksRepository>();
         services.AddScoped<ITaskReadOnlyRepository, TasksRepository>();
         services.AddScoped<ITaskUpdateOnlyRepository, TasksRepository>();
-        
+    }
+    private static void AddProviders(IServiceCollection services)
+    {
+        services.AddScoped<IDateProvider, DateProvider>();
     }
 
     private static void AddTokens(IServiceCollection services, IConfiguration configuration)
     {
-        var expirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
-        var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
+        // var expirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
+        // var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
+        
+        services.Configure<JwtSettings>(options =>
+            configuration.GetSection("Settings:Jwt").Bind(options)
+        );
 
-        services.AddScoped<IAccessTokenGenerator>(_ => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
-        services.AddScoped<IAccessTokenValidator>(_ => new JwtTokenValidator(signingKey!));
+        services.AddScoped<IAccessTokenGenerator, JwtTokenGenerator>();
+        services.AddScoped<IAccessTokenValidator, JwtTokenValidator>();
         services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
     }
