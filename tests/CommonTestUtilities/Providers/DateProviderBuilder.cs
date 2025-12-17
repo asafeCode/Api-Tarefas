@@ -10,7 +10,7 @@ public class DateProviderBuilder
 
     public DateProviderBuilder UseCaseToday(DateTime date)
     {
-        _date.Setup(provider => provider.UseCaseToday).Returns(date.ToDateOnly());
+        _date.Setup(provider => provider.UseCaseDate).Returns(date.ToDateOnly());
         return this;
     }  
     public IDateProvider Build() => _date.Object;

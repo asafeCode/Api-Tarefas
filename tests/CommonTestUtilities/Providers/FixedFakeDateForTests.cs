@@ -4,7 +4,7 @@ using TarefasCrud.Domain.Providers;
 
 namespace CommonTestUtilities.Providers;
 
-public class FixedDate : IDateProvider
+public class FixedFakeDateForTests : IDateProvider
 { 
-    public DateOnly UseCaseToday => TarefasCrudTestsConstants.DateForTests.ToDateOnly();
+    public DateOnly UseCaseDate => TarefasCrudTestsConstants.DateForTests.ToDateOnly();
 }
