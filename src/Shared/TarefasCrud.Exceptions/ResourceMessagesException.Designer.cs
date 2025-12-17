@@ -285,11 +285,38 @@ namespace TarefasCrud.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The task is with initial progress and cannot be decremented..
+        /// </summary>
+        public static string NOT_DECREMENT_INITIAL_PROGRESS_TASK {
+            get {
+                return ResourceManager.GetString("NOT_DECREMENT_INITIAL_PROGRESS_TASK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The task is completed and cannot be incremented..
+        /// </summary>
+        public static string NOT_INCREMENT_COMPLETED_TASK {
+            get {
+                return ResourceManager.GetString("NOT_INCREMENT_COMPLETED_TASK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only images (PNG, JPG, JPEG) are accepted..
         /// </summary>
         public static string ONLY_IMAGES_ACCEPTED {
             get {
                 return ResourceManager.GetString("ONLY_IMAGES_ACCEPTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The progress can only be modified on the week which the task was be created..
+        /// </summary>
+        public static string ONLY_MODIFY_PROGRESS_CURRENT_WEEK {
+            get {
+                return ResourceManager.GetString("ONLY_MODIFY_PROGRESS_CURRENT_WEEK", resourceCulture);
             }
         }
         
@@ -335,6 +362,15 @@ namespace TarefasCrud.Exceptions {
         public static string START_DATE_INVALID {
             get {
                 return ResourceManager.GetString("START_DATE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task not found..
+        /// </summary>
+        public static string TASK_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("TASK_NOT_FOUND", resourceCulture);
             }
         }
         

@@ -28,11 +28,4 @@
       <ProjectReference Include="..\..\src\Backend\TarefasCrud.Application\TarefasCrud.Application.csproj" />
       <ProjectReference Include="..\CommonTestUtilities\CommonTestUtilities.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Login\" />
-      <Folder Include="Task\" />
-      <Folder Include="Token\" />
-    </ItemGroup>
-
 </Project>

@@ -1,23 +1,21 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using TarefasCrud.Domain.Providers;
 using TarefasCrud.Domain.Security.Tokens;
+using TarefasCrud.Infrastructure.Settings;
 
 namespace TarefasCrud.Infrastructure.Security.Tokens.Access.Generator;
 
 public class JwtTokenGenerator : JwtTokenHandler, IAccessTokenGenerator
 {
-    private readonly uint _expirationTimeMinutes;
-    private readonly string _signingKey;
+    private readonly JwtSettings _settings;
+    public JwtTokenGenerator(IOptions<JwtSettings> options) => _settings = options.Value;
 
-    public JwtTokenGenerator(uint expirationTimeMinutes, string signingKey)
-    {
-        _expirationTimeMinutes = expirationTimeMinutes;
-        _signingKey = signingKey;
-    }
     public string Generate(Guid userId)
     {
-        var claims = new List<Claim>()
+        var claims = new List<Claim>
         {
             new(ClaimTypes.Sid, userId.ToString())
         };
@@ -25,8 +23,8 @@ public class JwtTokenGenerator : JwtTokenHandler, IAccessTokenGenerator
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
-            SigningCredentials = new SigningCredentials(SecurityKey(_signingKey), SecurityAlgorithms.HmacSha256Signature)
+            Expires = DateTime.UtcNow.AddMinutes(_settings.ExpirationTimeMinutes),
+            SigningCredentials = new SigningCredentials(SecurityKey(_settings.SigningKey), SecurityAlgorithms.HmacSha256Signature)
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();

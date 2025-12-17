@@ -5,11 +5,15 @@ on:
     branches:
       - develop
     types: [opened, synchronize, reopened]
+  
+  push:
+    branches:
+      - develop
 
 jobs:
   build:
     name: Build and analyze
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Set up JDK 17
@@ -26,7 +30,7 @@ jobs:
       - name: Cache SonarQube Cloud packages
         uses: actions/cache@v4
         with:
-          path: .\.sonar\cache
+          path: ./.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
@@ -34,16 +38,15 @@ jobs:
         id: cache-sonar-scanner
         uses: actions/cache@v4
         with:
-          path: .\.sonar\scanner
+          path: ./.sonar/scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
 
       - name: Install SonarQube Cloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-        shell: powershell
         run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+          mkdir -p ./.sonar/scanner
+          dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 
       - name: Restore dependencies
         run: dotnet restore
@@ -51,12 +54,13 @@ jobs:
       - name: Begin SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: .\.sonar\scanner\dotnet-sonarscanner begin `
-          /k:"asafeCode_Api-Tarefas" `
-          /o:"matheusasafe" `
-          /d:sonar.token="$env:SONAR_TOKEN" `
-          /d:sonar.cs.opencover.reportsPaths=tests/**/*.Test/cobertura/coverage.opencover.xml
-      
+        run: |
+          ./.sonar/scanner/dotnet-sonarscanner begin \
+            /k:"asafeCode_Api-Tarefas" \
+            /o:"matheusasafe" \
+            /d:sonar.token="${SONAR_TOKEN}" \
+            /d:sonar.cs.opencover.reportsPaths=tests/**/*.Test/cobertura/coverage.opencover.xml
+
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
@@ -65,11 +69,8 @@ jobs:
           dotnet test tests/UseCases.Test/UseCases.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
           dotnet test tests/Validators.Test/Validators.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
           dotnet test tests/WebApi.Test/WebApi.Test.csproj /p:CollectCoverage=true /p:CoverletOutput=./cobertura/ /p:CoverletOutputFormat=opencover
-              
+
       - name: End SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="$env:SONAR_TOKEN"
-
-
-
+        run: ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${SONAR_TOKEN}"

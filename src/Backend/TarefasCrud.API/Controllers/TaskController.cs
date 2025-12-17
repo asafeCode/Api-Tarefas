@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TarefasCrud.API.Attributes;
-using TarefasCrud.Application.UseCases.Tasks;
-using TarefasCrud.Application.UseCases.Tasks.Delete;
-using TarefasCrud.Application.UseCases.Tasks.Get.GetById;
-using TarefasCrud.Application.UseCases.Tasks.Get.GetTasks;
-using TarefasCrud.Application.UseCases.Tasks.Register;
-using TarefasCrud.Application.UseCases.Tasks.Update.Progress;
-using TarefasCrud.Application.UseCases.Tasks.Update.Task;
+using TarefasCrud.Application.UseCases.RoutineTask.Delete;
+using TarefasCrud.Application.UseCases.RoutineTask.GetById;
+using TarefasCrud.Application.UseCases.RoutineTask.GetTasks;
+using TarefasCrud.Application.UseCases.RoutineTask.Register;
+using TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
+using TarefasCrud.Application.UseCases.RoutineTask.UpdateTask;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Communication.Responses;
 using TarefasCrud.Domain.Dtos;
@@ -31,12 +30,16 @@ public class TaskController :  TarefasCrudControllerBase
     [HttpGet]
     [Route("/api/tasks")]
     [ProducesResponseType(typeof(ResponseTaskJson),StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetTasks([FromQuery] FilterTasksDto filters,
         [FromServices] IGetTasksUseCase useCase)
     {
         var response = await useCase.Execute(filters);
-        return Ok(response);
+
+        if (response.Tasks.Any())
+            return Ok(response);
+
+        return NoContent();
     } 
     
     [HttpGet]
@@ -59,7 +62,7 @@ public class TaskController :  TarefasCrudControllerBase
         [FromServices] IUpdateTaskUseCase useCase,
         [FromBody]  RequestTaskJson request)
     {
-        await useCase.Execute(id,  request);
+        await useCase.Execute(id, request);
         return NoContent();
     }     
     
