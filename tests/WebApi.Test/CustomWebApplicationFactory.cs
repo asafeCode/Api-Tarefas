@@ -53,7 +53,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
             .ConfigureServices(services =>
             {
                 services.RemoveAll<IDateProvider>();
-                services.AddScoped<IDateProvider, FixedDate>();
+                services.AddScoped<IDateProvider, FixedFakeDateForTests>();
                 var descriptor = services.SingleOrDefault(desc =>
                     desc.ServiceType == typeof(DbContextOptions<TarefasCrudDbContext>));
                 

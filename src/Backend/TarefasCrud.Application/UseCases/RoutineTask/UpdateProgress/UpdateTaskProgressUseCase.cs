@@ -52,7 +52,7 @@ public class UpdateTaskProgressUseCase : IUpdateTaskProgressUseCase
 
     private void Validate(ProgressOperation operation, TaskEntity task)
     {
-        if (task.WeekOfMonth.Equals(_dateProvider.UseCaseToday.GetMonthWeek()).IsFalse())
+        if (task.WeekOfMonth.Equals(_dateProvider.UseCaseDate.GetMonthWeek()).IsFalse())
             throw new ConflictException(ResourceMessagesException.ONLY_MODIFY_PROGRESS_CURRENT_WEEK);
 
         if (operation == ProgressOperation.Increment && task.IsCompleted)

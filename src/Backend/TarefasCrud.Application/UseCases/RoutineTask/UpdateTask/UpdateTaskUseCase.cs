@@ -52,7 +52,7 @@ public class UpdateTaskUseCase :  IUpdateTaskUseCase
     }
     private void Validate(RequestTaskJson request, TaskEntity task)
     {
-        var date = _dateProvider.UseCaseToday;
+        var date = _dateProvider.UseCaseDate;
         var validator = new TaskValidator(date, task);
         var result = validator.Validate(request);
         
