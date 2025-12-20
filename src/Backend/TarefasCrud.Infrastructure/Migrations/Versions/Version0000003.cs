@@ -1,4 +1,5 @@
-﻿using FluentMigrator;
+﻿using System.Data;
+using FluentMigrator;
 
 namespace TarefasCrud.Infrastructure.Migrations.Versions;
 

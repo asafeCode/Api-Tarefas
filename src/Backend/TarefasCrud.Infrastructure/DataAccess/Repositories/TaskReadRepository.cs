@@ -6,22 +6,14 @@ using TarefasCrud.Domain.Repositories.Tasks;
 
 namespace TarefasCrud.Infrastructure.DataAccess.Repositories;
 
-public class TasksRepository : ITaskWriteOnlyRepository,  ITaskReadOnlyRepository, ITaskUpdateOnlyRepository
+public class TaskReadRepository : ITaskReadOnlyRepository
 {
     private readonly TarefasCrudDbContext _dbContext;
-    public TasksRepository(TarefasCrudDbContext dbContext) => _dbContext = dbContext;
-    public async Task Add(TaskEntity task) => await _dbContext.Tasks.AddAsync(task);
-    public async Task Delete(long taskId)
-    {
-        var task = await _dbContext.Tasks.FindAsync(taskId);
-        _dbContext.Tasks.Remove(task!);
-    } 
-
+    public TaskReadRepository(TarefasCrudDbContext dbContext) => _dbContext = dbContext;
     async Task<TaskEntity?> ITaskReadOnlyRepository.GetById(User user, long taskId) => await _dbContext
         .Tasks
         .AsNoTracking()
         .FirstOrDefaultAsync(task => task.Active && task.Id == taskId && task.UserId == user.Id);
-
     public async Task<IList<TaskEntity>> GetTasks(User user, FilterTasksDto filters) 
     {
         var query = _dbContext
@@ -63,10 +55,4 @@ public class TasksRepository : ITaskWriteOnlyRepository,  ITaskReadOnlyRepositor
 
         return await query.ToListAsync();
     }
-
-    public void Update(TaskEntity task) => _dbContext.Tasks.Update(task); 
-
-    async Task<TaskEntity?> ITaskUpdateOnlyRepository.GetById(User user, long taskId) => await _dbContext
-        .Tasks
-        .FirstOrDefaultAsync(task => task.Active && task.Id == taskId && task.UserId == user.Id);
 }

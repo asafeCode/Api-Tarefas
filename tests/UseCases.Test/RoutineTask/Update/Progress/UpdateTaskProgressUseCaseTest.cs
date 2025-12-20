@@ -22,7 +22,7 @@ public class UpdateTaskProgressUseCaseTest
         var task = TaskBuilder.Build(user);
         var useCase = CreateUseCase(user, task);
         
-        var act = async () => await useCase.Execute(task.Id, ProgressOperation.Increment);
+        var act = async () => await useCase.ExecuteIncrement(task.Id);
         
         await act.ShouldNotThrowAsync();
     }    
@@ -33,8 +33,8 @@ public class UpdateTaskProgressUseCaseTest
         var task = TaskBuilder.Build(user);
         var useCase = CreateUseCase(user, task);
         
-        var act1 = async () => await useCase.Execute(task.Id, ProgressOperation.Increment);
-        var act2 = async () => await useCase.Execute(task.Id, ProgressOperation.Decrement);
+        var act1 = async () => await useCase.ExecuteIncrement(task.Id);
+        var act2 = async () => await useCase.ExecuteDecrement(task.Id);
         
         await act1.ShouldNotThrowAsync();
         await act2.ShouldNotThrowAsync();
@@ -47,7 +47,7 @@ public class UpdateTaskProgressUseCaseTest
         var task = TaskBuilder.Build(user);
         var useCase = CreateUseCase(user, task);
         
-        var act = async () => await useCase.Execute(taskId: 1000, ProgressOperation.Increment);
+        var act = async () => await useCase.ExecuteIncrement(taskId: 1000);
         
         var exception = await act.ShouldThrowAsync<NotFoundException>();
         exception.GetErrorMessages().Count.ShouldBe(1);
@@ -62,7 +62,7 @@ public class UpdateTaskProgressUseCaseTest
         task.IsCompleted = true;
         var useCase = CreateUseCase(user, task);
         
-        var act = async () => await useCase.Execute(task.Id, ProgressOperation.Increment);
+        var act = async () => await useCase.ExecuteIncrement(task.Id);
         
         var exception = await act.ShouldThrowAsync<ConflictException>();
         exception.GetErrorMessages().Count.ShouldBe(1);
@@ -76,7 +76,7 @@ public class UpdateTaskProgressUseCaseTest
         task.WeekOfMonth = 1;  
         var useCase = CreateUseCase(user, task);
         
-        var act = async () => await useCase.Execute(task.Id, ProgressOperation.Increment);
+        var act = async () => await useCase.ExecuteIncrement(task.Id);
         
         var exception = await act.ShouldThrowAsync<ConflictException>();
         exception.GetErrorMessages().Count.ShouldBe(1);
@@ -90,7 +90,7 @@ public class UpdateTaskProgressUseCaseTest
         var task = TaskBuilder.Build(user);
         var useCase = CreateUseCase(user, task);
         
-        var act = async () => await useCase.Execute(task.Id, ProgressOperation.Decrement);
+        var act = async () => await useCase.ExecuteDecrement(task.Id);
         
         var exception = await act.ShouldThrowAsync<ConflictException>();
         exception.GetErrorMessages().Count.ShouldBe(1);

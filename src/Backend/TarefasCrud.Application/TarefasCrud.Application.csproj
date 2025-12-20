@@ -20,8 +20,4 @@
     <ProjectReference Include="..\TarefasCrud.Domain\TarefasCrud.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\User\Delete\" />
-  </ItemGroup>
-
 </Project>

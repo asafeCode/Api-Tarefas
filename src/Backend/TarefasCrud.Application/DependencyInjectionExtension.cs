@@ -9,6 +9,9 @@ using TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
 using TarefasCrud.Application.UseCases.RoutineTask.UpdateTask;
 using TarefasCrud.Application.UseCases.Token.RefreshToken;
 using TarefasCrud.Application.UseCases.User.ChangePassword;
+using TarefasCrud.Application.UseCases.User.Delete;
+using TarefasCrud.Application.UseCases.User.Delete.Delete;
+using TarefasCrud.Application.UseCases.User.Delete.Request;
 using TarefasCrud.Application.UseCases.User.Profile;
 using TarefasCrud.Application.UseCases.User.Register;
 using TarefasCrud.Application.UseCases.User.Update;
@@ -28,6 +31,10 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
+        services.AddScoped<IRequestDeleteUserUseCase, RequestDeleteUserUseCase>();
+        services.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
+        
+        
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
         
         services.AddScoped<IUseRefreshTokenUseCase, UseRefreshTokenUseCase>();

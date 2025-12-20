@@ -9,6 +9,7 @@ public class TaskEntity : EntityBase
     public string Category { get; set; } = string.Empty;
     public DateOnly StartDate { get; set; }
     public int WeekOfMonth { get; set; }
-    public bool IsCompleted { get; set; } = false;
+    public DateTime ModifiedAt { get; set; }
+    public bool IsCompleted { get; set; }
     public long UserId { get; set; }
 }

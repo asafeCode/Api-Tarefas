@@ -96,6 +96,15 @@ namespace TarefasCrud.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmation required. You&apos;ve already completed this task today.
+        /// </summary>
+        public static string CONFIRMATION_REQUIRED_TO_UPDATE_PROGRESS {
+            get {
+                return ResourceManager.GetString("CONFIRMATION_REQUIRED_TO_UPDATE_PROGRESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The provided cooking time value is not supported..
         /// </summary>
         public static string COOKING_TIME_NOT_SUPPORTED {

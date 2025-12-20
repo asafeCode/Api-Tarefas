@@ -49,15 +49,15 @@ public static class DependencyInjectionExtension
 
     private static void AddRepositories(IServiceCollection services)
     {
-        services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
-        services.AddScoped<IUserReadOnlyRepository, UserRepository>();
-        services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
+        services.AddScoped<IUserWriteOnlyRepository, UserWriteRepository>();
+        services.AddScoped<IUserUpdateOnlyRepository, UserWriteRepository>();
+        services.AddScoped<IUserReadOnlyRepository, UserReadRepository>();
         
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         
-        services.AddScoped<ITaskWriteOnlyRepository, TasksRepository>();
-        services.AddScoped<ITaskReadOnlyRepository, TasksRepository>();
-        services.AddScoped<ITaskUpdateOnlyRepository, TasksRepository>();
+        services.AddScoped<ITaskWriteOnlyRepository, TaskWriteRepository>();
+        services.AddScoped<ITaskUpdateOnlyRepository, TaskWriteRepository>();
+        services.AddScoped<ITaskReadOnlyRepository, TaskReadRepository>();
     }
     private static void AddProviders(IServiceCollection services)
     {

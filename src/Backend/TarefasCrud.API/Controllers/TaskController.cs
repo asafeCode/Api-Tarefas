@@ -28,7 +28,7 @@ public class TaskController :  TarefasCrudControllerBase
     } 
     
     [HttpGet]
-    [Route("/api/tasks")]
+    [Route("/tasks")]
     [ProducesResponseType(typeof(ResponseTaskJson),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetTasks([FromQuery] FilterTasksDto filters,
@@ -66,19 +66,20 @@ public class TaskController :  TarefasCrudControllerBase
         return NoContent();
     }     
     
-    [HttpPut]
+    [HttpPatch]
     [Route("{id}/progress")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
     public async Task<IActionResult> UpdateProgress([FromRoute] long id,
-        [FromServices] IUpdateTaskProgressUseCase useCase)
+        [FromServices] IUpdateTaskProgressUseCase useCase,
+        [FromQuery] UpdateProgressOptions options)
     {
-        await useCase.Execute(id, operation:ProgressOperation.Increment);
+        await useCase.ExecuteIncrement(id, options.Force);
         return NoContent();
     }     
     
-    [HttpPut]
+    [HttpPatch]
     [Route("{id}/progress/decrement")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
@@ -86,7 +87,7 @@ public class TaskController :  TarefasCrudControllerBase
     public async Task<IActionResult> UpdateProgressDecrement([FromRoute] long id,
         [FromServices] IUpdateTaskProgressUseCase useCase)
     {
-        await useCase.Execute(id, operation:ProgressOperation.Decrement);
+        await useCase.ExecuteDecrement(id);
         return NoContent();
     }   
         

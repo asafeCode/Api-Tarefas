@@ -6,5 +6,5 @@ namespace CommonTestUtilities.Providers;
 
 public class FixedFakeDateForTests : IDateProvider
 { 
-    public DateOnly UseCaseDate => TarefasCrudTestsConstants.DateForTests.ToDateOnly();
+    public DateTime UseCaseDate => TarefasCrudTestsConstants.DateForTests;
 }

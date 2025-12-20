@@ -1,4 +1,5 @@
 ﻿using TarefasCrud.Application.SharedValidators;
+using TarefasCrud.Domain.Dtos;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Enums;
 using TarefasCrud.Domain.Extensions;
@@ -28,37 +29,56 @@ public class UpdateTaskProgressUseCase : IUpdateTaskProgressUseCase
         _unitOfWork = unitOfWork;
         _dateProvider = dateProvider;
     }
-    public async Task Execute(long taskId, ProgressOperation operation)
+    public async Task ExecuteIncrement(long taskId, bool force = false)
     {
-        var loggedUser = await _loggedUser.User();
-        var task = await _updateRepository.GetById(loggedUser, taskId);
+        var task = await GetTaskOrThrow(taskId);
         
-        if (task is null)
-            throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
-
-        Validate(operation, task);
+        const ProgressOperation operation = ProgressOperation.Increment;
         
-        if (operation == ProgressOperation.Decrement && task.IsCompleted)
-            task.IsCompleted = false;
+        ValidateProgressChange(task, operation, force);
         
         task.Progress += operation.ToInt();
-        
-        if (task.Progress == task.WeeklyGoal)
-            task.IsCompleted = true;
+        task.IsCompleted = task.Progress == task.WeeklyGoal;
+        task.ModifiedAt = _dateProvider.UseCaseDate;
         
         _updateRepository.Update(task);
         await _unitOfWork.Commit();
     }
-
-    private void Validate(ProgressOperation operation, TaskEntity task)
+    public async Task ExecuteDecrement(long taskId)
     {
-        if (task.WeekOfMonth.Equals(_dateProvider.UseCaseDate.GetMonthWeek()).IsFalse())
-            throw new ConflictException(ResourceMessagesException.ONLY_MODIFY_PROGRESS_CURRENT_WEEK);
-
-        if (operation == ProgressOperation.Increment && task.IsCompleted)
-            throw new ConflictException(ResourceMessagesException.NOT_INCREMENT_COMPLETED_TASK);
+        var task = await GetTaskOrThrow(taskId);
+        const ProgressOperation operation = ProgressOperation.Decrement;
         
-        if (operation == ProgressOperation.Decrement && task.Progress == TarefasCrudRuleConstants.INITIAL_PROGRESS)
-            throw new ConflictException(ResourceMessagesException.NOT_DECREMENT_INITIAL_PROGRESS_TASK);
+        ValidateProgressChange(task, operation);
+        
+        task.Progress += operation.ToInt();
+        task.IsCompleted = false;
+        task.ModifiedAt = _dateProvider.UseCaseDate;
+        
+        _updateRepository.Update(task);
+        await _unitOfWork.Commit();
+    }
+    private void ValidateProgressChange(TaskEntity task, ProgressOperation action, bool force = false)
+    {
+        if (task.IsInCurrentWeek(_dateProvider).IsFalse())
+            throw new ConflictException(ResourceMessagesException.ONLY_MODIFY_PROGRESS_CURRENT_WEEK);
+        switch (action)
+        {
+            case ProgressOperation.Increment when task.IsCompleted:
+                throw new ConflictException(ResourceMessagesException.NOT_INCREMENT_COMPLETED_TASK);
+            
+            case ProgressOperation.Increment when task.WasModifiedToday(_dateProvider) && force.IsFalse():
+                throw new ConflictException(ResourceMessagesException.CONFIRMATION_REQUIRED_TO_UPDATE_PROGRESS);
+            
+            case ProgressOperation.Decrement when task.IsInInitialProgress():
+                throw new ConflictException(ResourceMessagesException.NOT_DECREMENT_INITIAL_PROGRESS_TASK);
+        }
+    }
+    private async Task<TaskEntity> GetTaskOrThrow(long taskId)
+    {
+        var loggedUser = await _loggedUser.User();
+        var task = await _updateRepository.GetById(loggedUser, taskId);
+
+        return task ?? throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
     }
 }

@@ -1,8 +1,9 @@
-﻿using TarefasCrud.Domain.Enums;
+﻿using TarefasCrud.Domain.Dtos;
 
 namespace TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
 
 public interface IUpdateTaskProgressUseCase
 {
-    public System.Threading.Tasks.Task Execute(long taskId, ProgressOperation operation);
+    public Task ExecuteIncrement(long taskId, bool force = false);
+    public Task ExecuteDecrement(long taskId);
 }

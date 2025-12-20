@@ -50,7 +50,7 @@ public class RegisterTaskUseCase : IRegisterTaskUseCase
 
     private void Validate(RequestTaskJson request)
     {
-        var date = _dateProvider.UseCaseDate;
+        var date = _dateProvider.UseCaseDate.ToDateOnly();;
         var validator = new TaskValidator(date);
         var result = validator.Validate(request);
         

@@ -240,4 +240,7 @@
   <data name="ONLY_MODIFY_PROGRESS_CURRENT_WEEK" xml:space="preserve">
     <value>O progresso só pode ser modificado na semana em que a tarefa foi criada.</value>
   </data>
+  <data name="CONFIRMATION_REQUIRED_TO_UPDATE_PROGRESS" xml:space="preserve">
+    <value>Confirmação necessária. Você já completou essa tarefa hoje.</value>
+  </data>
 </root>

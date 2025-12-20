@@ -46,13 +46,15 @@ public class UpdateTaskUseCase :  IUpdateTaskUseCase
         task.StartDate = request.StartDate;
         task.Category = request.Category;
         task.WeeklyGoal = request.WeeklyGoal;
+
+        task.IsCompleted = task.Progress == task.WeeklyGoal;
         
         _repository.Update(task);
         await _unitOfWork.Commit();
     }
     private void Validate(RequestTaskJson request, TaskEntity task)
     {
-        var date = _dateProvider.UseCaseDate;
+        var date = _dateProvider.UseCaseDate.ToDateOnly();;
         var validator = new TaskValidator(date, task);
         var result = validator.Validate(request);
         

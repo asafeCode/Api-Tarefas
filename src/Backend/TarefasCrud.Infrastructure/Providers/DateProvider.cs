@@ -5,5 +5,5 @@ namespace TarefasCrud.Infrastructure.Providers;
 
 public class DateProvider : IDateProvider
 {
-    public DateOnly UseCaseDate => DateTime.UtcNow.BrasiliaTz().ToDateOnly();
+    public DateTime UseCaseDate => DateTime.UtcNow.BrasiliaTz();
 }

@@ -8,4 +8,5 @@ public class ResponseShortTaskJson
     public int Progress { get; set; }
     public string Category { get; set; } = string.Empty;
     public int WeekOfMonth { get; set; } 
+    public bool IsCompleted { get; set; }
 }
