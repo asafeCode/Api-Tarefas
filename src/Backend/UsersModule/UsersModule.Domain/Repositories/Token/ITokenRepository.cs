@@ -4,6 +4,8 @@ namespace UsersModule.Domain.Repositories.Token;
 
 public interface ITokenRepository
 {
-    Task<RefreshToken?> Get(string refreshToken);
-    Task SaveNewRefreshToken(RefreshToken refreshToken);   
+    Task<RefreshToken?> GetRefreshToken(string refreshToken);
+    Task AddRefreshToken(RefreshToken refreshToken); 
+    Task<EmailVerificationToken?> GetEmailVerificationToken(Guid token);
+    Task AddVerificationToken(EmailVerificationToken emailVerificationToken);
 }

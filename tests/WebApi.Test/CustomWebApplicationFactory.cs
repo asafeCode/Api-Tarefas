@@ -12,7 +12,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using TarefasCrud.API;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Factories;
+using TarefasCrud.Infrastructure;
 using TarefasCrud.Infrastructure.DataAccess;
+using TasksModule.Domain.Entities;
 using Testcontainers.MsSql;
 using UsersModule.Domain.ValueObjects;
 

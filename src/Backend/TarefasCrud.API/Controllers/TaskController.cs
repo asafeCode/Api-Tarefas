@@ -2,12 +2,7 @@
 using TarefasCrud.API.Attributes;
 using TarefasCrud.Communication.Responses;
 using TarefasCrud.Communication.Responses.TasksModule;
-using TasksModule.Application.RoutineTask.Delete;
-using TasksModule.Application.RoutineTask.GetById;
-using TasksModule.Application.RoutineTask.GetTasks;
-using TasksModule.Application.RoutineTask.Register;
-using TasksModule.Application.RoutineTask.UpdateProgress;
-using TasksModule.Application.RoutineTask.UpdateTask;
+using TasksModule.Domain.Dtos;
 
 namespace TarefasCrud.API.Controllers;
 

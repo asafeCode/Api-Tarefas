@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace UsersModule.Infrastructure.Migrations.Versions;
+namespace TarefasCrud.Infrastructure.Migrations.Versions;
 
 [Migration(DatabaseVersions.TABLE_REFRESH_TOKEN, "Create table to save the refresh token")]
 public class Version0000002 : VersionBase

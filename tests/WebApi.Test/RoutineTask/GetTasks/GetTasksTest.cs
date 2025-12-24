@@ -6,6 +6,7 @@ using CommonTestUtilities.Tokens;
 using Shouldly;
 using TarefasCrud.Domain.Dtos;
 using TarefasCrud.Exceptions;
+using TasksModule.Domain.Dtos;
 using WebApi.Test.InlineData;
 
 namespace WebApi.Test.RoutineTask.GetTasks;

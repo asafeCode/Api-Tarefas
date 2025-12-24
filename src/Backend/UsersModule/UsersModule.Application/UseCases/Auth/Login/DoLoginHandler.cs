@@ -3,7 +3,6 @@ using TarefasCrud.Exceptions.ExceptionsBase;
 using UsersModule.Domain.Events.Publishers;
 using UsersModule.Domain.Extensions;
 using UsersModule.Domain.Repositories;
-using UsersModule.Domain.Repositories.EmailVerificationToken;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services;
@@ -22,15 +21,16 @@ public class DoLoginHandler
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEmailVerificationTokenGenerator _emailVerificationTokenGenerator;
     private readonly IEmailVerificationLinkGenerator _emailVerificationLinkGenerator;
-    private readonly IEmailVerifyWriteRepository _emailVerifyWriteRepository;
     private readonly IEmailVerificationPublisher _publisher;
 
     public DoLoginHandler(IUserReadOnlyRepository repository, 
-        IPasswordEncripter passwordEncripter, IAccessTokenGenerator tokenGenerator, 
-        IRefreshTokenGenerator refreshTokenGenerator, ITokenRepository tokenRepository, 
-        IUnitOfWork unitOfWork, IEmailVerificationTokenGenerator emailVerificationTokenGenerator, 
+        IPasswordEncripter passwordEncripter, 
+        IAccessTokenGenerator tokenGenerator, 
+        IRefreshTokenGenerator refreshTokenGenerator, 
+        ITokenRepository tokenRepository, 
+        IUnitOfWork unitOfWork, 
+        IEmailVerificationTokenGenerator emailVerificationTokenGenerator, 
         IEmailVerificationLinkGenerator emailVerificationLinkGenerator, 
-        IEmailVerifyWriteRepository emailVerifyWriteRepository, 
         IEmailVerificationPublisher publisher)
     {
         _repository = repository;
@@ -41,7 +41,6 @@ public class DoLoginHandler
         _unitOfWork = unitOfWork;
         _emailVerificationTokenGenerator = emailVerificationTokenGenerator;
         _emailVerificationLinkGenerator = emailVerificationLinkGenerator;
-        _emailVerifyWriteRepository = emailVerifyWriteRepository;
         _publisher = publisher;
     }
     
@@ -59,7 +58,7 @@ public class DoLoginHandler
             throw new InvalidLoginException($"Account not confirmed. Verification email sent to {user.Email}.");
         }
 
-        var refreshToken = await CreateAndSaveRefreshToken(user);
+        var refreshToken = await CreateAndSaveRefreshToken(user.Id);
         return new ResponseLoggedUserJson
         {
             Name = user.Name,
@@ -70,15 +69,11 @@ public class DoLoginHandler
             }
         };
     }
-    private async Task<string> CreateAndSaveRefreshToken(Domain.Entities.User user)
+    private async Task<string> CreateAndSaveRefreshToken(long userId)
     {
-        var refreshToken = new RefreshToken
-        {
-            Value = _refreshTokenGenerator.Generate(),
-            UserId= user.Id
-        };
-
-        await _tokenRepository.SaveNewRefreshToken(refreshToken);
+        var refreshToken = _refreshTokenGenerator.CreateToken(userId);
+        
+        await _tokenRepository.AddRefreshToken(refreshToken);
 
         await _unitOfWork.Commit();
 
@@ -87,7 +82,7 @@ public class DoLoginHandler
     private async Task<EmailVerificationToken> CreateAndSaveVerificationToken(long userId)
     {
         var token = _emailVerificationTokenGenerator.CreateToken(userId);
-        await _emailVerifyWriteRepository.AddTokenAsync(token);
+        await _tokenRepository.AddVerificationToken(token);
 
         await _unitOfWork.Commit();
 

@@ -1,7 +1,7 @@
 ﻿using FluentMigrator;
 using FluentMigrator.Builders.Create.Table;
 
-namespace UsersModule.Infrastructure.Migrations.Versions;
+namespace TarefasCrud.Infrastructure.Migrations.Versions;
 
 public abstract class VersionBase : ForwardOnlyMigration
 {

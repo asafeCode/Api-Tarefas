@@ -1,4 +1,6 @@
 using TasksModule.Domain.Entities;
+using TasksModule.Domain.Services;
+using TasksModule.Domain.ValueObjects;
 
 namespace TasksModule.Domain.Extensions;
 

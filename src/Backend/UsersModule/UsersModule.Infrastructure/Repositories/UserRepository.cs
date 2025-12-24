@@ -5,7 +5,7 @@ using UsersModule.Domain.Repositories.User;
 
 namespace  UsersModule.Infrastructure.Repositories;
 
-public class UserRepository : IUserReadOnlyRepository, IUserUpdateOnlyRepository, IUserWriteOnlyRepository
+internal sealed class UserRepository : IUserReadOnlyRepository, IUserUpdateOnlyRepository, IUserWriteOnlyRepository
 {
     private readonly TarefasCrudDbContext _dbContext;
     public UserRepository(TarefasCrudDbContext dbContext) => _dbContext = dbContext;

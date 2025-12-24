@@ -3,7 +3,7 @@ using UsersModule.Domain.Repositories;
 
 namespace  UsersModule.Infrastructure.Repositories;
 
-public class UnitOfWork : IUnitOfWork
+internal sealed class UnitOfWork : IUnitOfWork
 {
     private readonly TarefasCrudDbContext _dbContext;
 

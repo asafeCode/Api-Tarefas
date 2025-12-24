@@ -1,4 +1,4 @@
-﻿namespace UsersModule.Infrastructure.Migrations;
+﻿namespace TarefasCrud.Infrastructure.Migrations;
 
 public static class DatabaseVersions
 {

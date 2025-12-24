@@ -1,17 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UsersModule.Domain.Events.Publishers;
 using UsersModule.Domain.Repositories;
-using UsersModule.Domain.Repositories.EmailVerificationToken;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services;
 using UsersModule.Domain.Services.Tokens;
-using UsersModule.Infrastructure.Factories;
 using UsersModule.Infrastructure.Repositories;
-using UsersModule.Infrastructure.Security.Tokens.Access.Validator;
-using UsersModule.Infrastructure.Security.Tokens.Refresh;
 using UsersModule.Infrastructure.Services;
-using UsersModule.Infrastructure.Services.Tokens.Access.Generator;
+using UsersModule.Infrastructure.Services.Events.Publishers;
+using UsersModule.Infrastructure.Services.Tokens;
 using UsersModule.Infrastructure.Settings;
 
 namespace UsersModule.Infrastructure;
@@ -24,7 +22,7 @@ public static class DependencyInjectionExtension
         AddTokens(services, configuration);
         AddLoggedUser(services);
         AddPasswordEncripter(services);
-        AddFactories(services, configuration);
+        AddBusServices(services);
         //AddPaperCut(services, configuration);
 
     }
@@ -35,29 +33,30 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
         
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
-        services.AddScoped<IEmailVerifyReadRepository, EmailVerificationTokenRepository>();
-        services.AddScoped<IEmailVerifyWriteRepository, EmailVerificationTokenRepository>();
+        services.AddScoped<ITokenRepository, TokenRepository>();
     }
-    private static void AddFactories(IServiceCollection services, IConfiguration configuration)
+    private static void AddBusServices(IServiceCollection services)
     {
-        services.Configure<EmailVerificationSettings>(options =>
-            configuration.GetSection("Settings:EmailVerification").Bind(options));
-        services.AddScoped<ISystemClock, SystemClock>();
-        services.AddScoped<IEmailVerificationLinkGenerator, EmailVerificationFactory>();
-        services.AddScoped<IEmailVerificationTokenGenerator, EmailVerificationFactory>();
-    }
+        services.AddScoped<IEmailVerificationPublisher, EmailVerificationPublisher>();
+        services.AddScoped<IUserDeletedPublisher, UserDeletedPublisher>();
 
+        //services.AddWolverine();
+
+    }
     private static void AddTokens(IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<JwtSettings>(options =>
             configuration.GetSection("Settings:Jwt").Bind(options)
         );
+        services.Configure<EmailVerificationSettings>(options =>
+            configuration.GetSection("Settings:EmailVerification").Bind(options));
 
         services.AddScoped<IAccessTokenGenerator, JwtTokenGenerator>();
         services.AddScoped<IAccessTokenValidator, JwtTokenValidator>();
-        services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
+        
+        services.AddScoped<IEmailVerificationLinkGenerator, EmailVerificationServices>();
+        services.AddScoped<IEmailVerificationTokenGenerator, EmailVerificationServices>();
     }
     private static void AddLoggedUser(IServiceCollection services)
     { 

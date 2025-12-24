@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace UsersModule.Infrastructure.Migrations.Versions;
+namespace TarefasCrud.Infrastructure.Migrations.Versions;
 
 [Migration(DatabaseVersions.USER_TABLE, "Create a table to save the user's information")]
 public class Version0000001 : VersionBase

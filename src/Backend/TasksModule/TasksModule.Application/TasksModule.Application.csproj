@@ -7,7 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Handlers\" />
+      <Folder Include="UseCases\Progress\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="12.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\TarefasCrud.Exceptions\TarefasCrud.Exceptions.csproj" />
+      <ProjectReference Include="..\TasksModule.Domain\TasksModule.Domain.csproj" />
     </ItemGroup>
 
 </Project>

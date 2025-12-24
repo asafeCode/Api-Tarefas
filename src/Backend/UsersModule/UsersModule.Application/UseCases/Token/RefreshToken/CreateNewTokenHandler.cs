@@ -3,7 +3,6 @@ using TarefasCrud.Exceptions.ExceptionsBase;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Services.Tokens;
-using UsersModule.Domain.ValueObjects;
 
 namespace UsersModule.Application.UseCases.Token.RefreshToken;
 
@@ -27,21 +26,16 @@ public class CreateNewTokenHandler
     }
     public async Task<ResponseTokensJson> Handle(CreateNewTokenCommand request)
     {
-        var refreshToken = await _tokenRepository.Get(request.RefreshToken);
+        var refreshToken = await _tokenRepository.GetRefreshToken(request.RefreshToken);
         if (refreshToken is null)
             throw new RefreshTokenNotFoundException();
-
-        var refreshTokenValidUntil = refreshToken.CreatedOn.AddDays(TarefasCrudRuleConstants.REFRESH_TOKEN_EXPIRATION_DAYS);
-        if (DateTime.Compare(refreshTokenValidUntil, DateTime.UtcNow) < 0)
+        
+        if (DateTime.Compare(refreshToken.ExpiresOn, refreshToken.CreatedOn) < 0)
             throw new RefreshTokenExpiredException();
 
-        var newRefreshToken = new Domain.ValueObjects.RefreshToken
-        {
-            Value = _refreshTokenGenerator.Generate(),
-            UserId = refreshToken.UserId,
-        };
+        var newRefreshToken = _refreshTokenGenerator.CreateToken(refreshToken.UserId);
         
-        await _tokenRepository.SaveNewRefreshToken(newRefreshToken);
+        await _tokenRepository.AddRefreshToken(newRefreshToken);
         await _unitOfWork.Commit();
 
         return new ResponseTokensJson

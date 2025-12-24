@@ -7,7 +7,7 @@ using UsersModule.Application.Validators;
 using UsersModule.Domain.Events.Publishers;
 using UsersModule.Domain.Extensions;
 using UsersModule.Domain.Repositories;
-using UsersModule.Domain.Repositories.EmailVerificationToken;
+using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services;
 
@@ -20,16 +20,16 @@ public class RegisterUserHandler
     private readonly IPasswordEncripter _passwordEncripter;
     private readonly IEmailVerificationTokenGenerator _emailVerificationToken;
     private readonly IEmailVerificationLinkGenerator _emailVerificationLink;
-    private readonly IEmailVerifyWriteRepository _emailVerifyWriteRepository;
     private readonly IEmailVerificationPublisher _publisher;
+    private readonly ITokenRepository _tokenRepository;
 
     public RegisterUserHandler(IUserWriteOnlyRepository userWriteOnlyRepository, 
         IUserReadOnlyRepository userReadOnlyRepository, IUnitOfWork unitOfWork, 
         IPasswordEncripter passwordEncripter, 
         IEmailVerificationTokenGenerator emailVerificationToken, 
         IEmailVerificationLinkGenerator emailVerificationLink, 
-        IEmailVerifyWriteRepository emailVerifyWriteRepository, 
-        IEmailVerificationPublisher publisher)
+        IEmailVerificationPublisher publisher, 
+        ITokenRepository tokenRepository)
     {
         _userWriteOnlyRepository = userWriteOnlyRepository;
         _userReadOnlyRepository = userReadOnlyRepository;
@@ -37,8 +37,8 @@ public class RegisterUserHandler
         _passwordEncripter = passwordEncripter;
         _emailVerificationToken = emailVerificationToken;
         _emailVerificationLink = emailVerificationLink;
-        _emailVerifyWriteRepository = emailVerifyWriteRepository;
         _publisher = publisher;
+        _tokenRepository = tokenRepository;
     }
     public async Task<ResponseRegisteredUserJson> Handle(RegisterUserCommand request)
     {
@@ -51,7 +51,7 @@ public class RegisterUserHandler
         var token = _emailVerificationToken.CreateToken(user.Id);
         var verificationLink = _emailVerificationLink.CreateLink(token);
         
-        await _emailVerifyWriteRepository.AddTokenAsync(token);
+        await _tokenRepository.AddVerificationToken(token);
         await _unitOfWork.Commit();
         
         await _publisher.SendAsync(user.Email, verificationLink);

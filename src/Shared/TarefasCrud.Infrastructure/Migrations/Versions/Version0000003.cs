@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace UsersModule.Infrastructure.Migrations.Versions;
+namespace TarefasCrud.Infrastructure.Migrations.Versions;
 
 [Migration(DatabaseVersions.TASK_TABLE, "Create table to save tasks")]
 public class Version0000003 : VersionBase

@@ -1,6 +1,6 @@
 namespace UsersModule.Infrastructure.Settings;
 
-public class EmailVerificationSettings
+public sealed record EmailVerificationSettings
 {
-    public int TokenExpirationMinutes { get; init; }
+    public int ExpirationTimeMinutes { get; init; }
 }

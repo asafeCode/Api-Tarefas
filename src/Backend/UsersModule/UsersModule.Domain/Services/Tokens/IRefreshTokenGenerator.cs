@@ -1,6 +1,8 @@
-﻿namespace UsersModule.Domain.Services.Tokens;
+﻿using UsersModule.Domain.ValueObjects;
+
+namespace UsersModule.Domain.Services.Tokens;
 
 public interface IRefreshTokenGenerator
 {
-    public string Generate();
+    public RefreshToken CreateToken(long userId);
 }

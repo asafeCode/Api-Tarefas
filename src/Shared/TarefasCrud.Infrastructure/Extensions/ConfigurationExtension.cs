@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace UsersModule.Infrastructure.Extensions;
+namespace TarefasCrud.Infrastructure.Extensions;
 
 public static class ConfigurationExtension
 {

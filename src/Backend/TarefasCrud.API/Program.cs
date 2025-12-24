@@ -4,11 +4,12 @@ using TarefasCrud.API.Filters;
 using TarefasCrud.API.Middleware;
 using TarefasCrud.API.Token;
 using TarefasCrud.Infrastructure;
+using TarefasCrud.Infrastructure.Extensions;
+using TarefasCrud.Infrastructure.Migrations;
+using TasksModule.Infrastructure;
 using UsersModule.Application;
 using UsersModule.Domain.Services.Tokens;
 using UsersModule.Infrastructure;
-using UsersModule.Infrastructure.Extensions;
-using UsersModule.Infrastructure.Migrations;
 using Wolverine;
 
 const string AUTHENTICATION_TYPE = "Bearer";
@@ -65,6 +66,7 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddUsersModuleInfrastructure(builder.Configuration);
+builder.Services.AddTasksModuleInfrastructure();
 
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 

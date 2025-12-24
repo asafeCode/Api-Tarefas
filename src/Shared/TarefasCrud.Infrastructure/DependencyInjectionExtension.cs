@@ -3,7 +3,7 @@ using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UsersModule.Infrastructure.Extensions;
+using TarefasCrud.Infrastructure.Extensions;
 
 namespace TarefasCrud.Infrastructure;
 
