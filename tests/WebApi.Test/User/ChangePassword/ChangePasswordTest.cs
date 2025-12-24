@@ -4,8 +4,9 @@ using System.Text.Json;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
 using Shouldly;
-using TarefasCrud.Communication.Requests;
 using TarefasCrud.Exceptions;
+using UsersModule.Application.UseCases.Auth.Login;
+using UsersModule.Application.UseCases.User.ChangePassword;
 using WebApi.Test.InlineData;
 
 namespace WebApi.Test.User.ChangePassword;
@@ -36,7 +37,7 @@ public class ChangePasswordTest : TarefasCrudClassFixture
 
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
 
-        var loginRequest = new RequestLoginJson()
+        var loginRequest = new DoLoginCommand()
         {
             Email = _email,
             Password = _password
@@ -57,7 +58,7 @@ public class ChangePasswordTest : TarefasCrudClassFixture
     {
         var token = JwtTokenGeneratorBuilder.Build().Generate(_userId);
         
-        var request = new RequestChangePasswordJson
+        var request = new ChangePasswordCommand
         {
             Password = _password,
             NewPassword = string.Empty

@@ -5,7 +5,7 @@ using CommonTestUtilities.Repositories.User;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
 using Shouldly;
-using TarefasCrud.Application.UseCases.User.Register;
+using TarefasCrud.Application.UseCases.Auth.Register;
 using TarefasCrud.Domain.Extensions;
 using TarefasCrud.Domain.Security.Tokens;
 using TarefasCrud.Exceptions;

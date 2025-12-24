@@ -4,7 +4,6 @@ using System.Text.Json;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
 using Shouldly;
-using TarefasCrud.Communication.Requests;
 using TarefasCrud.Exceptions;
 using WebApi.Test.InlineData;
 

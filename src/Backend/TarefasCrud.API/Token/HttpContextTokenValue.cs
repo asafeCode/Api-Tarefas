@@ -1,4 +1,4 @@
-﻿using TarefasCrud.Domain.Security.Tokens;
+﻿using UsersModule.Domain.Services.Tokens;
 
 namespace TarefasCrud.API.Token;
 

@@ -7,4 +7,9 @@
     <RootNamespace>TarefasCrud.Communication</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Events\RoutineTasks\" />
+    <Folder Include="Events\Users\" />
+  </ItemGroup>
+
 </Project>

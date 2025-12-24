@@ -3,11 +3,13 @@ using TarefasCrud.API.Converters;
 using TarefasCrud.API.Filters;
 using TarefasCrud.API.Middleware;
 using TarefasCrud.API.Token;
-using TarefasCrud.Application;
-using TarefasCrud.Domain.Security.Tokens;
 using TarefasCrud.Infrastructure;
-using TarefasCrud.Infrastructure.Extensions;
-using TarefasCrud.Infrastructure.Migrations;
+using UsersModule.Application;
+using UsersModule.Domain.Services.Tokens;
+using UsersModule.Infrastructure;
+using UsersModule.Infrastructure.Extensions;
+using UsersModule.Infrastructure.Migrations;
+using Wolverine;
 
 const string AUTHENTICATION_TYPE = "Bearer";
 var builder = WebApplication.CreateBuilder(args);
@@ -47,13 +49,23 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
+builder.Host.UseWolverine(opts =>
+{
+    opts.Discovery.IncludeAssembly(typeof(AssemblyMarker).Assembly);
+    opts.Discovery.IncludeAssembly(typeof(TasksModule.Application.AssemblyMarker).Assembly);
+
+    opts.Policies.AutoApplyTransactions();
+});
+
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddApplication();
+builder.Services.AddUsersModuleInfrastructure(builder.Configuration);
+
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 
 var app = builder.Build();

@@ -11,10 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using TarefasCrud.API;
 using TarefasCrud.Domain.Entities;
-using TarefasCrud.Domain.Providers;
+using TarefasCrud.Domain.Factories;
 using TarefasCrud.Infrastructure.DataAccess;
-using TarefasCrud.Infrastructure.Providers;
 using Testcontainers.MsSql;
+using UsersModule.Domain.ValueObjects;
 
 namespace WebApi.Test;
 
@@ -52,8 +52,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
             
             .ConfigureServices(services =>
             {
-                services.RemoveAll<IDateProvider>();
-                services.AddScoped<IDateProvider, FixedFakeDateForTests>();
+                services.RemoveAll<ISystemClock>();
+                services.AddScoped<ISystemClock, FixedFakeDateForTests>();
                 var descriptor = services.SingleOrDefault(desc =>
                     desc.ServiceType == typeof(DbContextOptions<TarefasCrudDbContext>));
                 

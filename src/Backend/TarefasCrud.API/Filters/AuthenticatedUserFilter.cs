@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using TarefasCrud.Communication.Responses;
-using TarefasCrud.Domain.Extensions;
-using TarefasCrud.Domain.Repositories.User;
-using TarefasCrud.Domain.Security.Tokens;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
+using UsersModule.Domain.Extensions;
+using UsersModule.Domain.Repositories.User;
+using UsersModule.Domain.Services.Tokens;
 
 namespace TarefasCrud.API.Filters;
 

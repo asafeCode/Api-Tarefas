@@ -96,6 +96,15 @@ namespace TarefasCrud.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm required to delete. If confirmed, you`ve 30 days to recover your account..
+        /// </summary>
+        public static string CONFIRMATION_REQUIRED_TO_DELETE_ACCOUNT {
+            get {
+                return ResourceManager.GetString("CONFIRMATION_REQUIRED_TO_DELETE_ACCOUNT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirmation required. You&apos;ve already completed this task today.
         /// </summary>
         public static string CONFIRMATION_REQUIRED_TO_UPDATE_PROGRESS {
@@ -416,6 +425,15 @@ namespace TarefasCrud.Exceptions {
         public static string USER_WITHOUT_PERMISSION_ACCESS_RESOURCE {
             get {
                 return ResourceManager.GetString("USER_WITHOUT_PERMISSION_ACCESS_RESOURCE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The token is expired..
+        /// </summary>
+        public static string VERIFICATION_TOKEN_EXPIRED {
+            get {
+                return ResourceManager.GetString("VERIFICATION_TOKEN_EXPIRED", resourceCulture);
             }
         }
         

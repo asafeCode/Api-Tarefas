@@ -243,4 +243,10 @@
   <data name="CONFIRMATION_REQUIRED_TO_UPDATE_PROGRESS" xml:space="preserve">
     <value>Confirmação necessária. Você já completou essa tarefa hoje.</value>
   </data>
+  <data name="CONFIRMATION_REQUIRED_TO_DELETE_ACCOUNT" xml:space="preserve">
+    <value>Confirmação necessária para deletar. Se confirmar, você tem 30 dias para recuperar sua conta.</value>
+  </data>
+  <data name="VERIFICATION_TOKEN_EXPIRED" xml:space="preserve">
+    <value>O token expirou.</value>
+  </data>
 </root>

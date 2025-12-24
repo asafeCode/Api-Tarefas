@@ -7,8 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Backend\TarefasCrud.Application\TarefasCrud.Application.csproj" />
-      <ProjectReference Include="..\..\src\Backend\TarefasCrud.Infrastructure\TarefasCrud.Infrastructure.csproj" />
       <ProjectReference Include="..\..\src\Shared\TarefasCrud.Communication\TarefasCrud.Communication.csproj" />
     </ItemGroup>
 

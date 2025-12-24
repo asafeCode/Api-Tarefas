@@ -1,16 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TarefasCrud.API.Attributes;
-using TarefasCrud.Application.UseCases.RoutineTask.Delete;
-using TarefasCrud.Application.UseCases.RoutineTask.GetById;
-using TarefasCrud.Application.UseCases.RoutineTask.GetTasks;
-using TarefasCrud.Application.UseCases.RoutineTask.Register;
-using TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
-using TarefasCrud.Application.UseCases.RoutineTask.UpdateTask;
-using TarefasCrud.Communication.Requests;
 using TarefasCrud.Communication.Responses;
-using TarefasCrud.Domain.Dtos;
-using TarefasCrud.Domain.Enums;
-using TarefasCrud.Domain.ValueObjects;
+using TarefasCrud.Communication.Responses.TasksModule;
+using TasksModule.Application.RoutineTask.Delete;
+using TasksModule.Application.RoutineTask.GetById;
+using TasksModule.Application.RoutineTask.GetTasks;
+using TasksModule.Application.RoutineTask.Register;
+using TasksModule.Application.RoutineTask.UpdateProgress;
+using TasksModule.Application.RoutineTask.UpdateTask;
 
 namespace TarefasCrud.API.Controllers;
 
@@ -73,7 +70,7 @@ public class TaskController :  TarefasCrudControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
     public async Task<IActionResult> UpdateProgress([FromRoute] long id,
         [FromServices] IUpdateTaskProgressUseCase useCase,
-        [FromQuery] UpdateProgressOptions options)
+        [FromQuery] ConfirmationOptions options)
     {
         await useCase.ExecuteIncrement(id, options.Force);
         return NoContent();

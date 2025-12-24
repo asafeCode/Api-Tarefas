@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using TarefasCrud.Domain.Extensions;
+using UsersModule.Domain.Extensions;
 
 
 namespace TarefasCrud.API.Middleware;

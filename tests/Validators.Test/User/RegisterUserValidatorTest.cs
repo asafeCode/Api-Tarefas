@@ -1,6 +1,6 @@
 ﻿using CommonTestUtilities.Requests;
 using Shouldly;
-using TarefasCrud.Application.UseCases.User.Register;
+using TarefasCrud.Application.UseCases.Auth.Register;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Exceptions;
 

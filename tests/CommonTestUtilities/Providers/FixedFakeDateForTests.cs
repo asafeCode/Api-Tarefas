@@ -1,10 +1,10 @@
 using CommonTestUtilities.ValueObjects;
 using TarefasCrud.Domain.Extensions;
-using TarefasCrud.Domain.Providers;
+using TarefasCrud.Domain.Factories;
 
 namespace CommonTestUtilities.Providers;
 
-public class FixedFakeDateForTests : IDateProvider
+public class FixedFakeDateForTests : ISystemClock
 { 
     public DateTime UseCaseDate => TarefasCrudTestsConstants.DateForTests;
 }

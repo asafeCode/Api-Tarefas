@@ -2,8 +2,8 @@ using System.Globalization;
 using System.Net;
 using System.Text.Json;
 using Shouldly;
-using TarefasCrud.Communication.Requests;
 using TarefasCrud.Exceptions;
+using UsersModule.Application.UseCases.Token.RefreshToken;
 using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Token.RefreshToken;
@@ -22,7 +22,7 @@ public class GetNewAccessTokenTest : TarefasCrudClassFixture
     [Fact]
     public async Task Success()
     {
-        var request = new RequestNewTokenJson
+        var request = new CreateNewTokenCommand
         {
             RefreshToken = _userRefreshToken
         };
@@ -43,7 +43,7 @@ public class GetNewAccessTokenTest : TarefasCrudClassFixture
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Login_Invalid(string culture)
     {
-        var request = new RequestNewTokenJson
+        var request = new CreateNewTokenCommand
         {
             RefreshToken = "InvalidRefreshToken"
         };

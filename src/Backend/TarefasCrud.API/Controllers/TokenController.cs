@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TarefasCrud.Application.UseCases.Token.RefreshToken;
-using TarefasCrud.Communication.Requests;
-using TarefasCrud.Communication.Responses;
+using TarefasCrud.Communication.Responses.UsersModule;
+using UsersModule.Application.UseCases.Token.RefreshToken;
 
 namespace TarefasCrud.API.Controllers;
 
@@ -10,9 +9,9 @@ public class TokenController : TarefasCrudControllerBase
     [HttpPost("refresh-token")]
     [ProducesResponseType(typeof(ResponseTokensJson), StatusCodes.Status200OK)]
     public async Task<IActionResult> RefreshToken([FromServices] IUseRefreshTokenUseCase useCase,
-        [FromBody] RequestNewTokenJson request)
+        [FromBody] CreateNewTokenCommand create)
     {
-        var response = await useCase.Execute(request);
+        var response = await useCase.Execute(create);
         return Ok(response);
     }
 }

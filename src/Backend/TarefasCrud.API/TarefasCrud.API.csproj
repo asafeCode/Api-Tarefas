@@ -8,15 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="WolverineFx" Version="5.9.2" />
+    <PackageReference Include="WolverineFx.Http" Version="5.9.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\TarefasCrud.Communication\TarefasCrud.Communication.csproj" />
-    <ProjectReference Include="..\..\Shared\TarefasCrud.Exceptions\TarefasCrud.Exceptions.csproj" />
-    <ProjectReference Include="..\TarefasCrud.Application\TarefasCrud.Application.csproj" />
-    <ProjectReference Include="..\TarefasCrud.Infrastructure\TarefasCrud.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Shared\TarefasCrud.Infrastructure\TarefasCrud.Infrastructure.csproj" />
+    <ProjectReference Include="..\TasksModule\TasksModule.Application\TasksModule.Application.csproj" />
+    <ProjectReference Include="..\TasksModule\TasksModule.Infrastructure\TasksModule.Infrastructure.csproj" />
+    <ProjectReference Include="..\UsersModule\UsersModule.Application\UsersModule.Application.csproj" />
+    <ProjectReference Include="..\UsersModule\UsersModule.Infrastructure\UsersModule.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

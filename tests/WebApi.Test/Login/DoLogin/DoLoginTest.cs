@@ -3,8 +3,8 @@ using System.Net;
 using System.Text.Json;
 using CommonTestUtilities.Requests;
 using Shouldly;
-using TarefasCrud.Communication.Requests;
 using TarefasCrud.Exceptions;
+using UsersModule.Application.UseCases.Auth.Login;
 using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Login.DoLogin;
@@ -26,7 +26,7 @@ public class DoLoginTest :  TarefasCrudClassFixture
     [Fact]
     public async Task Success()
     {
-        var request = new RequestLoginJson()
+        var request = new DoLoginCommand()
         {
             Email = _email,
             Password = _password,
