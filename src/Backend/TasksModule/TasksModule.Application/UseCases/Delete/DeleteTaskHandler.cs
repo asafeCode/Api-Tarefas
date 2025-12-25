@@ -1,10 +1,11 @@
-﻿using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
+﻿using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Repositories;
+using TarefasCrud.Shared.Services;
 using TasksModule.Domain.Repositories;
 
 namespace TasksModule.Application.UseCases.Delete;
 
-public class DeleteTaskHandler : IDeleteTaskUseCase
+public class DeleteTaskHandler 
 {
     private readonly ILoggedUser _loggedUser;
     private readonly ITaskReadOnlyRepository _readRepository;
@@ -22,15 +23,15 @@ public class DeleteTaskHandler : IDeleteTaskUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Handle(long taskId)
+    public async Task Handle(DeleteTaskCommand command)
     {
         var loggedUser = await _loggedUser.User();
-        var task = await _readRepository.GetById(loggedUser, taskId);
+        var task = await _readRepository.GetById(loggedUser, command.TaskId);
 
         if (task is null)
             throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
         
-        await _writeRepository.Delete(taskId);
+        await _writeRepository.Delete(command.TaskId);
         await _unitOfWork.Commit();
     }
 }

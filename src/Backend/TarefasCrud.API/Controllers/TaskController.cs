@@ -2,7 +2,15 @@
 using TarefasCrud.API.Attributes;
 using TarefasCrud.Shared.Responses;
 using TarefasCrud.Shared.Responses.TasksModule;
+using TasksModule.Application.UseCases.Create;
+using TasksModule.Application.UseCases.Dashboard;
+using TasksModule.Application.UseCases.Delete;
+using TasksModule.Application.UseCases.Get;
+using TasksModule.Application.UseCases.Progress.Decrement;
+using TasksModule.Application.UseCases.Progress.Increment;
+using TasksModule.Application.UseCases.Update;
 using TasksModule.Domain.Dtos;
+using Wolverine;
 
 namespace TarefasCrud.API.Controllers;
 
@@ -12,21 +20,22 @@ public class TaskController :  TarefasCrudControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredTaskJson),StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Register([FromBody] RequestTaskJson request,
-        [FromServices] IRegisterTaskUseCase useCase)
+    public async Task<IActionResult> Register([FromBody] CreateTaskCommand command,
+        [FromServices] IMessageBus mediator)
     {
-        var result = await useCase.Execute(request);
-        return Created(string.Empty, result);
+        var response = await mediator.InvokeAsync<ResponseRegisteredTaskJson>(command);
+        return Created(string.Empty, response);
     } 
     
     [HttpGet]
-    [Route("/tasks")]
-    [ProducesResponseType(typeof(ResponseTaskJson),StatusCodes.Status200OK)]
+    [Route("/api/tasks")]
+    [ProducesResponseType(typeof(ResponseTasksJson),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> GetTasks([FromQuery] FilterTasksDto filters,
-        [FromServices] IGetTasksUseCase useCase)
+    public async Task<IActionResult> GetTasks([FromQuery] FilterTasks filters,
+        [FromServices] IMessageBus mediator)
     {
-        var response = await useCase.Execute(filters);
+        var query = new GetTasksQuery(filters);
+        var response = await mediator.InvokeAsync<ResponseTasksJson>(query);
 
         if (response.Tasks.Any())
             return Ok(response);
@@ -39,9 +48,11 @@ public class TaskController :  TarefasCrudControllerBase
     [ProducesResponseType(typeof(ResponseTaskJson),StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] long id,
-        [FromServices] IGetTaskByIdUseCase useCase)
+        [FromServices] IMessageBus mediator)
     {
-        var response = await useCase.Execute(id);
+        var query = new GetTaskQuery(id);
+        var response = await mediator.InvokeAsync<ResponseTaskJson>(query);
+
         return Ok(response);
     }      
     
@@ -51,10 +62,11 @@ public class TaskController :  TarefasCrudControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update([FromRoute] long id,
-        [FromServices] IUpdateTaskUseCase useCase,
-        [FromBody]  RequestTaskJson request)
+        [FromServices] IMessageBus mediator,
+        [FromBody] UpdateTaskRequest request)
     {
-        await useCase.Execute(id, request);
+        var command = new UpdateTaskCommand(id, request);
+        await mediator.InvokeAsync(command);
         return NoContent();
     }     
     
@@ -64,10 +76,11 @@ public class TaskController :  TarefasCrudControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
     public async Task<IActionResult> UpdateProgress([FromRoute] long id,
-        [FromServices] IUpdateTaskProgressUseCase useCase,
+        [FromServices] IMessageBus mediator,
         [FromQuery] ConfirmationOptions options)
     {
-        await useCase.ExecuteIncrement(id, options.Force);
+        var command = new IncrementProgressCommand(id, options.Force);
+        await mediator.InvokeAsync(command);
         return NoContent();
     }     
     
@@ -77,9 +90,10 @@ public class TaskController :  TarefasCrudControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
     public async Task<IActionResult> UpdateProgressDecrement([FromRoute] long id,
-        [FromServices] IUpdateTaskProgressUseCase useCase)
+        [FromServices] IMessageBus mediator)
     {
-        await useCase.ExecuteDecrement(id);
+        var command = new DecrementProgressCommand(id);
+        await mediator.InvokeAsync(command);
         return NoContent();
     }   
         
@@ -88,9 +102,10 @@ public class TaskController :  TarefasCrudControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete([FromRoute] long id,
-        [FromServices] IDeleteTaskUseCase useCase)
+        [FromServices] IMessageBus mediator)
     {
-        await useCase.Execute(id);
+        var command = new DeleteTaskCommand(id);
+        await mediator.InvokeAsync(command);
         return NoContent();
     } 
     

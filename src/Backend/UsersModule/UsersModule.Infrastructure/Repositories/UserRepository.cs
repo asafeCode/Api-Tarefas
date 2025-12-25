@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TarefasCrud.Infrastructure;
+using TarefasCrud.Infrastructure.DataAccess;
 using TarefasCrud.Shared.SharedEntities;
 using UsersModule.Domain.Repositories.User;
 

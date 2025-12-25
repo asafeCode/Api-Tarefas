@@ -37,7 +37,7 @@ public class EmailVerificationServices : IEmailVerificationLinkGenerator, IEmail
         return new EmailVerificationToken
         {
             UserId = userId,
-            Value = Convert.ToBase64String(Guid.NewGuid().ToByteArray()),
+            Value = Guid.NewGuid(),
             ExpiresOn = DateTime.UtcNow.AddMinutes(_options.ExpirationTimeMinutes),
         };
     }

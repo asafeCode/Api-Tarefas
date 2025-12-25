@@ -1,4 +1,5 @@
 using TarefasCrud.Infrastructure;
+using TarefasCrud.Infrastructure.DataAccess;
 using UsersModule.Domain.Repositories;
 
 namespace TasksModule.Infrastructure.Repositories;

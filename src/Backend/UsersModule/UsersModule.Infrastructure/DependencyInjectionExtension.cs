@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TarefasCrud.Shared.Services;
 using UsersModule.Domain.Events.Publishers;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.Token;
@@ -23,7 +24,7 @@ public static class DependencyInjectionExtension
         AddLoggedUser(services);
         AddPasswordEncripter(services);
         AddBusServices(services);
-        //AddPaperCut(services, configuration);
+        AddPaperCut(services, configuration);
 
     }
     private static void AddRepositories(IServiceCollection services)
@@ -39,9 +40,6 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IEmailVerificationPublisher, EmailVerificationPublisher>();
         services.AddScoped<IUserDeletedPublisher, UserDeletedPublisher>();
-
-        //services.AddWolverine();
-
     }
     private static void AddTokens(IServiceCollection services, IConfiguration configuration)
     {
@@ -67,13 +65,13 @@ public static class DependencyInjectionExtension
         services.AddScoped<IPasswordEncripter, BcryptEncripter>();
     }
    
-    // private static void AddPaperCut(this IServiceCollection services, IConfiguration configuration)
-    // {
-    //     services
-    //         .AddFluentEmail(configuration["Settings:Email:SenderEmail"],
-    //             configuration["Settings:Email:Sender"])
-    //         .AddSmtpSender(configuration["Settings:Email:Host"],
-    //             configuration.GetValue<int>("Settings:Email:Port"))
-    //         .AddRazorRenderer();
-    // }
+    private static void AddPaperCut(this IServiceCollection services, IConfiguration configuration)
+    {
+        services
+            .AddFluentEmail(configuration["Settings:Email:SenderEmail"],
+                configuration["Settings:Email:Sender"])
+            .AddSmtpSender(configuration["Settings:Email:Host"],
+                configuration.GetValue<int>("Settings:Email:Port"))
+            .AddRazorRenderer();
+    }
 }   

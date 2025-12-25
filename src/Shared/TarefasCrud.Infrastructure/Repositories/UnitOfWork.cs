@@ -1,3 +1,4 @@
+using TarefasCrud.Infrastructure.DataAccess;
 using TarefasCrud.Shared.Repositories;
 
 namespace TarefasCrud.Infrastructure.Repositories;

@@ -1,6 +1,5 @@
+using TasksModule.Domain.Dtos;
+
 namespace TasksModule.Application.UseCases.Dashboard;
 
-public class GetTasksQuery
-{
-    
-}
+public record GetTasksQuery(FilterTasks Filters);

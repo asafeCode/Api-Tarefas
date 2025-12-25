@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TarefasCrud.Infrastructure;
+using TarefasCrud.Infrastructure.DataAccess;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.ValueObjects;
 

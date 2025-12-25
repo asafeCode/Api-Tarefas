@@ -4,8 +4,8 @@ namespace UsersModule.Domain.ValueObjects;
 
 public class EmailVerificationToken : EntityBase
 {
-    public DateTime ExpiresOn { get; set; }
-    public string Value { get; set; }
-    public long UserId { get; set; }
-    public User User { get; set; }
+    public DateTime ExpiresOn { get; init; }
+    public Guid Value { get; init; }
+    public long UserId { get; init; }
+    public User User { get; init; } = null!;
 }

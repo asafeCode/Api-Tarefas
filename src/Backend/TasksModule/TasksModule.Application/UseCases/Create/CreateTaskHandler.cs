@@ -1,4 +1,8 @@
-﻿using TasksModule.Application.Validators;
+﻿using TarefasCrud.Shared.Repositories;
+using TarefasCrud.Shared.Responses.TasksModule;
+using TarefasCrud.Shared.Services;
+using TarefasCrud.Shared.SharedEntities;
+using TasksModule.Application.Mappers;
 using TasksModule.Domain.Entities;
 using TasksModule.Domain.Extensions;
 using TasksModule.Domain.Repositories;
@@ -26,10 +30,9 @@ public class CreateTaskHandler
     }
     public async Task<ResponseRegisteredTaskJson> Handle(CreateTaskCommand request)
     {
-        Validate(request);
         var loggedUser = await _loggedUser.User();
         
-        var task = request.Adapt<TaskEntity>();
+        var task = request.ToTask(loggedUser.Id);
         
         task.UserId = loggedUser.Id;
         task.WeekOfMonth = task.StartDate.GetMonthWeek();
@@ -43,17 +46,5 @@ public class CreateTaskHandler
             Id = task.Id,
             Title = task.Title,
         };
-    }
-
-    private void Validate(CreateTaskCommand request)
-    {
-        var date = _systemClock.UseCaseDate.ToDateOnly();;
-        var validator = new CreateTaskValidator(date);
-        var result = validator.Validate(request);
-        
-        if (result.IsValid)
-            return;
-        
-        HandleValidationResult.ThrowError(result);
     }
 }

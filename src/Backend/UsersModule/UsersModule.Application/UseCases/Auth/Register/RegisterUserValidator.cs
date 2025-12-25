@@ -1,16 +1,17 @@
 ﻿using FluentValidation;
 using TarefasCrud.Core.Exceptions;
-using UsersModule.Application.UseCases.User.Update;
+using UsersModule.Application.SharedValidators;
 using UsersModule.Domain.Extensions;
 
-namespace UsersModule.Application.Validators;
+namespace UsersModule.Application.UseCases.Auth.Register;
 
-public class UpdateUserValidator : AbstractValidator<UpdateUserCommand>
+public class RegisterUserValidator : AbstractValidator<RegisterUserCommand>
 {
-    public UpdateUserValidator()
+    public RegisterUserValidator()
     {
         RuleFor(user => user.Name).NotEmpty().WithMessage(ResourceMessagesException.NAME_EMPTY);
         RuleFor(user => user.Email).NotEmpty().WithMessage(ResourceMessagesException.EMAIL_EMPTY);
+        RuleFor(user => user.Password).SetValidator(new PasswordValidator<RegisterUserCommand>());
 
         When(user => user.Email.NotEmpty(), () =>
         {

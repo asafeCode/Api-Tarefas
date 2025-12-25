@@ -1,6 +1,3 @@
 namespace TasksModule.Application.UseCases.Delete;
 
-public class DeleteTaskCommand
-{
-    
-}
+public record DeleteTaskCommand(long TaskId);

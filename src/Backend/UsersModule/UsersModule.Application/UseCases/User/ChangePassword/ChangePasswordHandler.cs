@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
-using TarefasCrud.Core.Exceptions;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Services;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services;
@@ -24,8 +25,9 @@ public class ChangePasswordHandler
         _loggedUser = loggedUser;
         _unitOfWork = unitOfWork;
     }
-    public async Task Handle(ChangePasswordCommand request)
+    public async Task Handle(ChangePasswordCommand command)
     {
+        var request = command.Request;
         var loggedUser = await _loggedUser.User();
         Validate(request, loggedUser.Password);
         
@@ -36,7 +38,7 @@ public class ChangePasswordHandler
         await _unitOfWork.Commit();
     }
 
-    private void Validate(ChangePasswordCommand request, string currentPassword)
+    private void Validate(ChangePasswordRequest request, string currentPassword)
     {
         if (_passwordEncripter.IsValid(request.Password, currentPassword))
             throw new ValidationException(ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_PASSWORD);

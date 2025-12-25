@@ -14,10 +14,13 @@ public class Version0000004 : VersionBase
         Alter.Table("Users")
             .AddColumn("EmailConfirmed").AsBoolean().NotNullable();
         
+        Alter.Table("RefreshTokens")
+            .AddColumn("ExpiresOn").AsDateTime().NotNullable().WithDefaultValue(SystemMethods.CurrentUTCDateTime);;
+
         CreateTable("EmailVerificationTokens")
             .WithColumn("ExpiresOn").AsDateTime().NotNullable()
-            .WithColumn("Token").AsGuid().NotNullable()
-            .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_EmailVerificationTokens_User_Id", "Users", "Id")
-            .OnDelete(Rule.Cascade);
+            .WithColumn("Value").AsGuid().NotNullable()
+            .WithColumn("UserId").AsInt64().NotNullable()
+            .ForeignKey("FK_EmailVerificationTokens_User_Id", "Users", "Id");
     }
 }

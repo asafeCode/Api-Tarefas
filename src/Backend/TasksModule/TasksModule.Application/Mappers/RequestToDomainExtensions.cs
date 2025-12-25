@@ -1,4 +1,4 @@
-using TarefasCrud.Core.Entities;
+using TarefasCrud.Shared.SharedEntities;
 using TasksModule.Application.UseCases.Create;
 using TasksModule.Domain.Extensions;
 using TasksModule.Domain.ValueObjects;

@@ -1,9 +1,7 @@
 ﻿using FluentValidation;
-using TarefasCrud.Exceptions;
-using TasksModule.Application.UseCases.Create;
-using TasksModule.Domain.Entities;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
-namespace TasksModule.Application.Validators;
+namespace TasksModule.Application.UseCases.Create;
 
 public class CreateTaskValidator : AbstractValidator<CreateTaskCommand>
 {

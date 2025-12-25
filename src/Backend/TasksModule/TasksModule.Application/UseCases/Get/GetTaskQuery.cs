@@ -1,6 +1,3 @@
 namespace TasksModule.Application.UseCases.Get;
 
-public class GetTaskCommand
-{
-    
-}
+public record GetTaskQuery(long TaskId);

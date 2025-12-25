@@ -14,9 +14,9 @@ public class VerifyEmailHandler
         _tokenRepository = tokenRepository;
         _unitOfWork = unitOfWork;
     }
-    public async Task Handle(Guid tokenId)
+    public async Task Handle(VerifyEmailCommand command)
     {
-        var token = await _tokenRepository.GetEmailVerificationToken(tokenId);
+        var token = await _tokenRepository.GetEmailVerificationToken(command.TokenValue);
         if (token is null || token.ExpiresOn < DateTime.UtcNow || token.User.EmailConfirmed) throw new ExpiredTokenException();
         
         token.User.EmailConfirmed = true;

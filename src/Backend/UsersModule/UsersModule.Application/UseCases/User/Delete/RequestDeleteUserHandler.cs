@@ -1,5 +1,6 @@
 using TarefasCrud.Core.Exceptions;
 using TarefasCrud.Core.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Services;
 using UsersModule.Domain.Events.Publishers;
 using UsersModule.Domain.Extensions;
 using UsersModule.Domain.Repositories;
@@ -26,9 +27,9 @@ public class RequestDeleteUserHandler
         _updateRepository = updateRepository;
         _publisher = publisher;
     }
-    public async Task Handle(bool force)
+    public async Task Handle(RequestDeleteUserCommand command)
     {
-        if (force.IsFalse())
+        if (command.Force.IsFalse())
             throw new ConflictException(ResourceMessagesException.CONFIRMATION_REQUIRED_TO_DELETE_ACCOUNT);
         var loggedUser = await _loggedUser.User();
         var user = await _updateRepository.GetUserById(loggedUser.Id);

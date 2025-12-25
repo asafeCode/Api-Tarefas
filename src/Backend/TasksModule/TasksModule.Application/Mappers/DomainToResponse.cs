@@ -1,5 +1,7 @@
-using TarefasCrud.Core.Entities;
-using TarefasCrud.Core.Responses.TasksModule;
+
+
+using TarefasCrud.Shared.Responses.TasksModule;
+using TarefasCrud.Shared.SharedEntities;
 
 namespace TasksModule.Application.Mappers;
 

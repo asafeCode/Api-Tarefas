@@ -1,7 +1,8 @@
-﻿using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
-using TasksModule.Application.Validators;
-using TasksModule.Domain.Entities;
+﻿using FluentValidation;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Repositories;
+using TarefasCrud.Shared.Services;
+using TarefasCrud.Shared.SharedEntities;
 using TasksModule.Domain.Extensions;
 using TasksModule.Domain.Repositories;
 using TasksModule.Domain.Services;
@@ -25,13 +26,14 @@ public class UpdateTaskHandler
         _unitOfWork = unitOfWork;
         _systemClock = systemClock;
     }
-    public async Task Handle(long taskId, UpdateTaskCommand request)
+    public async Task Handle(UpdateTaskCommand command)
     {
+        var request = command.Request;
         var loggedUser = await _loggedUser.User();
         
-        var task = await _repository.GetById(loggedUser, taskId);
-        if (task is null)
-            throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
+        var task = await _repository.GetById(loggedUser, command.TaskId);
+        
+        if (task is null) throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
         
         Validate(request, task);
 
@@ -49,7 +51,7 @@ public class UpdateTaskHandler
         _repository.Update(task);
         await _unitOfWork.Commit();
     }
-    private void Validate(UpdateTaskCommand request, TaskEntity task)
+    private void Validate(UpdateTaskRequest request, TaskEntity task)
     {
         var date = _systemClock.UseCaseDate.ToDateOnly();;
         var validator = new UpdateTaskValidator(date, task);
@@ -58,6 +60,6 @@ public class UpdateTaskHandler
         if (result.IsValid)
             return;
         
-        HandleValidationResult.ThrowError(result);
+        throw new ValidationException(result.Errors);
     }
 }

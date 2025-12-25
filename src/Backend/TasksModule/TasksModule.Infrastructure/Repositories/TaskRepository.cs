@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TarefasCrud.Infrastructure;
+using TarefasCrud.Infrastructure.DataAccess;
 using TarefasCrud.Shared.SharedEntities;
 using TasksModule.Domain.Dtos;
-using TasksModule.Domain.Entities;
 using TasksModule.Domain.Extensions;
 using TasksModule.Domain.Repositories;
 
@@ -16,7 +16,7 @@ public class TaskRepository : ITaskReadOnlyRepository, ITaskWriteOnlyRepository,
         .Tasks
         .AsNoTracking()
         .FirstOrDefaultAsync(task => task.Active && task.Id == taskId && task.UserId == user.Id);
-    public async Task<IList<TaskEntity>> GetTasks(User user, FilterTasksDto filters) 
+    public async Task<IList<TaskEntity>> GetTasks(User user, FilterTasks filters) 
     {
         var query = _dbContext
             .Tasks

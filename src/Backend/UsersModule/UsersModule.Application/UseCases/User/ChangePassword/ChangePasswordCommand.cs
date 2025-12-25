@@ -1,7 +1,5 @@
 ﻿namespace UsersModule.Application.UseCases.User.ChangePassword;
 
-public class ChangePasswordCommand
-{
-    public string Password { get; set; } = string.Empty;
-    public string NewPassword { get; set; } = string.Empty;
-}
+public record ChangePasswordCommand(ChangePasswordRequest Request);
+
+public record ChangePasswordRequest(string Password, string NewPassword);

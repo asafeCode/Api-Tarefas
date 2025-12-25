@@ -6,5 +6,5 @@ namespace TasksModule.Domain.Repositories;
 public interface ITaskReadOnlyRepository
 {
     public Task<TaskEntity?> GetById(User user, long taskId);
-    public Task<IList<TaskEntity>> GetTasks(User user, FilterTasksDto filters);
+    public Task<IList<TaskEntity>> GetTasks(User user, FilterTasks filters);
 }

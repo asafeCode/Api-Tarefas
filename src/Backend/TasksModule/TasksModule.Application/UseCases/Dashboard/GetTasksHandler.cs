@@ -1,9 +1,12 @@
-﻿using TasksModule.Domain.Dtos;
+﻿using TarefasCrud.Shared.Responses.TasksModule;
+using TarefasCrud.Shared.Services;
+using TasksModule.Application.Mappers;
+using TasksModule.Domain.Dtos;
 using TasksModule.Domain.Repositories;
 
 namespace TasksModule.Application.UseCases.Dashboard;
 
-public class GetTasksHandler : IGetTasksUseCase
+public class GetTasksHandler 
 {
     private readonly ITaskReadOnlyRepository _readRepository;
     private readonly ILoggedUser _loggedUser;
@@ -13,14 +16,14 @@ public class GetTasksHandler : IGetTasksUseCase
         _readRepository = readRepository;
         _loggedUser = loggedUser;
     }
-    public async Task<ResponseTasksJson> Handle(FilterTasksDto filters)
+    public async Task<ResponseTasksJson> Handle(GetTasksQuery query)
     {
         var loggedUser = await _loggedUser.User();
-        var tasks = await _readRepository.GetTasks(loggedUser, filters);
+        var tasks = await _readRepository.GetTasks(loggedUser, query.Filters);
 
         return new ResponseTasksJson
         {
-            Tasks = tasks.Adapt<IList<ResponseShortTaskJson>>()
+            Tasks = tasks.ToResponse()
         };
     }
 }

@@ -1,5 +1,7 @@
-using TarefasCrud.Core.Entities;
-using TarefasCrud.Core.Responses.UsersModule;
+
+
+using TarefasCrud.Shared.Responses.UsersModule;
+using TarefasCrud.Shared.SharedEntities;
 
 namespace UsersModule.Application.Mappers;
 

@@ -1,6 +1,6 @@
-﻿using TarefasCrud.Shared.SharedEntities;
+﻿using TarefasCrud.Shared.Services;
+using TarefasCrud.Shared.SharedEntities;
 using UsersModule.Domain.Repositories.User;
-using UsersModule.Domain.Services;
 using UsersModule.Domain.Services.Tokens;
 
 namespace UsersModule.Infrastructure.Services;

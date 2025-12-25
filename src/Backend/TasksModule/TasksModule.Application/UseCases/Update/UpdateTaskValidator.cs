@@ -1,12 +1,10 @@
 ﻿using FluentValidation;
-using TarefasCrud.Exceptions;
-using TasksModule.Application.UseCases.Create;
-using TasksModule.Application.UseCases.Update;
-using TasksModule.Domain.Entities;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.SharedEntities;
 
-namespace TasksModule.Application.Validators;
+namespace TasksModule.Application.UseCases.Update;
 
-public class UpdateTaskValidator : AbstractValidator<UpdateTaskCommand>
+public class UpdateTaskValidator : AbstractValidator<UpdateTaskRequest>
 {
     public UpdateTaskValidator(DateOnly dateNow, TaskEntity? task)
     {

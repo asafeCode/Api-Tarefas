@@ -3,7 +3,7 @@ using TarefasCrud.Shared.Responses;
 using TarefasCrud.Shared.Responses.UsersModule;
 using UsersModule.Application.UseCases.Auth.Login;
 using UsersModule.Application.UseCases.Auth.Register;
-using UsersModule.Application.UseCasesHandlers.Auth.VerifyEmail;
+using UsersModule.Application.UseCases.Auth.VerifyEmail;
 using Wolverine;
 
 namespace TarefasCrud.API.Controllers;
@@ -22,21 +22,19 @@ public class AuthController : TarefasCrudControllerBase
     
     [HttpPost]
     [Route("register")]
-    [ProducesResponseType(typeof(ResponseLoggedUserJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
     public async Task<IActionResult> Register([FromBody] RegisterUserCommand command, [FromServices] IMessageBus sender)
     {
-        var result = await sender.InvokeAsync<Response>(request);
-
+        var result = await sender.InvokeAsync<ResponseRegisteredUserJson>(command);
         return Created(string.Empty, result);
     }    
-    [HttpGet]
+    [HttpPatch]
     [Route("verify-email", Name = "VerifyEmail")]
-    [ProducesResponseType(typeof(ResponseLoggedUserJson), StatusCodes.Status200OK)]
-    public async Task<IActionResult> VerifyEmail([FromQuery] Guid token)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> VerifyEmail([FromQuery] Guid token, [FromServices] IMessageBus mediator)
     {
         var command = new VerifyEmailCommand(token);
-        await 
-
-        return Ok(string.Empty);
+        await mediator.InvokeAsync(command);
+        return NoContent();
     }
 }

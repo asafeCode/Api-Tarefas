@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using TarefasCrud.Core.Exceptions;
+using TarefasCrud.Shared.Services;
 using UsersModule.Application.SharedValidators;
-using UsersModule.Application.Validators;
 using UsersModule.Domain.Extensions;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;
