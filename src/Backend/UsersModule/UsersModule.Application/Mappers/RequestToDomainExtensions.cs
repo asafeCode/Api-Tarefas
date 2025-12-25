@@ -1,3 +1,4 @@
+using TarefasCrud.Core.Entities;
 using UsersModule.Application.UseCases.Auth.Register;
 using UsersModule.Domain.Entities;
 using UsersModule.Domain.Services;

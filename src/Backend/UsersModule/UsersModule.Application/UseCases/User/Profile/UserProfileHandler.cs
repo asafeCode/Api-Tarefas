@@ -1,4 +1,5 @@
 ﻿using TarefasCrud.Communication.Responses.UsersModule;
+using TarefasCrud.Core.Responses.UsersModule;
 using UsersModule.Domain.Services;
 
 namespace UsersModule.Application.UseCases.User.Profile;

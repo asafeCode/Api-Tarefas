@@ -1,15 +1,15 @@
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;
 
-namespace UsersModule.Application.EventHandlers;
+namespace UsersModule.Application.EventConsumers;
 
-public class UserDeletedHandler
+public class UserDeletedConsumer
 {
     private readonly IUserWriteOnlyRepository _writeRepository;
     private readonly IUserReadOnlyRepository _readRepository;
     private readonly IUnitOfWork _unitOfWork;
     //private readonly IEmailService _emailService;
-    public UserDeletedHandler(IUserWriteOnlyRepository repository, IUnitOfWork unitOfWork, IUserReadOnlyRepository readRepository)
+    public UserDeletedConsumer(IUserWriteOnlyRepository repository, IUnitOfWork unitOfWork, IUserReadOnlyRepository readRepository)
     {
         _writeRepository = repository;
         _unitOfWork = unitOfWork;

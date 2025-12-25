@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Backend\TasksModule\TasksModule.Domain\TasksModule.Domain.csproj" />
       <ProjectReference Include="..\..\Backend\UsersModule\UsersModule.Domain\UsersModule.Domain.csproj" />
+      <ProjectReference Include="..\TarefasCrud.Shared\TarefasCrud.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

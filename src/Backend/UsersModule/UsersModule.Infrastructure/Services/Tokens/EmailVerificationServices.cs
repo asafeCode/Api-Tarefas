@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 using UsersModule.Domain.Services;
 using UsersModule.Domain.ValueObjects;

@@ -1,5 +1,5 @@
-﻿using TarefasCrud.Communication.Responses.UsersModule;
-using TarefasCrud.Exceptions.ExceptionsBase;
+﻿using TarefasCrud.Core.Exceptions.ExceptionsBase;
+using TarefasCrud.Core.Responses.UsersModule;
 using UsersModule.Domain.Events.Publishers;
 using UsersModule.Domain.Extensions;
 using UsersModule.Domain.Repositories;

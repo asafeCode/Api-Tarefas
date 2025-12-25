@@ -1,3 +1,5 @@
+using TarefasCrud.Core.Exceptions;
+using TarefasCrud.Core.Exceptions.ExceptionsBase;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
 using UsersModule.Domain.Events.Publishers;

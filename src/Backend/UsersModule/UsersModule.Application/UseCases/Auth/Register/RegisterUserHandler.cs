@@ -1,5 +1,7 @@
 ﻿using FluentValidation.Results;
 using TarefasCrud.Communication.Responses.UsersModule;
+using TarefasCrud.Core.Exceptions;
+using TarefasCrud.Core.Responses.UsersModule;
 using TarefasCrud.Exceptions;
 using UsersModule.Application.Mappers;
 using UsersModule.Application.SharedValidators;
