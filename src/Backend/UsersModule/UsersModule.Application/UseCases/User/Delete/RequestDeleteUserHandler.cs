@@ -5,7 +5,6 @@ using UsersModule.Domain.Events.Publishers;
 using UsersModule.Domain.Extensions;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;
-using UsersModule.Domain.Services;
 
 namespace UsersModule.Application.UseCases.User.Delete;
 
@@ -37,6 +36,6 @@ public class RequestDeleteUserHandler
         user.Active = false;
         _updateRepository.Update(user);
         await _unitOfWork.Commit();
-        await _publisher.SendAsync(loggedUser.Id);
+        await _publisher.SendAsync(loggedUser.UserId);
     }
 }

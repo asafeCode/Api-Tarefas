@@ -8,9 +8,12 @@ using TarefasCrud.Infrastructure.Extensions;
 using TarefasCrud.Infrastructure.Migrations;
 using TasksModule.Infrastructure;
 using UsersModule.Application;
+using UsersModule.Domain.Events.EventsDtos;
 using UsersModule.Domain.Services.Tokens;
 using UsersModule.Infrastructure;
 using Wolverine;
+using Wolverine.FluentValidation;
+using Wolverine.RabbitMQ;
 
 const string AUTHENTICATION_TYPE = "Bearer";
 var builder = WebApplication.CreateBuilder(args);
@@ -54,7 +57,21 @@ builder.Services.AddSwaggerGen(options =>
 builder.Host.UseWolverine(opts =>
 {
     opts.Discovery.IncludeAssembly(typeof(AssemblyMarker).Assembly);
+    opts.UseFluentValidation();
+    
+    opts.UseRabbitMq(new Uri("amqp://guest:guest@localhost:5672"))
+        .AutoProvision();
+    
 
+    opts.PublishMessage<UserDeletedEvent>()
+        .ToRabbitExchange("user.deleted");
+
+    opts.PublishMessage<EmailVerifiedEvent>()
+        .ToRabbitExchange("email.verified");
+    
+    opts.ListenToRabbitQueue("users.user-deleted");
+    opts.ListenToRabbitQueue("emails.email-verified");
+    
     opts.Policies.AutoApplyTransactions();
 });
 

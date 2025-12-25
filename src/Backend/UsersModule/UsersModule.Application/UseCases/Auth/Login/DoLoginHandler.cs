@@ -21,7 +21,7 @@ public class DoLoginHandler
     private readonly IUnitOfWork _unitOfWork;
     private readonly IEmailVerificationTokenGenerator _emailVerificationTokenGenerator;
     private readonly IEmailVerificationLinkGenerator _emailVerificationLinkGenerator;
-    private readonly IEmailVerificationPublisher _publisher;
+    private readonly IEmailVerifiedPublisher _publisher;
 
     public DoLoginHandler(IUserReadOnlyRepository repository, 
         IPasswordEncripter passwordEncripter, 
@@ -31,7 +31,7 @@ public class DoLoginHandler
         IUnitOfWork unitOfWork, 
         IEmailVerificationTokenGenerator emailVerificationTokenGenerator, 
         IEmailVerificationLinkGenerator emailVerificationLinkGenerator, 
-        IEmailVerificationPublisher publisher)
+        IEmailVerifiedPublisher publisher)
     {
         _repository = repository;
         _passwordEncripter = passwordEncripter;

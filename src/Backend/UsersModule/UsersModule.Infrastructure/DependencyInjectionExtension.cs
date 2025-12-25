@@ -38,7 +38,7 @@ public static class DependencyInjectionExtension
     }
     private static void AddBusServices(IServiceCollection services)
     {
-        services.AddScoped<IEmailVerificationPublisher, EmailVerificationPublisher>();
+        services.AddScoped<IEmailVerifiedPublisher, EmailVerifiedPublisher>();
         services.AddScoped<IUserDeletedPublisher, UserDeletedPublisher>();
     }
     private static void AddTokens(IServiceCollection services, IConfiguration configuration)

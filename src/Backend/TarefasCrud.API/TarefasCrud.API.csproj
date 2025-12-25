@@ -11,7 +11,9 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="WolverineFx" Version="5.9.2" />
+    <PackageReference Include="WolverineFx.FluentValidation" Version="5.9.2" />
     <PackageReference Include="WolverineFx.Http" Version="5.9.2" />
+    <PackageReference Include="WolverineFx.RabbitMQ" Version="5.9.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -17,7 +17,7 @@ public class RegisterUserHandler
     private readonly IPasswordEncripter _passwordEncripter;
     private readonly IEmailVerificationTokenGenerator _emailVerificationToken;
     private readonly IEmailVerificationLinkGenerator _emailVerificationLink;
-    private readonly IEmailVerificationPublisher _publisher;
+    private readonly IEmailVerifiedPublisher _publisher;
     private readonly ITokenRepository _tokenRepository;
 
     public RegisterUserHandler(IUserWriteOnlyRepository userWriteOnlyRepository, 
@@ -25,7 +25,7 @@ public class RegisterUserHandler
         IPasswordEncripter passwordEncripter, 
         IEmailVerificationTokenGenerator emailVerificationToken, 
         IEmailVerificationLinkGenerator emailVerificationLink, 
-        IEmailVerificationPublisher publisher, 
+        IEmailVerifiedPublisher publisher, 
         ITokenRepository tokenRepository)
     {
         _userWriteOnlyRepository = userWriteOnlyRepository;
