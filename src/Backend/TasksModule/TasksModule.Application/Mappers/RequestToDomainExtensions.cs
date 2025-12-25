@@ -1,7 +1,5 @@
 using TarefasCrud.Core.Entities;
 using TasksModule.Application.UseCases.Create;
-using TasksModule.Application.UseCasesHandlers.Create;
-using TasksModule.Domain.Entities;
 using TasksModule.Domain.Extensions;
 using TasksModule.Domain.ValueObjects;
 

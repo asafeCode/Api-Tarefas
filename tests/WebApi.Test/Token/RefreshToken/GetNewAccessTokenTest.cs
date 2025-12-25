@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Net;
 using System.Text.Json;
 using Shouldly;
-using TarefasCrud.Exceptions;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using UsersModule.Application.UseCases.Token.RefreshToken;
 using WebApi.Test.InlineData;
 

@@ -1,4 +1,4 @@
-﻿namespace TarefasCrud.Communication.Responses.TasksModule;
+﻿namespace TarefasCrud.Shared.Responses.TasksModule;
 
 public class ResponseTasksJson
 {

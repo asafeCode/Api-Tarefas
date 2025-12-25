@@ -1,4 +1,4 @@
-﻿namespace TarefasCrud.Communication.Responses;
+﻿namespace TarefasCrud.Shared.Responses;
 
 public class ResponseErrorJson
 {

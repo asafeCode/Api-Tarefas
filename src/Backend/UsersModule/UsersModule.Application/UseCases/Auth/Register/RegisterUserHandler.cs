@@ -1,13 +1,8 @@
-﻿using FluentValidation.Results;
-using TarefasCrud.Communication.Responses.UsersModule;
+﻿using FluentValidation;
 using TarefasCrud.Core.Exceptions;
 using TarefasCrud.Core.Responses.UsersModule;
-using TarefasCrud.Exceptions;
 using UsersModule.Application.Mappers;
-using UsersModule.Application.SharedValidators;
-using UsersModule.Application.Validators;
 using UsersModule.Domain.Events.Publishers;
-using UsersModule.Domain.Extensions;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.User;
@@ -66,17 +61,8 @@ public class RegisterUserHandler
     
     private async Task ValidateAsync(RegisterUserCommand request)
     {
-        var validator = new RegisterUserValidator();
-        var result = await validator.ValidateAsync(request);
-        
-        if (result.IsValid.IsFalse())
-            HandleValidationResult.ThrowError(result);
-        
         var emailExists = await _userReadOnlyRepository.ExistsActiveUserWithEmail(request.Email);
         if (emailExists)
-        {
-            result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
-            HandleValidationResult.ThrowError(result);
-        }
+            throw new ValidationException(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
     }
 }

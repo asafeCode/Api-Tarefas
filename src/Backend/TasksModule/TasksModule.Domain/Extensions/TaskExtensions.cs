@@ -1,4 +1,4 @@
-using TasksModule.Domain.Entities;
+using TarefasCrud.Shared.SharedEntities;
 using TasksModule.Domain.Services;
 using TasksModule.Domain.ValueObjects;
 

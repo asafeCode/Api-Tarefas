@@ -1,4 +1,4 @@
-﻿namespace UsersModule.Domain.Entities;
+﻿namespace TarefasCrud.Shared.SharedEntities;
 public class User : EntityBase
 {
     public string Name { get; set; } =  string.Empty;

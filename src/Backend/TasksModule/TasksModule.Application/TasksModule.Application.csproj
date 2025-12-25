@@ -19,4 +19,10 @@
       <ProjectReference Include="..\TasksModule.Domain\TasksModule.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="TarefasCrud.Core">
+        <HintPath>..\..\TarefasCrud.API\bin\Debug\net8.0\TarefasCrud.Core.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

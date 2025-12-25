@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TarefasCrud.API.Attributes;
-using TarefasCrud.Communication.Responses;
-using TarefasCrud.Communication.Responses.UsersModule;
+using TarefasCrud.Shared.Responses;
+using TarefasCrud.Shared.Responses.UsersModule;
 using TasksModule.Domain.Dtos;
 using UsersModule.Application.UseCases.User.ChangePassword;
 using UsersModule.Application.UseCases.User.Update;

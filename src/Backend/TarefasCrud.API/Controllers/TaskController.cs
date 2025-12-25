@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TarefasCrud.API.Attributes;
-using TarefasCrud.Communication.Responses;
-using TarefasCrud.Communication.Responses.TasksModule;
+using TarefasCrud.Shared.Responses;
+using TarefasCrud.Shared.Responses.TasksModule;
 using TasksModule.Domain.Dtos;
 
 namespace TarefasCrud.API.Controllers;

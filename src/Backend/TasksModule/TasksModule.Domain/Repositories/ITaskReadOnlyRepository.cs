@@ -1,10 +1,10 @@
-﻿using TasksModule.Domain.Dtos;
-using TasksModule.Domain.Entities;
+﻿using TarefasCrud.Shared.SharedEntities;
+using TasksModule.Domain.Dtos;
 
 namespace TasksModule.Domain.Repositories;
 
 public interface ITaskReadOnlyRepository
 {
-    public Task<TaskEntity?> GetById(Entities.User user, long taskId);
-    public Task<IList<Entities.TaskEntity>> GetTasks(Entities.User user, FilterTasksDto filters);
+    public Task<TaskEntity?> GetById(User user, long taskId);
+    public Task<IList<TaskEntity>> GetTasks(User user, FilterTasksDto filters);
 }

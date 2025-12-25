@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TarefasCrud.Communication.Responses.UsersModule;
+using TarefasCrud.Shared.Responses.UsersModule;
 using UsersModule.Application.UseCases.Token.RefreshToken;
 
 namespace TarefasCrud.API.Controllers;

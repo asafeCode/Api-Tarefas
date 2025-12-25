@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace TarefasCrud.Exceptions.ExceptionsBase;
+namespace TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 public abstract class TarefasCrudException : SystemException
 {

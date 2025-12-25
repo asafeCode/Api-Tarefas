@@ -1,6 +1,5 @@
 using TarefasCrud.Core.Entities;
 using TarefasCrud.Core.Responses.TasksModule;
-using TasksModule.Domain.Entities;
 
 namespace TasksModule.Application.Mappers;
 

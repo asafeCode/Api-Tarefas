@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace TarefasCrud.Exceptions.ExceptionsBase;
+namespace TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 public class NotFoundException : TarefasCrudException
 {

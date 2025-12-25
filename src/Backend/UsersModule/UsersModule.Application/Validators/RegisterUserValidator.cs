@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using TarefasCrud.Core.Exceptions;
-using TarefasCrud.Exceptions;
 using UsersModule.Application.SharedValidators;
 using UsersModule.Application.UseCases.Auth.Register;
 using UsersModule.Domain.Extensions;

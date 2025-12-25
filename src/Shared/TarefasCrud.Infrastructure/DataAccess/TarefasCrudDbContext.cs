@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TarefasCrud.Shared.SharedEntities;
 using TasksModule.Domain.Entities;
-using UsersModule.Domain.Entities;
 using UsersModule.Domain.ValueObjects;
 
 namespace TarefasCrud.Infrastructure;

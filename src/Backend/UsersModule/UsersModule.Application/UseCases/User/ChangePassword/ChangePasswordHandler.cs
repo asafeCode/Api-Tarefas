@@ -1,9 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using FluentValidation;
 using TarefasCrud.Core.Exceptions;
-using TarefasCrud.Exceptions;
-using UsersModule.Application.SharedValidators;
-using UsersModule.Application.Validators;
-using UsersModule.Domain.Extensions;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services;
@@ -42,16 +38,7 @@ public class ChangePasswordHandler
 
     private void Validate(ChangePasswordCommand request, string currentPassword)
     {
-        var validator = new ChangePasswordValidator();
-        var result = validator.Validate(request);
-        
-        if (result.IsValid.IsFalse())
-            HandleValidationResult.ThrowError(result);
-        
         if (_passwordEncripter.IsValid(request.Password, currentPassword))
-            return;
-        
-        result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_PASSWORD));
-        HandleValidationResult.ThrowError(result);
+            throw new ValidationException(ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_PASSWORD);
     }
 }

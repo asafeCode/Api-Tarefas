@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
-using TarefasCrud.Communication.Responses;
-using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Responses;
 using UsersModule.Domain.Extensions;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services.Tokens;

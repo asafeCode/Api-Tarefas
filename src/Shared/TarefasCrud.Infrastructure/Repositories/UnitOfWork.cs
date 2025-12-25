@@ -1,4 +1,4 @@
-using TarefasCrud.Core.Repositories;
+using TarefasCrud.Shared.Repositories;
 
 namespace TarefasCrud.Infrastructure.Repositories;
 

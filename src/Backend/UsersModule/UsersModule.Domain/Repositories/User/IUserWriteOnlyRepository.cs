@@ -2,6 +2,6 @@
 
 public interface IUserWriteOnlyRepository
 {
-    public Task AddUserAsync(Entities.User user);
+    public Task AddUserAsync(TarefasCrud.Shared.SharedEntities.User user);
     public Task DeleteAccount(Guid userId);
 }

@@ -1,4 +1,4 @@
-﻿namespace TarefasCrud.Communication.Responses.UsersModule;
+﻿namespace TarefasCrud.Shared.Responses.UsersModule;
 
 public class ResponseTokensJson
 {

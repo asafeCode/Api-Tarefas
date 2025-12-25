@@ -1,4 +1,4 @@
-using UsersModule.Domain.Entities;
+using TarefasCrud.Shared.SharedEntities;
 
 namespace TarefasCrud.Shared.Services;
 

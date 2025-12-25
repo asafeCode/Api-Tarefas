@@ -1,4 +1,4 @@
-﻿using UsersModule.Domain.Entities;
+﻿using TarefasCrud.Shared.SharedEntities;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services;
 using UsersModule.Domain.Services.Tokens;

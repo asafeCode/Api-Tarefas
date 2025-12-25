@@ -1,6 +1,6 @@
-﻿using FluentValidation.Results;
+﻿using FluentValidation;
+using FluentValidation.Results;
 using TarefasCrud.Core.Exceptions;
-using TarefasCrud.Exceptions;
 using UsersModule.Application.SharedValidators;
 using UsersModule.Application.Validators;
 using UsersModule.Domain.Extensions;
@@ -43,20 +43,11 @@ public class UpdateUserHandler
 
     private async Task Validate(UpdateUserCommand request,  string currentEmail)
     {
-        var validator = new UpdateUserValidator();
-        var result = await validator.ValidateAsync(request);
-        
-        if (result.IsValid.IsFalse())
-            HandleValidationResult.ThrowError(result);
-        
         if (currentEmail.Equals(request.Email).IsFalse())
         {
             var emailExists = await _readOnlyRepository.ExistsActiveUserWithEmail(request.Email);
             if (emailExists)
-            {
-                result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
-                HandleValidationResult.ThrowError(result);
-            }
+                throw new ValidationException(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
         }
     }
 }

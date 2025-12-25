@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\TarefasCrud.Shared\TarefasCrud.Shared.csproj" />
+    </ItemGroup>
+
 </Project>

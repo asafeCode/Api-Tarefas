@@ -2,6 +2,6 @@
 
 public interface IUserUpdateOnlyRepository
 {
-    public Task<Entities.User> GetUserById(long id);
-    public void Update(Entities.User user);
+    public Task<TarefasCrud.Shared.SharedEntities.User> GetUserById(long id);
+    public void Update(TarefasCrud.Shared.SharedEntities.User user);
 }

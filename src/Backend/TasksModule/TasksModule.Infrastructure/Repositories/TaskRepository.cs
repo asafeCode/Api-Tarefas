@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TarefasCrud.Infrastructure;
+using TarefasCrud.Shared.SharedEntities;
 using TasksModule.Domain.Dtos;
 using TasksModule.Domain.Entities;
 using TasksModule.Domain.Extensions;
 using TasksModule.Domain.Repositories;
-using UsersModule.Domain.Entities;
 
 namespace TasksModule.Infrastructure.Repositories;
 

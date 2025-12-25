@@ -54,7 +54,6 @@ builder.Services.AddSwaggerGen(options =>
 builder.Host.UseWolverine(opts =>
 {
     opts.Discovery.IncludeAssembly(typeof(AssemblyMarker).Assembly);
-    opts.Discovery.IncludeAssembly(typeof(TasksModule.Application.AssemblyMarker).Assembly);
 
     opts.Policies.AutoApplyTransactions();
 });

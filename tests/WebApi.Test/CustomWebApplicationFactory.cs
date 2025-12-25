@@ -14,6 +14,7 @@ using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Factories;
 using TarefasCrud.Infrastructure;
 using TarefasCrud.Infrastructure.DataAccess;
+using TarefasCrud.Shared.SharedEntities;
 using TasksModule.Domain.Entities;
 using Testcontainers.MsSql;
 using UsersModule.Domain.ValueObjects;

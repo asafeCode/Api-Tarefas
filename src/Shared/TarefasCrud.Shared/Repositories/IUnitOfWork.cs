@@ -1,4 +1,4 @@
-namespace TarefasCrud.Core.Repositories;
+namespace TarefasCrud.Shared.Repositories;
 
 public interface IUnitOfWork
 {
