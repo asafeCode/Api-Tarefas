@@ -2,17 +2,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 using UsersModule.Domain.Services;
+using UsersModule.Domain.Services.Tokens;
 using UsersModule.Domain.ValueObjects;
 using UsersModule.Infrastructure.Settings;
 
 namespace UsersModule.Infrastructure.Services.Tokens;
 
-public class EmailVerificationServices : IEmailVerificationLinkGenerator, IEmailVerificationTokenGenerator
+public class EmailVerificationGenerators : IEmailVerificationLinkGenerator, IEmailVerificationTokenGenerator
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly LinkGenerator _linkGenerator;
     private readonly EmailVerificationSettings _options;
-    public EmailVerificationServices(
+    public EmailVerificationGenerators(
         IHttpContextAccessor httpContextAccessor, 
         LinkGenerator linkGenerator, 
         IOptions<EmailVerificationSettings> options)

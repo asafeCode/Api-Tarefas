@@ -6,10 +6,13 @@ using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services;
+using UsersModule.Domain.Services.Security;
 using UsersModule.Domain.Services.Tokens;
 using UsersModule.Infrastructure.Repositories;
 using UsersModule.Infrastructure.Services;
 using UsersModule.Infrastructure.Services.Events.Publishers;
+using UsersModule.Infrastructure.Services.LoggedUser;
+using UsersModule.Infrastructure.Services.Security;
 using UsersModule.Infrastructure.Services.Tokens;
 using UsersModule.Infrastructure.Settings;
 
@@ -53,8 +56,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IAccessTokenValidator, JwtTokenValidator>();
         services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
         
-        services.AddScoped<IEmailVerificationLinkGenerator, EmailVerificationServices>();
-        services.AddScoped<IEmailVerificationTokenGenerator, EmailVerificationServices>();
+        services.AddScoped<IEmailVerificationLinkGenerator, EmailVerificationGenerators>();
+        services.AddScoped<IEmailVerificationTokenGenerator, EmailVerificationGenerators>();
     }
     private static void AddLoggedUser(IServiceCollection services)
     { 

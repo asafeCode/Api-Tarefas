@@ -7,6 +7,8 @@ using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services;
+using UsersModule.Domain.Services.Security;
+using UsersModule.Domain.Services.Tokens;
 
 namespace UsersModule.Application.UseCases.Auth.Register;
 public class RegisterUserHandler 

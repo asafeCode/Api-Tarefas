@@ -1,6 +1,6 @@
 using UsersModule.Domain.ValueObjects;
 
-namespace UsersModule.Domain.Services;
+namespace UsersModule.Domain.Services.Tokens;
 
 public interface IEmailVerificationTokenGenerator
 {

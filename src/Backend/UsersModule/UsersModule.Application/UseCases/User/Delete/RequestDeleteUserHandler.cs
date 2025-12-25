@@ -36,6 +36,6 @@ public class RequestDeleteUserHandler
         user.Active = false;
         _updateRepository.Update(user);
         await _unitOfWork.Commit();
-        await _publisher.SendAsync(loggedUser.UserId);
+        await _publisher.SendAsync(loggedUser.UserId, loggedUser.Email);
     }
 }

@@ -1,6 +1,6 @@
-﻿using UsersModule.Domain.Services;
+﻿using UsersModule.Domain.Services.Security;
 
-namespace UsersModule.Infrastructure.Services;
+namespace UsersModule.Infrastructure.Services.Security;
 
 internal sealed class BcryptEncripter : IPasswordEncripter
 {

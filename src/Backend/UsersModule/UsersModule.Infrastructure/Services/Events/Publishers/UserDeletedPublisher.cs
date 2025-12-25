@@ -12,5 +12,5 @@ public sealed class UserDeletedPublisher : IUserDeletedPublisher
     {
         _messageBus = messageBus;
     }
-    public async Task SendAsync(Guid userId) => await _messageBus.PublishAsync(new UserDeletedEvent(userId));
+    public async Task SendAsync(Guid userId, string email) => await _messageBus.PublishAsync(new UserDeletedEvent(userId, email));
 }

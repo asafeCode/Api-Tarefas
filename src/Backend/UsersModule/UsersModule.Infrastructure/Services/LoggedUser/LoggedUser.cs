@@ -3,7 +3,7 @@ using TarefasCrud.Shared.SharedEntities;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services.Tokens;
 
-namespace UsersModule.Infrastructure.Services;
+namespace UsersModule.Infrastructure.Services.LoggedUser;
 public class LoggedUser : ILoggedUser
 {
     private readonly IUserReadOnlyRepository _repository;

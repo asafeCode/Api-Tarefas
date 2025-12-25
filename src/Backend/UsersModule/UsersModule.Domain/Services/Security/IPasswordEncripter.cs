@@ -1,4 +1,4 @@
-﻿namespace UsersModule.Domain.Services;
+﻿namespace UsersModule.Domain.Services.Security;
 
 public interface IPasswordEncripter
 {
