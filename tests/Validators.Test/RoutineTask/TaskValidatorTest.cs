@@ -6,6 +6,7 @@ using Shouldly;
 using TarefasCrud.Application.UseCases.RoutineTask;
 using TarefasCrud.Domain.Extensions;
 using TarefasCrud.Exceptions;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace Validators.Test.RoutineTask;
 

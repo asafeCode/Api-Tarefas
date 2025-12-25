@@ -2,7 +2,7 @@
 
 namespace UsersModule.Infrastructure.Services.Security;
 
-internal sealed class BcryptEncripter : IPasswordEncripter
+public sealed class BcryptEncripter : IPasswordEncripter
 {
     public string Encrypt(string password)
     {

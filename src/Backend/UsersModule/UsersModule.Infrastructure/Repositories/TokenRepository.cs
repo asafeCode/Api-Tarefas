@@ -6,7 +6,7 @@ using UsersModule.Domain.ValueObjects;
 
 namespace UsersModule.Infrastructure.Repositories;
 
-internal sealed class TokenRepository :  ITokenRepository
+public sealed class TokenRepository :  ITokenRepository
 {
     private readonly TarefasCrudDbContext _dbContext;
     public TokenRepository(TarefasCrudDbContext dbContext) => _dbContext = dbContext;

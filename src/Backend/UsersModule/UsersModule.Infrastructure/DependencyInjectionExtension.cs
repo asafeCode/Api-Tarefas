@@ -6,10 +6,12 @@ using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services;
+using UsersModule.Domain.Services.Email;
 using UsersModule.Domain.Services.Security;
 using UsersModule.Domain.Services.Tokens;
 using UsersModule.Infrastructure.Repositories;
 using UsersModule.Infrastructure.Services;
+using UsersModule.Infrastructure.Services.Email;
 using UsersModule.Infrastructure.Services.Events.Publishers;
 using UsersModule.Infrastructure.Services.LoggedUser;
 using UsersModule.Infrastructure.Services.Security;
@@ -27,7 +29,7 @@ public static class DependencyInjectionExtension
         AddLoggedUser(services);
         AddPasswordEncripter(services);
         AddBusServices(services);
-        AddPaperCut(services, configuration);
+        AddEmailService(services, configuration);
 
     }
     private static void AddRepositories(IServiceCollection services)
@@ -36,7 +38,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
         
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ITokenRepository, TokenRepository>();
     }
     private static void AddBusServices(IServiceCollection services)
@@ -68,8 +69,9 @@ public static class DependencyInjectionExtension
         services.AddScoped<IPasswordEncripter, BcryptEncripter>();
     }
    
-    private static void AddPaperCut(this IServiceCollection services, IConfiguration configuration)
+    private static void AddEmailService(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddScoped<IEmailService, EmailService>();
         services
             .AddFluentEmail(configuration["Settings:Email:SenderEmail"],
                 configuration["Settings:Email:Sender"])

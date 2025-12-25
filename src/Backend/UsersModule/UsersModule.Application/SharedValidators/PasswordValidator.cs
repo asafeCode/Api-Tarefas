@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Validators;
-using TarefasCrud.Core.Exceptions;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace UsersModule.Application.SharedValidators;
 

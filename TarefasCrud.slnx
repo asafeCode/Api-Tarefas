@@ -1,0 +1,26 @@
+﻿<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Backend/">
+    <Project Path="src\Backend\TarefasCrud.API\TarefasCrud.API.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/src/Backend/TasksModule/">
+    <Project Path="src\Backend\TasksModule\TasksModule.Application\TasksModule.Application.csproj" Type="Classic C#" />
+    <Project Path="src\Backend\TasksModule\TasksModule.Domain\TasksModule.Domain.csproj" Type="Classic C#" />
+    <Project Path="src\Backend\TasksModule\TasksModule.Infrastructure\TasksModule.Infrastructure.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/src/Backend/UsersModule/">
+    <Project Path="src\Backend\UsersModule\UsersModule.Application\UsersModule.Application.csproj" Type="Classic C#" />
+    <Project Path="src\Backend\UsersModule\UsersModule.Domain\UsersModule.Domain.csproj" Type="Classic C#" />
+    <Project Path="src\Backend\UsersModule\UsersModule.Infrastructure\UsersModule.Infrastructure.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src\Shared\TarefasCrud.Infrastructure\TarefasCrud.Infrastructure.csproj" Type="Classic C#" />
+    <Project Path="src\Shared\TarefasCrud.Shared\TarefasCrud.Shared.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests\CommonTestUtilities\CommonTestUtilities.csproj" Type="Classic C#" />
+    <Project Path="tests\UseCases.Test\UseCases.Test.csproj" Type="Classic C#" />
+    <Project Path="tests\Validators.Test\Validators.Test.csproj" Type="Classic C#" />
+    <Project Path="tests\WebApi.Test\WebApi.Test.csproj" Type="Classic C#" />
+  </Folder>
+</Solution>

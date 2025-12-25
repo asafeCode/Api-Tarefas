@@ -10,6 +10,8 @@ using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Enums;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.SharedEntities;
 
 namespace UseCases.Test.RoutineTask.Update.Progress;
 

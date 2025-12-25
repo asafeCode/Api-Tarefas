@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using TarefasCrud.Core.Exceptions;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using UsersModule.Domain.Extensions;
 
 namespace UsersModule.Application.UseCases.User.Update;

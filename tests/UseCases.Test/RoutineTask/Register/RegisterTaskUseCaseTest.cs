@@ -9,6 +9,7 @@ using Shouldly;
 using TarefasCrud.Application.UseCases.RoutineTask.Register;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace UseCases.Test.RoutineTask.Register;
 

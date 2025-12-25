@@ -1,6 +1,8 @@
 using Moq;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.Repositories.Tasks;
+using TarefasCrud.Shared.SharedEntities;
+using TasksModule.Domain.Repositories;
 
 namespace CommonTestUtilities.Repositories.RoutineTask;
 

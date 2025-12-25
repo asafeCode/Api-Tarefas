@@ -1,9 +1,7 @@
 ﻿using TarefasCrud.Shared.Repositories;
 using TarefasCrud.Shared.Responses.TasksModule;
 using TarefasCrud.Shared.Services;
-using TarefasCrud.Shared.SharedEntities;
 using TasksModule.Application.Mappers;
-using TasksModule.Domain.Entities;
 using TasksModule.Domain.Extensions;
 using TasksModule.Domain.Repositories;
 using TasksModule.Domain.Services;

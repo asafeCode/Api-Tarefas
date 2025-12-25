@@ -11,6 +11,7 @@ using TarefasCrud.Domain.Security.Tokens;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
 using TarefasCrud.Infrastructure.Security.Tokens.Refresh;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace UseCases.Test.User.Register;
 

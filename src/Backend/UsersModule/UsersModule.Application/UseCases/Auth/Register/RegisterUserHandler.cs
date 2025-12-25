@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using TarefasCrud.Core.Exceptions;
-using TarefasCrud.Core.Responses.UsersModule;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Repositories;
+using TarefasCrud.Shared.Responses.UsersModule;
 using UsersModule.Application.Mappers;
 using UsersModule.Domain.Events.Publishers;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.User;
-using UsersModule.Domain.Services;
 using UsersModule.Domain.Services.Security;
 using UsersModule.Domain.Services.Tokens;
 

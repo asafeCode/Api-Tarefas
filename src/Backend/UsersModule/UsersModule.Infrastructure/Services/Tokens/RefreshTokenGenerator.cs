@@ -5,11 +5,11 @@ using UsersModule.Infrastructure.Settings;
 
 namespace UsersModule.Infrastructure.Services.Tokens;
 
-internal sealed class RefreshTokenGenerator : IRefreshTokenGenerator
+public sealed class RefreshTokenGenerator : IRefreshTokenGenerator
 {
     private readonly RefreshTokenSettings _settings;
 
-    internal RefreshTokenGenerator(IOptions<RefreshTokenSettings> settings)
+    public RefreshTokenGenerator(IOptions<RefreshTokenSettings> settings)
     {
         _settings = settings.Value;
     }

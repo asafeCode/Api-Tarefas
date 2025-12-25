@@ -1,5 +1,6 @@
-﻿using TarefasCrud.Core.Exceptions.ExceptionsBase;
-using TarefasCrud.Core.Responses.UsersModule;
+﻿using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Repositories;
+using TarefasCrud.Shared.Responses.UsersModule;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Services.Tokens;

@@ -1,5 +1,4 @@
 ﻿using TarefasCrud.Shared.SharedEntities;
-using TasksModule.Domain.Entities;
 
 namespace TasksModule.Domain.Repositories;
 

@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\TarefasCrud.Exceptions\TarefasCrud.Exceptions.csproj" />
+      <ProjectReference Include="..\..\..\Shared\TarefasCrud.Shared\TarefasCrud.Shared.csproj" />
       <ProjectReference Include="..\TasksModule.Domain\TasksModule.Domain.csproj" />
     </ItemGroup>
 

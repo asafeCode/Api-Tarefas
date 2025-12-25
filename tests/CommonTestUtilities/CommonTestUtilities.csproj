@@ -7,7 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Shared\TarefasCrud.Communication\TarefasCrud.Communication.csproj" />
+      <ProjectReference Include="..\..\src\Backend\TasksModule\TasksModule.Domain\TasksModule.Domain.csproj" />
+      <ProjectReference Include="..\..\src\Backend\TasksModule\TasksModule.Infrastructure\TasksModule.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\src\Backend\UsersModule\UsersModule.Domain\UsersModule.Domain.csproj" />
+      <ProjectReference Include="..\..\src\Backend\UsersModule\UsersModule.Infrastructure\UsersModule.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\src\Shared\TarefasCrud.Infrastructure\TarefasCrud.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\src\Shared\TarefasCrud.Shared\TarefasCrud.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

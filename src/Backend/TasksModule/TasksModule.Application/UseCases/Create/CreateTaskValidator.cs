@@ -1,11 +1,13 @@
 ﻿using FluentValidation;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TasksModule.Domain.Extensions;
+using TasksModule.Domain.Services;
 
 namespace TasksModule.Application.UseCases.Create;
 
 public class CreateTaskValidator : AbstractValidator<CreateTaskCommand>
 {
-    public CreateTaskValidator(DateOnly dateNow)
+    public CreateTaskValidator(ISystemClock systemClock)
     {
         RuleFor(t => t.Title)
             .NotEmpty()
@@ -21,7 +23,7 @@ public class CreateTaskValidator : AbstractValidator<CreateTaskCommand>
             .WithMessage(ResourceMessagesException.WEEKLY_GOAL_INVALID);
         
         RuleFor(t => t.StartDate)
-            .GreaterThanOrEqualTo(dateNow)
+            .GreaterThanOrEqualTo(systemClock.UseCaseDate.ToDateOnly())
             .WithMessage(ResourceMessagesException.START_DATE_IN_PAST);
 
         RuleFor(t => t.StartDate)

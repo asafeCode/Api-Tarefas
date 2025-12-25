@@ -1,10 +1,10 @@
-using TarefasCrud.Domain.Dtos;
+using TasksModule.Domain.Dtos;
 
 namespace CommonTestUtilities.Dtos;
 
 public static class FilterTasksDtoBuilder
 {
-    public static string BuildQuery(FilterTasksDto filter)
+    public static string BuildQuery(FilterTasks filter)
     {
         var query = new List<string>();
 

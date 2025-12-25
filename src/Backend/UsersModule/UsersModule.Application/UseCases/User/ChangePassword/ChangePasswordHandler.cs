@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Repositories;
 using TarefasCrud.Shared.Services;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;

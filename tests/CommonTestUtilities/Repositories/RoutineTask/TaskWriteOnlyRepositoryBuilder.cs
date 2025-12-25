@@ -1,5 +1,6 @@
 ﻿using Moq;
 using TarefasCrud.Domain.Repositories.Tasks;
+using TasksModule.Domain.Repositories;
 
 namespace CommonTestUtilities.Repositories.RoutineTask;
 

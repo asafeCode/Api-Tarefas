@@ -1,6 +1,9 @@
 ﻿using Bogus;
 using TarefasCrud.Domain.Entities;
 using TarefasCrud.Domain.ValueObjects;
+using TarefasCrud.Shared.SharedEntities;
+using TasksModule.Domain.ValueObjects;
+using UsersModule.Domain.ValueObjects;
 
 namespace CommonTestUtilities.Entities;
 

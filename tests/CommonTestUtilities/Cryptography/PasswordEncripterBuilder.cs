@@ -1,5 +1,4 @@
-﻿using TarefasCrud.Domain.Security.Criptography;
-using TarefasCrud.Infrastructure.Security.Criptography;
+﻿using UsersModule.Domain.Services.Security;
 
 namespace CommonTestUtilities.Cryptography;
 

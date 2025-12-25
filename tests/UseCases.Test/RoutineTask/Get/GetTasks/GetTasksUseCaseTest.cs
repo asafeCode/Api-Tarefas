@@ -5,6 +5,7 @@ using Shouldly;
 using TarefasCrud.Application.UseCases.RoutineTask.GetTasks;
 using TarefasCrud.Domain.Dtos;
 using TarefasCrud.Domain.Entities;
+using TarefasCrud.Shared.SharedEntities;
 
 namespace UseCases.Test.RoutineTask.Get.GetTasks;
 

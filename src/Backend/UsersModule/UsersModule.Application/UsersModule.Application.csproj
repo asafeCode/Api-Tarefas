@@ -11,19 +11,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\TarefasCrud.Communication\TarefasCrud.Communication.csproj" />
-      <ProjectReference Include="..\..\..\Shared\TarefasCrud.Exceptions\TarefasCrud.Exceptions.csproj" />
+      <ProjectReference Include="..\..\..\Shared\TarefasCrud.Shared\TarefasCrud.Shared.csproj" />
       <ProjectReference Include="..\UsersModule.Domain\UsersModule.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="FluentValidation" Version="12.1.1" />
     </ItemGroup>
 
     <ItemGroup>
       <Reference Include="TarefasCrud.Core">
         <HintPath>..\..\TarefasCrud.API\bin\Debug\net8.0\TarefasCrud.Core.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="12.1.1" />
     </ItemGroup>
 
 </Project>

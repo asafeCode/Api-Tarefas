@@ -3,6 +3,7 @@ using Shouldly;
 using TarefasCrud.Application.UseCases.Auth.Register;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Exceptions;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace Validators.Test.User;
 

@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using CommonTestUtilities.Cryptography;
 using TarefasCrud.Domain.Entities;
+using TarefasCrud.Shared.SharedEntities;
 
 namespace CommonTestUtilities.Entities;
 

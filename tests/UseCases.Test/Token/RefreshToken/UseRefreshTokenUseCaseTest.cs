@@ -10,6 +10,8 @@ using TarefasCrud.Communication.Requests;
 using TarefasCrud.Domain.ValueObjects;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+using TasksModule.Domain.ValueObjects;
 
 namespace UseCases.Test.Token.RefreshToken;
 

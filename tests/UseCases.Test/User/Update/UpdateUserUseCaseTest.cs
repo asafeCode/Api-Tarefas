@@ -8,6 +8,7 @@ using TarefasCrud.Application.UseCases.User.Update;
 using TarefasCrud.Domain.Extensions;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace UseCases.Test.User.Update;
 

@@ -7,10 +7,10 @@ using UsersModule.Infrastructure.Settings;
 
 namespace UsersModule.Infrastructure.Services.Tokens;
 
-internal sealed class JwtTokenValidator : JwtTokenHandler, IAccessTokenValidator
+public sealed class JwtTokenValidator : JwtTokenHandler, IAccessTokenValidator
 {
     private readonly JwtSettings _settings;
-    internal JwtTokenValidator(IOptions<JwtSettings> options) => _settings = options.Value;
+    public JwtTokenValidator(IOptions<JwtSettings> options) => _settings = options.Value;
 
     public Guid ValidateAndGetUserId(string token)
     {

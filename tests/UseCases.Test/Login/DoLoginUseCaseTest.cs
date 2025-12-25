@@ -10,6 +10,7 @@ using TarefasCrud.Application.UseCases.Auth.Login;
 using TarefasCrud.Communication.Requests;
 using TarefasCrud.Exceptions;
 using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace UseCases.Test.Login;
 
