@@ -2,6 +2,7 @@
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TarefasCrud.Shared.Repositories;
 using TarefasCrud.Shared.Services;
+using UsersModule.Domain.Extensions;
 using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services;
@@ -42,7 +43,7 @@ public class ChangePasswordHandler
 
     private void Validate(ChangePasswordRequest request, string currentPassword)
     {
-        if (_passwordEncripter.IsValid(request.Password, currentPassword))
+        if (_passwordEncripter.IsValid(request.Password, currentPassword).IsFalse())
             throw new ValidationException(ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_PASSWORD);
     }
 }

@@ -15,12 +15,5 @@ public sealed class UserDeletedPublisher : IUserDeletedPublisher
     }
 
     public async Task SendAsync(Guid userId, string email) => await _messageBus
-        .EndpointFor(new Uri($"rabbitmq://queue/{Queues.UserDeleted}"))
-        .SendAsync(
-            new UserDeletedEvent(userId, email),
-            new DeliveryOptions
-            {
-                ScheduledTime = DateTimeOffset.UtcNow.AddSeconds(10)
-            }
-        );
+        .SendAsync(new UserDeletedEvent(userId, email));
 }
