@@ -23,7 +23,7 @@ public sealed class UserRepository : IUserReadOnlyRepository, IUserUpdateOnlyRep
     public async Task<User?> GetByUserIdentifier(Guid userId) => await _dbContext
         .Users
         .AsNoTracking()
-        .FirstOrDefaultAsync(user => user.UserId.Equals(userId) && user.Active);
+        .FirstOrDefaultAsync(user => user.Active && user.UserId.Equals(userId));
     
     public async Task AddUserAsync(User user) => await _dbContext.Users.AddAsync(user);
     
@@ -34,8 +34,10 @@ public sealed class UserRepository : IUserReadOnlyRepository, IUserUpdateOnlyRep
         
         var tasks = _dbContext.Tasks.Where(t => t.UserId == user.Id);
         var refreshTokens = _dbContext.RefreshTokens.Where(t => t.UserId == user.Id);
+        var emailTokens = _dbContext.EmailVerificationTokens.Where(t => t.UserId == user.Id);
         
         _dbContext.Tasks.RemoveRange(tasks);
+        _dbContext.EmailVerificationTokens.RemoveRange(emailTokens);
         _dbContext.RefreshTokens.RemoveRange(refreshTokens);
         _dbContext.Users.Remove(user);
     }

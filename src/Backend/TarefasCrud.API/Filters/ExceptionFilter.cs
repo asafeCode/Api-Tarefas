@@ -10,13 +10,20 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is TarefasCrudException templateException)
-            HandleProjectException(templateException, context);
-        
-        if (context.Exception is FluentValidation.ValidationException validationException)
-            HandleValidationException(validationException, context);
-        else
-            ThrowUnknowException(context);  
+        switch (context.Exception)
+        {
+            case TarefasCrudException tarefasCrudException:
+                HandleProjectException(tarefasCrudException, context);
+                break;
+            
+            case FluentValidation.ValidationException validationException:
+                HandleValidationException(validationException, context);
+                break;
+            
+            default:
+                ThrowUnknowException(context);
+                break;
+        }
     }
 
     private static void HandleProjectException(TarefasCrudException tarefasCrudException, ExceptionContext context)
@@ -27,7 +34,13 @@ public class ExceptionFilter : IExceptionFilter
     private static void HandleValidationException(FluentValidation.ValidationException validationException, ExceptionContext context)
     { 
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        context.Result = new ObjectResult(new ResponseErrorJson(validationException.Errors.Select(error => error.ErrorMessage).ToList()));
+        
+        var errors = 
+            validationException.Errors.Any() ? 
+                validationException.Errors.Select(error => error.ErrorMessage).ToList() :
+                [validationException.Message];
+        
+        context.Result = new ObjectResult(new ResponseErrorJson(errors));
     }
     private static void ThrowUnknowException(ExceptionContext context)
     { 

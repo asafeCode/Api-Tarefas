@@ -6,6 +6,7 @@ using TarefasCrud.API.Token;
 using TarefasCrud.Infrastructure;
 using TarefasCrud.Infrastructure.Extensions;
 using TarefasCrud.Infrastructure.Migrations;
+using TarefasCrud.Shared.Constants;
 using TasksModule.Infrastructure;
 using UsersModule.Application;
 using UsersModule.Domain.Events.EventsDtos;
@@ -57,20 +58,21 @@ builder.Services.AddSwaggerGen(options =>
 builder.Host.UseWolverine(opts =>
 {
     opts.Discovery.IncludeAssembly(typeof(AssemblyMarker).Assembly);
+    opts.Discovery.IncludeAssembly(typeof(UsersModule.Application.EventConsumers.EmailVerificatedConsumer).Assembly);
     opts.UseFluentValidation();
     
     opts.UseRabbitMq(new Uri("amqp://guest:guest@localhost:5672"))
         .AutoProvision();
-    
 
     opts.PublishMessage<UserDeletedEvent>()
-        .ToRabbitExchange("user.deleted");
+        .ToRabbitQueue(Queues.UserDeleted);
 
     opts.PublishMessage<EmailVerifiedEvent>()
-        .ToRabbitExchange("email.verified");
-    
-    opts.ListenToRabbitQueue("users.user-deleted");
-    opts.ListenToRabbitQueue("emails.email-verified");
+        .ToRabbitQueue(Queues.EmailVerified);
+
+    opts.ListenToRabbitQueue(Queues.UserDeleted);
+
+    opts.ListenToRabbitQueue(Queues.EmailVerified);
     
     opts.Policies.AutoApplyTransactions();
 });

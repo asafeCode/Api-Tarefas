@@ -48,10 +48,10 @@ public static class DependencyInjectionExtension
     private static void AddTokens(IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<JwtSettings>(options =>
-            configuration.GetSection("Settings:Jwt").Bind(options)
+            configuration.GetSection("Settings:Tokens:Jwt").Bind(options)
         );
         services.Configure<EmailVerificationSettings>(options =>
-            configuration.GetSection("Settings:EmailVerification").Bind(options));
+            configuration.GetSection("Settings:Tokens:EmailVerification").Bind(options));
 
         services.AddScoped<IAccessTokenGenerator, JwtTokenGenerator>();
         services.AddScoped<IAccessTokenValidator, JwtTokenValidator>();

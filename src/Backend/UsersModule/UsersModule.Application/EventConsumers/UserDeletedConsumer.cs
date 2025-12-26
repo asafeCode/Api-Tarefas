@@ -1,6 +1,5 @@
 using TarefasCrud.Shared.Repositories;
 using UsersModule.Domain.Events.EventsDtos;
-using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services.Email;
 

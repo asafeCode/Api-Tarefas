@@ -46,7 +46,7 @@ public class RegisterUserHandler
         
         await _userWriteOnlyRepository.AddUserAsync(user);
         await _unitOfWork.Commit();
-
+        
         var token = _emailVerificationToken.CreateToken(user.Id);
         var verificationLink = _emailVerificationLink.CreateLink(token);
         

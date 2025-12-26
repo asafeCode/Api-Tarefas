@@ -13,5 +13,5 @@ public sealed class EmailVerifiedPublisher : IEmailVerifiedPublisher
         _messageBus = messageBus;
     }
     public async Task SendAsync(string email, string verificationlink) => 
-        await _messageBus.PublishAsync(new EmailVerifiedEvent(email, verificationlink));
+        await _messageBus.SendAsync(new EmailVerifiedEvent(email, verificationlink));
 }

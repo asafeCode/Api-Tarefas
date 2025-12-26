@@ -28,7 +28,8 @@ public class AuthController : TarefasCrudControllerBase
         var result = await sender.InvokeAsync<ResponseRegisteredUserJson>(command);
         return Created(string.Empty, result);
     }    
-    [HttpPatch]
+    
+    [HttpGet]
     [Route("verify-email", Name = "VerifyEmail")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> VerifyEmail([FromQuery] Guid token, [FromServices] IMessageBus mediator)
