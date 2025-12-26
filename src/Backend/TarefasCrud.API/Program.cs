@@ -62,6 +62,7 @@ builder.Host.UseWolverine(opts =>
     opts.UseFluentValidation();
     
     opts.UseRabbitMq(new Uri("amqp://guest:guest@localhost:5672"))
+        .UseConventionalRouting()
         .AutoProvision();
 
     opts.PublishMessage<UserDeletedEvent>()

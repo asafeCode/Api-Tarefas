@@ -9,35 +9,23 @@ using TasksModule.Domain.ValueObjects;
 
 namespace TasksModule.Application.UseCases.Create;
 
-public class CreateTaskHandler 
+public class CreateTaskHandler(
+    ILoggedUser loggedUser, 
+    ITaskWriteOnlyRepository repository, 
+    IUnitOfWork unitOfWork)
 {
-    private readonly ILoggedUser _loggedUser;
-    private readonly ITaskWriteOnlyRepository _repository;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ISystemClock _systemClock;
-    
-    public CreateTaskHandler(ILoggedUser loggedUser, 
-        ITaskWriteOnlyRepository repository, 
-        IUnitOfWork unitOfWork, 
-        ISystemClock systemClock)
-    {
-        _loggedUser = loggedUser;
-        _repository = repository;
-        _unitOfWork = unitOfWork;
-        _systemClock = systemClock;
-    }
     public async Task<ResponseRegisteredTaskJson> Handle(CreateTaskCommand request)
     {
-        var loggedUser = await _loggedUser.User();
+        var userLogged = await loggedUser.User();
         
-        var task = request.ToTask(loggedUser.Id);
+        var task = request.ToTask(userLogged.Id);
         
-        task.UserId = loggedUser.Id;
+        task.UserId = userLogged.Id;
         task.WeekOfMonth = task.StartDate.GetMonthWeek();
         task.Progress = TarefasCrudRuleConstants.INITIAL_PROGRESS;
 
-        await _repository.Add(task);
-        await _unitOfWork.Commit();
+        await repository.Add(task);
+        await unitOfWork.Commit();
 
         return new ResponseRegisteredTaskJson
         {

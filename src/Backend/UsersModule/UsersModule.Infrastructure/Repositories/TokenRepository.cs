@@ -6,33 +6,31 @@ using UsersModule.Domain.ValueObjects;
 
 namespace UsersModule.Infrastructure.Repositories;
 
-public sealed class TokenRepository :  ITokenRepository
+public sealed class TokenRepository(TarefasCrudDbContext dbContext) :  ITokenRepository
 {
-    private readonly TarefasCrudDbContext _dbContext;
-    public TokenRepository(TarefasCrudDbContext dbContext) => _dbContext = dbContext;
-    public async Task<RefreshToken?> GetRefreshToken(string refreshToken) => await _dbContext
+    public async Task<RefreshToken?> GetRefreshToken(string refreshToken) => await dbContext
         .RefreshTokens
         .AsNoTracking()
         .Include(token => token.User)
         .FirstOrDefaultAsync(token => token.Value.Equals(refreshToken));
     public async Task AddRefreshToken(RefreshToken refreshToken)
     { 
-        var tokens = _dbContext.RefreshTokens
+        var tokens = dbContext.RefreshTokens
             .Where(token => token.UserId == refreshToken.UserId);
         
-        _dbContext.RefreshTokens.RemoveRange(tokens);
-        await _dbContext.RefreshTokens.AddAsync(refreshToken);
+        dbContext.RefreshTokens.RemoveRange(tokens);
+        await dbContext.RefreshTokens.AddAsync(refreshToken);
     }
-    public async Task<EmailVerificationToken?> GetEmailVerificationToken(Guid token) => await _dbContext
+    public async Task<EmailVerificationToken?> GetEmailVerificationToken(Guid token) => await dbContext
         .EmailVerificationTokens
         .Include(e => e.User)
         .FirstOrDefaultAsync(verificationToken => token.Equals(verificationToken.Value));
     public async Task AddVerificationToken(EmailVerificationToken emailVerificationToken) 
     {
-        var tokens = _dbContext.EmailVerificationTokens
+        var tokens = dbContext.EmailVerificationTokens
             .Where(token => token.UserId == emailVerificationToken.UserId);
         
-        _dbContext.EmailVerificationTokens.RemoveRange(tokens);
-        await _dbContext.EmailVerificationTokens.AddAsync(emailVerificationToken);
+        dbContext.EmailVerificationTokens.RemoveRange(tokens);
+        await dbContext.EmailVerificationTokens.AddAsync(emailVerificationToken);
     }
 }

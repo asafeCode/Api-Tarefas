@@ -8,18 +8,12 @@ namespace TasksModule.Application.UseCases.Get;
 
 public class GetTaskHandler
 {
-    private readonly ITaskReadOnlyRepository _repository;
-    private readonly ILoggedUser _loggedUser;
-    public GetTaskHandler(ITaskReadOnlyRepository repository, 
+    public static async Task<ResponseTaskJson> Handle(GetTaskQuery query,
+        ITaskReadOnlyRepository repository, 
         ILoggedUser loggedUser)
     {
-        _repository = repository;
-        _loggedUser = loggedUser;
-    }
-    public async Task<ResponseTaskJson> Handle(GetTaskQuery query)
-    {
-        var loggedUser = await _loggedUser.User();
-        var task = await _repository.GetById(loggedUser, query.TaskId);
+        var userLogged = await loggedUser.User();
+        var task = await repository.GetById(userLogged, query.TaskId);
         
         if (task is null) throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
         

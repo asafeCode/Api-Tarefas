@@ -6,12 +6,9 @@ namespace UsersModule.Application.UseCases.User.Profile;
 
 public class UserProfileHandler 
 {
-    private readonly ILoggedUser _loggedUser;
-    public UserProfileHandler(ILoggedUser loggedUser) => _loggedUser = loggedUser;
-
-    public async Task<ResponseUserProfileJson> Handle(UserProfileQuery query)
+    public static async Task<ResponseUserProfileJson> Handle(UserProfileQuery query, ILoggedUser loggedUser)
     {
-        var user = await _loggedUser.User();
+        var user = await loggedUser.User();
         return user.ToResponse();
     }
 }
