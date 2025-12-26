@@ -7,15 +7,18 @@ using UsersModule.Infrastructure.Settings;
 
 namespace UsersModule.Infrastructure.Services.Tokens;
 
-public sealed class JwtTokenValidator(IOptions<JwtSettings> settings) : JwtTokenHandler, IAccessTokenValidator
+public sealed class JwtTokenValidator : JwtTokenHandler, IAccessTokenValidator
 {
+    private readonly JwtSettings _settings;
+    public JwtTokenValidator(IOptions<JwtSettings> options) => _settings = options.Value;
+
     public Guid ValidateAndGetUserId(string token)
     {
         var validationParameter = new TokenValidationParameters
         {
             ValidateAudience = false,
             ValidateIssuer = false,
-            IssuerSigningKey = SecurityKey(settings.Value.SigningKey),
+            IssuerSigningKey = SecurityKey(_settings.SigningKey),
             ClockSkew = new TimeSpan(0)
         };
 

@@ -7,8 +7,11 @@ using UsersModule.Infrastructure.Settings;
 
 namespace UsersModule.Infrastructure.Services.Tokens;
 
-public class JwtTokenGenerator(IOptions<JwtSettings> settings) : JwtTokenHandler, IAccessTokenGenerator
+public class JwtTokenGenerator : JwtTokenHandler, IAccessTokenGenerator
 {
+    private readonly JwtSettings _settings;
+    public JwtTokenGenerator(IOptions<JwtSettings> options) => _settings = options.Value;
+
     public string Generate(Guid userId)
     {
         var claims = new List<Claim>
@@ -19,8 +22,8 @@ public class JwtTokenGenerator(IOptions<JwtSettings> settings) : JwtTokenHandler
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(settings.Value.ExpirationTimeMinutes),
-            SigningCredentials = new SigningCredentials(SecurityKey(settings.Value.SigningKey), SecurityAlgorithms.HmacSha256Signature)
+            Expires = DateTime.UtcNow.AddMinutes(_settings.ExpirationTimeMinutes),
+            SigningCredentials = new SigningCredentials(SecurityKey(_settings.SigningKey), SecurityAlgorithms.HmacSha256Signature)
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();

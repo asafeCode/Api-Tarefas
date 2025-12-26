@@ -6,41 +6,43 @@ using UsersModule.Domain.Repositories.User;
 
 namespace  UsersModule.Infrastructure.Repositories;
 
-public sealed class UserRepository(TarefasCrudDbContext dbContext) : IUserReadOnlyRepository, IUserUpdateOnlyRepository, IUserWriteOnlyRepository
+public sealed class UserRepository : IUserReadOnlyRepository, IUserUpdateOnlyRepository, IUserWriteOnlyRepository
 {
-    public async Task<bool> ExistsActiveUserWithEmail(string email) => await dbContext
+    private readonly TarefasCrudDbContext _dbContext;
+    public UserRepository(TarefasCrudDbContext dbContext) => _dbContext = dbContext;
+    public async Task<bool> ExistsActiveUserWithEmail(string email) => await _dbContext
         .Users
         .AnyAsync(user => user.Email.Equals(email) && user.Active);
-    public async Task<User?> GetUserByEmail(string email) => await dbContext
+    public async Task<User?> GetUserByEmail(string email) => await _dbContext
         .Users
         .AsNoTracking()
         .FirstOrDefaultAsync(user => user.Email.Equals(email) && user.Active);
-    public async Task<bool> ExistActiveUserWithIdentifier(Guid userId) => await dbContext
+    public async Task<bool> ExistActiveUserWithIdentifier(Guid userId) => await _dbContext
         .Users
         .AnyAsync(user => user.UserId.Equals(userId) && user.Active);
-    public async Task<User?> GetByUserIdentifier(Guid userId) => await dbContext
+    public async Task<User?> GetByUserIdentifier(Guid userId) => await _dbContext
         .Users
         .AsNoTracking()
         .FirstOrDefaultAsync(user => user.Active && user.UserId.Equals(userId));
     
-    public async Task AddUserAsync(User user) => await dbContext.Users.AddAsync(user);
+    public async Task AddUserAsync(User user) => await _dbContext.Users.AddAsync(user);
     
     public async Task DeleteAccount(Guid userId)
     {
-        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserId == userId);
         if (user is null) return;
         
-        var tasks = dbContext.Tasks.Where(t => t.UserId == user.Id);
-        var refreshTokens = dbContext.RefreshTokens.Where(t => t.UserId == user.Id);
-        var emailTokens = dbContext.EmailVerificationTokens.Where(t => t.UserId == user.Id);
+        var tasks = _dbContext.Tasks.Where(t => t.UserId == user.Id);
+        var refreshTokens = _dbContext.RefreshTokens.Where(t => t.UserId == user.Id);
+        var emailTokens = _dbContext.EmailVerificationTokens.Where(t => t.UserId == user.Id);
         
-        dbContext.Tasks.RemoveRange(tasks);
-        dbContext.EmailVerificationTokens.RemoveRange(emailTokens);
-        dbContext.RefreshTokens.RemoveRange(refreshTokens);
-        dbContext.Users.Remove(user);
+        _dbContext.Tasks.RemoveRange(tasks);
+        _dbContext.EmailVerificationTokens.RemoveRange(emailTokens);
+        _dbContext.RefreshTokens.RemoveRange(refreshTokens);
+        _dbContext.Users.Remove(user);
     }
-    public async Task<User> GetUserById(long id) => await dbContext
+    public async Task<User> GetUserById(long id) => await _dbContext
         .Users
         .FirstAsync(user => user.Id.Equals(id) && user.Active);
-    public void Update(User user) => dbContext.Users.Update(user);
+    public void Update(User user) => _dbContext.Users.Update(user);
 }

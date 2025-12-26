@@ -8,11 +8,18 @@ namespace TasksModule.Application.UseCases.Dashboard;
 
 public class GetTasksHandler 
 {
-    public static async Task<ResponseTasksJson> Handle(GetTasksQuery query, ITaskReadOnlyRepository readRepository, 
+    private readonly ITaskReadOnlyRepository _readRepository;
+    private readonly ILoggedUser _loggedUser;
+    public GetTasksHandler(ITaskReadOnlyRepository readRepository, 
         ILoggedUser loggedUser)
     {
-        var userLogged = await loggedUser.User();
-        var tasks = await readRepository.GetTasks(userLogged, query.Filters);
+        _readRepository = readRepository;
+        _loggedUser = loggedUser;
+    }
+    public async Task<ResponseTasksJson> Handle(GetTasksQuery query)
+    {
+        var loggedUser = await _loggedUser.User();
+        var tasks = await _readRepository.GetTasks(loggedUser, query.Filters);
 
         return new ResponseTasksJson
         {

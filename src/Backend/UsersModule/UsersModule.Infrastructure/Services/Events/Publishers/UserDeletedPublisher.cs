@@ -5,9 +5,22 @@ using Wolverine;
 
 namespace UsersModule.Infrastructure.Services.Events.Publishers;
 
-public sealed class UserDeletedPublisher(IMessageBus bus) : IUserDeletedPublisher
+public sealed class UserDeletedPublisher : IUserDeletedPublisher
 {
-    public async Task SendAsync(Guid userId, string email) => 	
-        await bus.SendAsync(new UserDeletedEvent(userId, email));
+    private readonly IMessageBus _messageBus;
 
+    public UserDeletedPublisher(IMessageBus messageBus)
+    {
+        _messageBus = messageBus;
+    }
+
+    public async Task SendAsync(Guid userId, string email) => await _messageBus
+        .EndpointFor(new Uri($"rabbitmq://queue/{Queues.UserDeleted}"))
+        .SendAsync(
+            new UserDeletedEvent(userId, email),
+            new DeliveryOptions
+            {
+                ScheduledTime = DateTimeOffset.UtcNow.AddSeconds(10)
+            }
+        );
 }

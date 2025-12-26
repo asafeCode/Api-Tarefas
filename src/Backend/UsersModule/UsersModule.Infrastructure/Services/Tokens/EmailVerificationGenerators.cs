@@ -8,15 +8,25 @@ using UsersModule.Infrastructure.Settings;
 
 namespace UsersModule.Infrastructure.Services.Tokens;
 
-public class EmailVerificationGenerators(
-    IHttpContextAccessor httpContextAccessor, 
-    LinkGenerator linkGenerator, 
-    IOptions<EmailVerificationSettings> options
-    ) : IEmailVerificationLinkGenerator, IEmailVerificationTokenGenerator
+public class EmailVerificationGenerators : IEmailVerificationLinkGenerator, IEmailVerificationTokenGenerator
 {
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly LinkGenerator _linkGenerator;
+    private readonly EmailVerificationSettings _options;
+    public EmailVerificationGenerators(
+        IHttpContextAccessor httpContextAccessor, 
+        LinkGenerator linkGenerator, 
+        IOptions<EmailVerificationSettings> options)
+    {
+        _httpContextAccessor = httpContextAccessor;
+        _linkGenerator = linkGenerator;
+        _options = options.Value;
+
+    }
+
     public string CreateLink(EmailVerificationToken emailVerificationToken)
     {
-        var verificationLink = linkGenerator.GetUriByName(httpContextAccessor.HttpContext!, 
+        var verificationLink = _linkGenerator.GetUriByName(_httpContextAccessor.HttpContext!, 
             endpointName: "VerifyEmail",
             values: new { Token = emailVerificationToken.Value });
         
@@ -29,7 +39,7 @@ public class EmailVerificationGenerators(
         {
             UserId = userId,
             Value = Guid.NewGuid(),
-            ExpiresOn = DateTime.UtcNow.AddMinutes(options.Value.ExpirationTimeMinutes),
+            ExpiresOn = DateTime.UtcNow.AddMinutes(_options.ExpirationTimeMinutes),
         };
     }
 }

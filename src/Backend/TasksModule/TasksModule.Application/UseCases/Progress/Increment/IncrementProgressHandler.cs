@@ -9,15 +9,26 @@ using TasksModule.Domain.Services;
 
 namespace TasksModule.Application.UseCases.Progress.Increment;
 
-public class UpdateProgressHandler(ILoggedUser loggedUser, 
-    ITaskUpdateOnlyRepository updateRepository, 
-    IUnitOfWork unitOfWork, 
-    ISystemClock systemClock)
+public class UpdateProgressHandler 
 {
+    private readonly ILoggedUser _loggedUser;
+    private readonly ITaskUpdateOnlyRepository _updateRepository;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ISystemClock _systemClock;
+    public UpdateProgressHandler(ILoggedUser loggedUser, 
+        ITaskUpdateOnlyRepository updateRepository, 
+        IUnitOfWork unitOfWork, 
+        ISystemClock systemClock)
+    {
+        _loggedUser = loggedUser;
+        _updateRepository = updateRepository;
+        _unitOfWork = unitOfWork;
+        _systemClock = systemClock;
+    }
     public async Task Handle(IncrementProgressCommand command)
     {
-        var userLogged = await loggedUser.User();
-        var task = await updateRepository.GetById(userLogged, command.TaskId);
+        var loggedUser = await _loggedUser.User();
+        var task = await _updateRepository.GetById(loggedUser, command.TaskId);
 
         if (task is null) throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
         
@@ -27,18 +38,18 @@ public class UpdateProgressHandler(ILoggedUser loggedUser,
         
         task.Progress += operation.ToInt();
         task.IsCompleted = task.Progress == task.WeeklyGoal;
-        task.ModifiedAt = systemClock.UseCaseDate;
+        task.ModifiedAt = _systemClock.UseCaseDate;
         
-        updateRepository.Update(task);
-        await unitOfWork.Commit();
+        _updateRepository.Update(task);
+        await _unitOfWork.Commit();
     }
    
     private void ValidateProgressChange(TaskEntity task, bool force = false)
     {
-        if (task.IsInCurrentWeek(systemClock).IsFalse())
+        if (task.IsInCurrentWeek(_systemClock).IsFalse())
             throw new ConflictException(ResourceMessagesException.ONLY_MODIFY_PROGRESS_CURRENT_WEEK);
         
-        if (task.WasModifiedToday(systemClock) && force.IsFalse())
+        if (task.WasModifiedToday(_systemClock) && force.IsFalse())
             throw new ConflictException(ResourceMessagesException.CONFIRMATION_REQUIRED_TO_UPDATE_PROGRESS);
         
         if (task.IsCompleted)

@@ -9,18 +9,29 @@ using TasksModule.Domain.Services;
 
 namespace TasksModule.Application.UseCases.Update;
 
-public class UpdateTaskHandler(
-    ITaskUpdateOnlyRepository repository, 
-    ILoggedUser loggedUser, 
-    IUnitOfWork unitOfWork, 
-    ISystemClock systemClock)
+public class UpdateTaskHandler
 {
+    private readonly ITaskUpdateOnlyRepository _repository;
+    private readonly ILoggedUser _loggedUser;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ISystemClock _systemClock;
+    
+    public UpdateTaskHandler(ITaskUpdateOnlyRepository repository, 
+        ILoggedUser loggedUser, 
+        IUnitOfWork unitOfWork, 
+        ISystemClock systemClock)
+    {
+        _repository = repository;
+        _loggedUser = loggedUser;
+        _unitOfWork = unitOfWork;
+        _systemClock = systemClock;
+    }
     public async Task Handle(UpdateTaskCommand command)
     {
         var request = command.Request;
-        var userLogged = await loggedUser.User();
+        var loggedUser = await _loggedUser.User();
         
-        var task = await repository.GetById(userLogged, command.TaskId);
+        var task = await _repository.GetById(loggedUser, command.TaskId);
         
         if (task is null) throw new NotFoundException(ResourceMessagesException.TASK_NOT_FOUND);
         
@@ -37,12 +48,12 @@ public class UpdateTaskHandler(
 
         task.IsCompleted = task.Progress == task.WeeklyGoal;
         
-        repository.Update(task);
-        await unitOfWork.Commit();
+        _repository.Update(task);
+        await _unitOfWork.Commit();
     }
     private void Validate(UpdateTaskRequest request, TaskEntity task)
     {
-        var date = systemClock.UseCaseDate.ToDateOnly();;
+        var date = _systemClock.UseCaseDate.ToDateOnly();;
         var validator = new UpdateTaskValidator(date, task);
         var result = validator.Validate(request);
         
