@@ -2,10 +2,7 @@
 using CommonTestUtilities.Extensions;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.ValueObjects;
-using Shouldly;
-using TarefasCrud.Application.UseCases.RoutineTask;
-using TarefasCrud.Domain.Extensions;
-using TarefasCrud.Exceptions;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace Validators.Test.RoutineTask;

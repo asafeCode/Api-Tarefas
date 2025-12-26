@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TarefasCrud.Infrastructure;
 using TarefasCrud.Infrastructure.DataAccess;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.ValueObjects;
@@ -23,16 +22,16 @@ public sealed class TokenRepository :  ITokenRepository
         _dbContext.RefreshTokens.RemoveRange(tokens);
         await _dbContext.RefreshTokens.AddAsync(refreshToken);
     }
-    public async Task<EmailVerificationToken?> GetEmailVerificationToken(Guid token) => await _dbContext
+    public async Task<VerificationToken?> GetVerificationToken(Guid token) => await _dbContext
         .EmailVerificationTokens
         .Include(e => e.User)
         .FirstOrDefaultAsync(verificationToken => token.Equals(verificationToken.Value));
-    public async Task AddVerificationToken(EmailVerificationToken emailVerificationToken) 
+    public async Task AddVerificationToken(VerificationToken verificationToken) 
     {
         var tokens = _dbContext.EmailVerificationTokens
-            .Where(token => token.UserId == emailVerificationToken.UserId);
+            .Where(token => token.UserId == verificationToken.UserId);
         
         _dbContext.EmailVerificationTokens.RemoveRange(tokens);
-        await _dbContext.EmailVerificationTokens.AddAsync(emailVerificationToken);
+        await _dbContext.EmailVerificationTokens.AddAsync(verificationToken);
     }
 }

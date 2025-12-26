@@ -1,7 +1,4 @@
 ﻿using Moq;
-using OpenAI.Responses;
-using TarefasCrud.Domain.Entities;
-using TarefasCrud.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.ValueObjects;
 

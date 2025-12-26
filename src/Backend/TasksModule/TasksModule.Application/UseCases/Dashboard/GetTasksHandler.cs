@@ -1,7 +1,6 @@
 ﻿using TarefasCrud.Shared.Responses.TasksModule;
 using TarefasCrud.Shared.Services;
 using TasksModule.Application.Mappers;
-using TasksModule.Domain.Dtos;
 using TasksModule.Domain.Repositories;
 
 namespace TasksModule.Application.UseCases.Dashboard;

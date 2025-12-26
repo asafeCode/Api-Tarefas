@@ -1,9 +1,4 @@
-﻿using CommonTestUtilities.Providers;
-using CommonTestUtilities.ValueObjects;
-using Microsoft.Extensions.Options;
-using TarefasCrud.Domain.Security.Tokens;
-using TarefasCrud.Infrastructure.Security.Tokens.Access.Generator;
-using TarefasCrud.Infrastructure.Settings;
+﻿using Microsoft.Extensions.Options;
 using UsersModule.Domain.Services.Tokens;
 using UsersModule.Infrastructure.Services.Tokens;
 using UsersModule.Infrastructure.Settings;

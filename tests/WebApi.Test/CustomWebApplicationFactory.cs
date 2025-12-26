@@ -1,7 +1,5 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.Providers;
-using CommonTestUtilities.ValueObjects;
-using DotNet.Testcontainers.Containers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
@@ -10,12 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using TarefasCrud.API;
-using TarefasCrud.Domain.Entities;
-using TarefasCrud.Domain.Factories;
-using TarefasCrud.Infrastructure;
 using TarefasCrud.Infrastructure.DataAccess;
 using TarefasCrud.Shared.SharedEntities;
-using TasksModule.Domain.Entities;
 using Testcontainers.MsSql;
 using UsersModule.Domain.ValueObjects;
 

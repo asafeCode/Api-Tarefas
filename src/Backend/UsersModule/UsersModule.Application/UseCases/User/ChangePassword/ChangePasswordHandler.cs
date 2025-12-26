@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TarefasCrud.Shared.Repositories;
 using TarefasCrud.Shared.Services;
 using UsersModule.Domain.Extensions;
-using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;
-using UsersModule.Domain.Services;
 using UsersModule.Domain.Services.Security;
 
 namespace UsersModule.Application.UseCases.User.ChangePassword;

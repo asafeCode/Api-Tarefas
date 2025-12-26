@@ -1,7 +1,5 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
-using Shouldly;
-using TarefasCrud.Application.UseCases.User.Profile;
 
 namespace UseCases.Test.User.Profile;
 

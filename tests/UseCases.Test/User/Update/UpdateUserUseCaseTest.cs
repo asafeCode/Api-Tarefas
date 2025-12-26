@@ -4,10 +4,7 @@ using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.User;
 using CommonTestUtilities.Requests;
 using Shouldly;
-using TarefasCrud.Application.UseCases.User.Update;
-using TarefasCrud.Domain.Extensions;
-using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace UseCases.Test.User.Update;

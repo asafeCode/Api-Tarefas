@@ -13,8 +13,10 @@ using UsersModule.Domain.Events.EventsDtos;
 using UsersModule.Domain.Services.Tokens;
 using UsersModule.Infrastructure;
 using Wolverine;
+using Wolverine.EntityFrameworkCore;
 using Wolverine.FluentValidation;
 using Wolverine.RabbitMQ;
+using Wolverine.SqlServer;
 
 const string AUTHENTICATION_TYPE = "Bearer";
 var builder = WebApplication.CreateBuilder(args);
@@ -60,6 +62,8 @@ builder.Host.UseWolverine(opts =>
     opts.Discovery.IncludeAssembly(typeof(AssemblyMarker).Assembly);
     opts.Discovery.IncludeAssembly(typeof(UsersModule.Application.EventConsumers.EmailVerificatedConsumer).Assembly);
     opts.UseFluentValidation();
+
+    opts.PersistMessagesWithSqlServer(builder.Configuration.ConnectionString());
     
     opts.UseRabbitMq(new Uri("amqp://guest:guest@localhost:5672"))
         .AutoProvision();
@@ -69,12 +73,18 @@ builder.Host.UseWolverine(opts =>
 
     opts.PublishMessage<EmailVerifiedEvent>()
         .ToRabbitQueue(Queues.EmailVerified);
+    
+    opts.PublishMessage<EmailVerifiedEvent>()
+        .ToRabbitQueue(Queues.AccountRecovered);
 
     opts.ListenToRabbitQueue(Queues.UserDeleted);
-
     opts.ListenToRabbitQueue(Queues.EmailVerified);
+    opts.ListenToRabbitQueue(Queues.AccountRecovered);
     
-    opts.Policies.AutoApplyTransactions();
+    opts.Policies.UseDurableInboxOnAllListeners();
+    opts.Policies.UseDurableOutboxOnAllSendingEndpoints();
+    
+    opts.UseEntityFrameworkCoreTransactions();
 });
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TarefasCrud.Infrastructure;
 using TarefasCrud.Infrastructure.DataAccess;
 using TarefasCrud.Shared.SharedEntities;
 using TasksModule.Domain.Dtos;

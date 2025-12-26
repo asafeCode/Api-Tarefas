@@ -1,15 +1,9 @@
 ﻿using CommonTestUtilities.Entities;
-using CommonTestUtilities.Providers;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.Tokens;
 using CommonTestUtilities.Tokens;
 using CommonTestUtilities.ValueObjects;
-using Shouldly;
-using TarefasCrud.Application.UseCases.Token.RefreshToken;
-using TarefasCrud.Communication.Requests;
-using TarefasCrud.Domain.ValueObjects;
-using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TasksModule.Domain.ValueObjects;
 

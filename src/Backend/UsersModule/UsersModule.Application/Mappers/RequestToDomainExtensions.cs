@@ -1,6 +1,5 @@
 using TarefasCrud.Shared.SharedEntities;
 using UsersModule.Application.UseCases.Auth.Register;
-using UsersModule.Domain.Services;
 using UsersModule.Domain.Services.Security;
 
 namespace UsersModule.Application.Mappers;

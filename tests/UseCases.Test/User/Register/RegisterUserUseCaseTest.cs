@@ -5,12 +5,7 @@ using CommonTestUtilities.Repositories.User;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
 using Shouldly;
-using TarefasCrud.Application.UseCases.Auth.Register;
-using TarefasCrud.Domain.Extensions;
-using TarefasCrud.Domain.Security.Tokens;
-using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
-using TarefasCrud.Infrastructure.Security.Tokens.Refresh;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace UseCases.Test.User.Register;

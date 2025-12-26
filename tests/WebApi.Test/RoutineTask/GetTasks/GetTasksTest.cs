@@ -1,12 +1,8 @@
-using System.Globalization;
 using System.Net;
 using System.Text.Json;
 using CommonTestUtilities.Dtos;
 using CommonTestUtilities.Tokens;
 using Shouldly;
-using TarefasCrud.Domain.Dtos;
-using TasksModule.Domain.Dtos;
-using WebApi.Test.InlineData;
 
 namespace WebApi.Test.RoutineTask.GetTasks;
 

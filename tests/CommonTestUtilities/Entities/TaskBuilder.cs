@@ -1,8 +1,5 @@
 ﻿using Bogus;
-using CommonTestUtilities.Extensions;
 using CommonTestUtilities.ValueObjects;
-using TarefasCrud.Domain.Entities;
-using TarefasCrud.Domain.Extensions;
 using TarefasCrud.Shared.SharedEntities;
 
 namespace CommonTestUtilities.Entities;

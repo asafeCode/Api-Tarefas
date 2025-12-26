@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TarefasCrud.Shared.SharedEntities;
 

@@ -2,10 +2,7 @@
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories.RoutineTask;
 using Shouldly;
-using TarefasCrud.Application.UseCases.RoutineTask.GetById;
-using TarefasCrud.Domain.Entities;
-using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TarefasCrud.Shared.SharedEntities;
 

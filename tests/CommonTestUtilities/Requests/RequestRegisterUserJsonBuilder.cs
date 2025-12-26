@@ -1,6 +1,4 @@
 ﻿using Bogus;
-using TarefasCrud.Communication.Requests;
-using TarefasCrud.Domain.Entities;
 
 namespace CommonTestUtilities.Requests;
 

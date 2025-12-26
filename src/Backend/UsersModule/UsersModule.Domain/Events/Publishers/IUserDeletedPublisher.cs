@@ -2,5 +2,6 @@ namespace UsersModule.Domain.Events.Publishers;
 
 public interface IUserDeletedPublisher
 {
-    Task SendAsync(Guid userId, string email);
+    Task SendDeleteAsync(Guid userId, string email);
+    Task SendScheduleAsync(Guid userId, string email);
 }

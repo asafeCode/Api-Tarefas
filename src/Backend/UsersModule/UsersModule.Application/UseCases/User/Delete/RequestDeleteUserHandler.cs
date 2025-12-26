@@ -1,10 +1,11 @@
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TarefasCrud.Shared.Repositories;
 using TarefasCrud.Shared.Services;
 using UsersModule.Domain.Events.Publishers;
 using UsersModule.Domain.Extensions;
-using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;
+using UsersModule.Domain.ValueObjects;
 
 namespace UsersModule.Application.UseCases.User.Delete;
 
@@ -30,13 +31,15 @@ public class RequestDeleteUserHandler
     {
         if (command.Force.IsFalse())
             throw new ConflictException(ResourceMessagesException.CONFIRMATION_REQUIRED_TO_DELETE_ACCOUNT);
+        
         var loggedUser = await _loggedUser.User();
         var user = await _updateRepository.GetUserById(loggedUser.Id);
 
         user.Active = false;
+        user.DeletionScheduledAt = TarefasCrudRuleConstants.TimeToRecoverAccount();
         _updateRepository.Update(user);
         
         await _unitOfWork.Commit();
-        await _publisher.SendAsync(loggedUser.UserId, loggedUser.Email);
+        await _publisher.SendScheduleAsync(loggedUser.UserId, loggedUser.Email);
     }
 }

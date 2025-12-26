@@ -1,8 +1,5 @@
 ﻿using Bogus;
-using CommonTestUtilities.Extensions;
 using CommonTestUtilities.ValueObjects;
-using TarefasCrud.Communication.Requests;
-using TarefasCrud.Domain.Extensions;
 
 namespace CommonTestUtilities.Requests;
 

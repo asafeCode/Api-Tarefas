@@ -1,10 +1,6 @@
 ﻿using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories.RoutineTask;
-using Shouldly;
-using TarefasCrud.Application.UseCases.RoutineTask.GetTasks;
-using TarefasCrud.Domain.Dtos;
-using TarefasCrud.Domain.Entities;
 using TarefasCrud.Shared.SharedEntities;
 
 namespace UseCases.Test.RoutineTask.Get.GetTasks;

@@ -1,5 +1,4 @@
 ﻿using Moq;
-using TarefasCrud.Domain.Repositories.User;
 using UsersModule.Domain.Repositories.User;
 
 namespace CommonTestUtilities.Repositories.User;

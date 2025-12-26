@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TarefasCrud.Shared.Exceptions.ExceptionsBase {
+namespace TarefasCrud.Shared.Exceptions {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

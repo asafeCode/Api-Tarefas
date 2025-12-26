@@ -1,4 +1,3 @@
-using System.Data;
 using FluentMigrator;
 
 namespace TarefasCrud.Infrastructure.Migrations.Versions;
@@ -12,15 +11,16 @@ public class Version0000004 : VersionBase
             .AddColumn("ModifiedAt").AsDate().NotNullable().WithDefaultValue(SystemMethods.CurrentUTCDateTime);
 
         Alter.Table("Users")
-            .AddColumn("EmailConfirmed").AsBoolean().NotNullable();
+            .AddColumn("EmailConfirmed").AsBoolean().NotNullable()
+            .AddColumn("DeletionScheduledAt").AsDateTime().Nullable();
         
         Alter.Table("RefreshTokens")
             .AddColumn("ExpiresOn").AsDateTime().NotNullable().WithDefaultValue(SystemMethods.CurrentUTCDateTime);;
 
-        CreateTable("EmailVerificationTokens")
+        CreateTable("VerificationTokens")
             .WithColumn("ExpiresOn").AsDateTime().NotNullable()
             .WithColumn("Value").AsGuid().NotNullable()
             .WithColumn("UserId").AsInt64().NotNullable()
-            .ForeignKey("FK_EmailVerificationTokens_User_Id", "Users", "Id");
+            .ForeignKey("FK_VerificationTokens_User_Id", "Users", "Id");
     }
 }

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TarefasCrud.Shared.Repositories;
 using TarefasCrud.Shared.Services;
 using UsersModule.Domain.Extensions;
-using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.User;
 
 namespace UsersModule.Application.UseCases.User.Update;
@@ -11,17 +11,18 @@ namespace UsersModule.Application.UseCases.User.Update;
 public class UpdateUserHandler 
 {
     private readonly IUserUpdateOnlyRepository _repository;
-    private readonly IUserReadOnlyRepository _readOnlyRepository;
+    private readonly IUserInternalRepository _internalRepository;
     private readonly ILoggedUser  _loggedUser;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateUserHandler(IUserUpdateOnlyRepository repository, 
-        IUserReadOnlyRepository readOnlyRepository, 
+    public UpdateUserHandler(
+        IUserUpdateOnlyRepository repository, 
+        IUserInternalRepository internalRepository, 
         ILoggedUser loggedUser, 
         IUnitOfWork unitOfWork)
     {
         _repository = repository;
-        _readOnlyRepository = readOnlyRepository;
+        _internalRepository = internalRepository;
         _loggedUser = loggedUser;
         _unitOfWork = unitOfWork;
     }
@@ -41,11 +42,10 @@ public class UpdateUserHandler
 
     private async Task Validate(UpdateUserCommand request,  string currentEmail)
     {
-        if (currentEmail.Equals(request.Email).IsFalse())
-        {
-            var emailExists = await _readOnlyRepository.ExistsActiveUserWithEmail(request.Email);
-            if (emailExists)
-                throw new ValidationException(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
-        }
+        if (currentEmail.Equals(request.Email)) return;
+        
+        var emailExists = await _internalRepository.ExistsUserWithEmail(request.Email);
+        if (emailExists)
+            throw new ValidationException(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
     }
 }

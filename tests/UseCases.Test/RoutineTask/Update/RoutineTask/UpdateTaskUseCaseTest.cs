@@ -5,11 +5,7 @@ using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.RoutineTask;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.ValueObjects;
-using Shouldly;
-using TarefasCrud.Application.UseCases.RoutineTask.UpdateTask;
-using TarefasCrud.Domain.Entities;
-using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TarefasCrud.Shared.SharedEntities;
 

@@ -4,12 +4,7 @@ using CommonTestUtilities.Providers;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.RoutineTask;
 using CommonTestUtilities.ValueObjects;
-using Shouldly;
-using TarefasCrud.Application.UseCases.RoutineTask.UpdateProgress;
-using TarefasCrud.Domain.Entities;
-using TarefasCrud.Domain.Enums;
-using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TarefasCrud.Shared.SharedEntities;
 

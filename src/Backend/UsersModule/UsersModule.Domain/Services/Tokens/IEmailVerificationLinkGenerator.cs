@@ -2,8 +2,9 @@ using UsersModule.Domain.ValueObjects;
 
 namespace UsersModule.Domain.Services.Tokens;
 
-public interface IEmailVerificationLinkGenerator
+public interface IVerificationLinkGenerators
 {
-    public string CreateLink(EmailVerificationToken emailVerificationToken);
+    public string CreateAccountVerificationLink(VerificationToken verificationToken);
+    public string CreateAccountRecoveryLink(VerificationToken verificationToken);
     
 }

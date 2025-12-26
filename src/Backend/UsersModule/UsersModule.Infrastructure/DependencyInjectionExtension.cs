@@ -2,15 +2,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using TarefasCrud.Shared.Services;
 using UsersModule.Domain.Events.Publishers;
-using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.User;
-using UsersModule.Domain.Services;
 using UsersModule.Domain.Services.Email;
 using UsersModule.Domain.Services.Security;
 using UsersModule.Domain.Services.Tokens;
 using UsersModule.Infrastructure.Repositories;
-using UsersModule.Infrastructure.Services;
 using UsersModule.Infrastructure.Services.Email;
 using UsersModule.Infrastructure.Services.Events.Publishers;
 using UsersModule.Infrastructure.Services.LoggedUser;
@@ -37,12 +34,13 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+        services.AddScoped<IUserInternalRepository, UserRepository>();
         
         services.AddScoped<ITokenRepository, TokenRepository>();
     }
     private static void AddBusServices(IServiceCollection services)
     {
-        services.AddScoped<IEmailVerifiedPublisher, EmailVerifiedPublisher>();
+        services.AddScoped<IEmailPublisher, EmailPublisher>();
         services.AddScoped<IUserDeletedPublisher, UserDeletedPublisher>();
     }
     private static void AddTokens(IServiceCollection services, IConfiguration configuration)
@@ -50,15 +48,15 @@ public static class DependencyInjectionExtension
         services.Configure<JwtSettings>(options =>
             configuration.GetSection("Settings:Tokens:Jwt").Bind(options)
         );
-        services.Configure<EmailVerificationSettings>(options =>
-            configuration.GetSection("Settings:Tokens:EmailVerification").Bind(options));
+        services.Configure<VerificationTokenSettings>(options =>
+            configuration.GetSection("Settings:Tokens:Verification").Bind(options));
 
         services.AddScoped<IAccessTokenGenerator, JwtTokenGenerator>();
         services.AddScoped<IAccessTokenValidator, JwtTokenValidator>();
         services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
         
-        services.AddScoped<IEmailVerificationLinkGenerator, EmailVerificationGenerators>();
-        services.AddScoped<IEmailVerificationTokenGenerator, EmailVerificationGenerators>();
+        services.AddScoped<IVerificationLinkGenerators, VerificationLinkGenerators>();
+        services.AddScoped<IVerificationTokenGenerator, VerificationTokenGenerator>();
     }
     private static void AddLoggedUser(IServiceCollection services)
     { 

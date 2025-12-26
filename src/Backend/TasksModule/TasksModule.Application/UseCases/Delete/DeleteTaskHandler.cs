@@ -1,4 +1,5 @@
-﻿using TarefasCrud.Shared.Exceptions.ExceptionsBase;
+﻿using TarefasCrud.Shared.Exceptions;
+using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TarefasCrud.Shared.Repositories;
 using TarefasCrud.Shared.Services;
 using TasksModule.Domain.Repositories;

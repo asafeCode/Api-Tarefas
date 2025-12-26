@@ -1,6 +1,4 @@
 ﻿using Moq;
-using TarefasCrud.Domain.Repositories;
-using TarefasCrud.Infrastructure.DataAccess;
 using TarefasCrud.Shared.Repositories;
 
 namespace CommonTestUtilities.Repositories;

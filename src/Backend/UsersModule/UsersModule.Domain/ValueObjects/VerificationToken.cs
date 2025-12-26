@@ -2,7 +2,7 @@ using TarefasCrud.Shared.SharedEntities;
 
 namespace UsersModule.Domain.ValueObjects;
 
-public class EmailVerificationToken : EntityBase
+public class VerificationToken : EntityBase
 {
     public DateTime ExpiresOn { get; init; }
     public Guid Value { get; init; }

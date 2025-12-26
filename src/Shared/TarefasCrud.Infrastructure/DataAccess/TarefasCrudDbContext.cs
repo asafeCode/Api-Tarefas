@@ -10,7 +10,7 @@ public class TarefasCrudDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<TaskEntity> Tasks { get; set; }
-    public DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
+    public DbSet<VerificationToken> EmailVerificationTokens { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

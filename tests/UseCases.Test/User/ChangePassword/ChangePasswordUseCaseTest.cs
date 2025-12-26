@@ -4,11 +4,7 @@ using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.User;
 using CommonTestUtilities.Requests;
-using Shouldly;
-using TarefasCrud.Application.UseCases.User.ChangePassword;
-using TarefasCrud.Communication.Requests;
-using TarefasCrud.Exceptions;
-using TarefasCrud.Exceptions.ExceptionsBase;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 
 namespace UseCases.Test.User.ChangePassword;

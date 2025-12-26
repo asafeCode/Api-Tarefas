@@ -6,6 +6,6 @@ public interface ITokenRepository
 {
     Task<RefreshToken?> GetRefreshToken(string refreshToken);
     Task AddRefreshToken(RefreshToken refreshToken); 
-    Task<EmailVerificationToken?> GetEmailVerificationToken(Guid token);
-    Task AddVerificationToken(EmailVerificationToken emailVerificationToken);
+    Task<VerificationToken?> GetVerificationToken(Guid token);
+    Task AddVerificationToken(VerificationToken verificationToken);
 }

@@ -18,6 +18,14 @@ public class EmailService : IEmailService
             .Body($"To verify your account click on the link below: <a href='{verificationLink}'>Click Here</a>", true)
             .SendAsync();
     }
+    public async Task SendAccountRecoveryEmail(string email, string verificationLink)
+    {
+        await _sender
+            .To(email)
+            .Subject("Account Recovery for Pontuae")
+            .Body($"To recover your account click on the link below: <a href='{verificationLink}'>Click Here</a>", true)
+            .SendAsync();
+    }
 
     public async Task SendDeleteCompletedEmail(string email)
     {
@@ -26,5 +34,5 @@ public class EmailService : IEmailService
             .Subject("Your account has been deleted")
             .Body($"Hi, Your account has been deleted successfully. This action is permanent and cannot be undone. Thanks.", true)
             .SendAsync();
-    }
+    }    
 }

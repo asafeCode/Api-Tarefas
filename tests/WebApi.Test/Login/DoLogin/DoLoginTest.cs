@@ -3,6 +3,7 @@ using System.Net;
 using System.Text.Json;
 using CommonTestUtilities.Requests;
 using Shouldly;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using UsersModule.Application.UseCases.Auth.Login;
 using WebApi.Test.InlineData;

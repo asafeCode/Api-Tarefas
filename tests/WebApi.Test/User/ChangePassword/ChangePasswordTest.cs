@@ -4,6 +4,7 @@ using System.Text.Json;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Tokens;
 using Shouldly;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using UsersModule.Application.UseCases.Auth.Login;
 using UsersModule.Application.UseCases.User.ChangePassword;

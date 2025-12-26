@@ -2,7 +2,6 @@
 using TasksModule.Domain.Repositories;
 using TasksModule.Infrastructure.Repositories;
 using TasksModule.Infrastructure.Services;
-using UsersModule.Domain.Repositories;
 using ISystemClock = TasksModule.Domain.Services.ISystemClock;
 
 namespace TasksModule.Infrastructure;

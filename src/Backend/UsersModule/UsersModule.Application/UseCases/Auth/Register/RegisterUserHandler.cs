@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
+using TarefasCrud.Shared.Exceptions;
 using TarefasCrud.Shared.Exceptions.ExceptionsBase;
 using TarefasCrud.Shared.Repositories;
 using TarefasCrud.Shared.Responses.UsersModule;
 using UsersModule.Application.Mappers;
 using UsersModule.Domain.Events.Publishers;
-using UsersModule.Domain.Repositories;
 using UsersModule.Domain.Repositories.Token;
 using UsersModule.Domain.Repositories.User;
 using UsersModule.Domain.Services.Security;
@@ -14,28 +14,31 @@ namespace UsersModule.Application.UseCases.Auth.Register;
 public class RegisterUserHandler 
 {
     private readonly IUserWriteOnlyRepository  _userWriteOnlyRepository;
-    private readonly IUserReadOnlyRepository _userReadOnlyRepository;
+    private readonly IUserInternalRepository _internalRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPasswordEncripter _passwordEncripter;
-    private readonly IEmailVerificationTokenGenerator _emailVerificationToken;
-    private readonly IEmailVerificationLinkGenerator _emailVerificationLink;
-    private readonly IEmailVerifiedPublisher _publisher;
+    private readonly IVerificationTokenGenerator _verificationToken;
+    private readonly IVerificationLinkGenerators _linkGenerators;
+    private readonly IEmailPublisher _publisher;
     private readonly ITokenRepository _tokenRepository;
 
-    public RegisterUserHandler(IUserWriteOnlyRepository userWriteOnlyRepository, 
-        IUserReadOnlyRepository userReadOnlyRepository, IUnitOfWork unitOfWork, 
+    public RegisterUserHandler(
+        IUserWriteOnlyRepository userWriteOnlyRepository, 
+        IUserInternalRepository internalRepository, 
+        IUnitOfWork unitOfWork, 
         IPasswordEncripter passwordEncripter, 
-        IEmailVerificationTokenGenerator emailVerificationToken, 
-        IEmailVerificationLinkGenerator emailVerificationLink, 
-        IEmailVerifiedPublisher publisher, 
-        ITokenRepository tokenRepository)
+        IVerificationTokenGenerator verificationToken, 
+        IVerificationLinkGenerators linkGenerators, 
+        IEmailPublisher publisher, 
+        ITokenRepository tokenRepository
+        )
     {
         _userWriteOnlyRepository = userWriteOnlyRepository;
-        _userReadOnlyRepository = userReadOnlyRepository;
+        _internalRepository = internalRepository;
         _unitOfWork = unitOfWork;
         _passwordEncripter = passwordEncripter;
-        _emailVerificationToken = emailVerificationToken;
-        _emailVerificationLink = emailVerificationLink;
+        _verificationToken = verificationToken;
+        _linkGenerators = linkGenerators;
         _publisher = publisher;
         _tokenRepository = tokenRepository;
     }
@@ -47,13 +50,13 @@ public class RegisterUserHandler
         await _userWriteOnlyRepository.AddUserAsync(user);
         await _unitOfWork.Commit();
         
-        var token = _emailVerificationToken.CreateToken(user.Id);
-        var verificationLink = _emailVerificationLink.CreateLink(token);
+        var token = _verificationToken.CreateToken(user.Id);
+        var verificationLink = _linkGenerators.CreateAccountVerificationLink(token);
         
         await _tokenRepository.AddVerificationToken(token);
         await _unitOfWork.Commit();
         
-        await _publisher.SendAsync(user.Email, verificationLink);
+        await _publisher.SendAccountVerificationAsync(user.Email, verificationLink);
         
         return new ResponseRegisteredUserJson
         {
@@ -63,7 +66,7 @@ public class RegisterUserHandler
     
     private async Task ValidateAsync(RegisterUserCommand request)
     {
-        var emailExists = await _userReadOnlyRepository.ExistsActiveUserWithEmail(request.Email);
+        var emailExists = await _internalRepository.ExistsUserWithEmail(request.Email);
         if (emailExists)
             throw new ValidationException(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
     }

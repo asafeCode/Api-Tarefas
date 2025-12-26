@@ -2,6 +2,7 @@
 using TarefasCrud.Shared.Responses;
 using TarefasCrud.Shared.Responses.UsersModule;
 using UsersModule.Application.UseCases.Auth.Login;
+using UsersModule.Application.UseCases.Auth.RecoverAccount;
 using UsersModule.Application.UseCases.Auth.Register;
 using UsersModule.Application.UseCases.Auth.VerifyEmail;
 using Wolverine;
@@ -35,6 +36,15 @@ public class AuthController : TarefasCrudControllerBase
     public async Task<IActionResult> VerifyEmail([FromQuery] Guid token, [FromServices] IMessageBus mediator)
     {
         var command = new VerifyEmailCommand(token);
+        await mediator.InvokeAsync(command);
+        return NoContent();
+    }    
+    [HttpGet]
+    [Route("account-recovery", Name = "AccountRecovery")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> AccountRecovery([FromQuery] Guid token, [FromServices] IMessageBus mediator)
+    {
+        var command = new RecoverAccountCommand(token);
         await mediator.InvokeAsync(command);
         return NoContent();
     }
