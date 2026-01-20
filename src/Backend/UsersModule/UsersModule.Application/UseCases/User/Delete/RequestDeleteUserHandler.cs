@@ -28,7 +28,7 @@ public class RequestDeleteUserHandler
         _publisher = publisher;
     }
     public async Task Handle(RequestDeleteUserCommand command)
-    {
+    { 
         if (command.Force.IsFalse())
             throw new ConflictException(ResourceMessagesException.CONFIRMATION_REQUIRED_TO_DELETE_ACCOUNT);
         
